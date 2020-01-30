@@ -1,5 +1,8 @@
-<h1>Please login : User list</h1>
+<h1>Please login</h1>
 
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% comment %} 
 {% if user_list %}
     <ul>
     {% for user in user_list %}
@@ -9,3 +12,12 @@
 {% else %}
     <p>No users in db</p>
 {% endif %}
+{% endcomment %}
+
+
+<form action="{% url 'login:resolve_login' %}" method="post">
+{% csrf_token %}
+<input type="text" name="username" id="username" value="">
+<input type="password" name="password" id="password" value="">
+<input type="submit" value="Vote">
+</form>
