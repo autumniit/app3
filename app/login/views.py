@@ -10,7 +10,13 @@ def index(request):
     return render(request, 'login/index.html', context)
 
 def resolve_login(request):
-    return HttpResponseRedirect(reverse('login:result'))
+    try:
+        user = User.objects.get(username=request.POST['username'])
+    except:
+        return HttpResponse('failed')
 
-def result(request):
-    return HttpResponse("result")
+
+    if request.POST['password'] == user.password:
+        return HttpResponse('succeeded')
+    else:
+        return HttpResponse('failed')
