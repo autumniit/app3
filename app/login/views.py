@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
+from django.contrib.auth import authenticate, login
+
 from .models import User
 
 def index(request):
@@ -20,3 +22,15 @@ def resolve_login(request):
         return HttpResponse('succeeded')
     else:
         return HttpResponse('failed')
+
+
+def resolve_loginV2(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponse('V2: succeeded')
+    else:
+        print("Failed")
+        return HttpResponse('V2: failed')

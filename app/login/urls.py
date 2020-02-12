@@ -6,5 +6,5 @@ app_name = 'login'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('resolve_login/', views.resolve_login, name='resolve_login'),
+    path('resolve_login/', views.resolve_loginV2, name='resolve_login'),
 ]
