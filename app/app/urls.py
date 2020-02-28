@@ -14,9 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from login import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', include('login.urls')),
+
+    re_path(r'^api/users/$', views.users_list),
+    re_path(r'^api/users/([0-9]+)$', views.users_detail), #????????????? the regex bug
 ]
