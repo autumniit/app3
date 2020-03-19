@@ -40,12 +40,6 @@ const DPNavbar = (props) => {
               <NavLink href="https://github.com/autumniit/app3">GitHub</NavLink>
             </NavItem>
 
-            {isAuthenticated && (
-              <NavItem>
-                <NavLink href="/dashboard">Dashboard</NavLink>
-              </NavItem>
-            )}
-
             {/* <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options
@@ -66,17 +60,16 @@ const DPNavbar = (props) => {
 
 
           </Nav>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              {isAuthenticated && <NavLink href="/dashboard">User: {user.name}</NavLink>}
+            </NavItem>
+            <NavItem>
+              {!isAuthenticated && (<Button className="float-right" onClick={() => loginWithRedirect({})}>Log in</Button>)}
+              {isAuthenticated && <Button className="float-right" onClick={() => logout()}>Log out</Button>}
+            </NavItem>
+          </Nav>
 
-
-          <Col xs="5" className="float-right">
-            <NavbarText >
-              {isAuthenticated && <>User: {user.name}</>}
-            </NavbarText>
-
-            {!isAuthenticated && (<Button className="float-right" onClick={() => loginWithRedirect({})}>Log in</Button>)}
-            {isAuthenticated && <Button className="float-right" onClick={() => logout()}>Log out</Button>}
-
-          </Col>
         </Collapse>
       </Navbar>
     </div>

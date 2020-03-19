@@ -47,7 +47,7 @@
 
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import NavBar from "./components/DPNavBar";
+import Navbar from "./components/DPNavbar";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import Dashboard from "./components/Dashboard"
@@ -65,7 +65,7 @@ function App() {
     <div className="App">
       <Router history={history}>
         <header>
-          <NavBar />
+          <Navbar />
         </header>
         <Switch>
           <Route path="/" exact component={Home}/>
