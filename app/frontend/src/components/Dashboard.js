@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
 import UserList from "./UserList";
-import NewUserModal from "./NewUserModal";
 import LoginForm from "./LoginForm";
 
 
@@ -9,7 +8,7 @@ import axios from "axios";
 
 import { API_URL } from "../constants";
 
-class Home extends Component {
+class Dashboard extends Component {
   state = {
     students: []
   };
@@ -38,16 +37,10 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <NewUserModal create={true} resetState={this.resetState} />
-          </Col>
         </Row>
-        <Col>
-          <LoginForm />
-        </Col>
       </Container>
     );
   }
 }
 
-export default Home;
+export default Dashboard;
