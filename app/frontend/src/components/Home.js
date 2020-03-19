@@ -5,7 +5,6 @@ import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
 import UserList from "./UserList";
 import NewUserModal from "./NewUserModal";
-import LoginForm from "./LoginForm";
 
 
 import axios from "axios";
@@ -33,18 +32,13 @@ class Home extends Component {
     return (
       <Container style={{ marginTop: "20px", display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
         <Row>
-          {/* <Col>
-            <UserList
-              students={this.state.students}
-              resetState={this.resetState}
-            />
-          </Col> */}
+
           <Col>
             <img src={homeimg} alt="logo" />
           </Col>
 
           <Col>
-            <p style={{ textAlign: "left"}}>
+            <p style={{ textAlign: "left" }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Phasellus magna nunc, lacinia sit amet nisi in, faucibus pharetra diam.
               Integer sollicitudin interdum laoreet. Vestibulum pretium ipsum odio,
@@ -53,14 +47,7 @@ class Home extends Component {
             </p>
           </Col>
         </Row>
-        {/* <Row>
-          <Col>
-            <NewUserModal create={true} resetState={this.resetState} />
-          </Col>
-        </Row> */}
-    <Col>
-      {/* <LoginForm /> */}
-    </Col>
+
       </Container >
     );
   }
