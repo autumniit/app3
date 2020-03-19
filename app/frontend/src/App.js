@@ -26,19 +26,43 @@
 // export default App;
 
 
-import React, { Component, Fragment } from "react";
-import Header from "./components/Header";
-import Home from "./components/Home";
+// import React, { Component, Fragment } from "react";
+// import Header from "./components/Header";
+// import Home from "./components/Home";
 
-class App extends Component {
-  render() {
-    return (
-      <Fragment>
-        <Header />
-        <Home />
-      </Fragment>
-    );
+// class App extends Component {
+//   render() {
+//     return (
+//       <Fragment>
+//         <Header />
+//         <Home />
+//       </Fragment>
+//     );
+//   }
+// }
+
+// export default App;
+
+// src/App.js
+
+import React from "react";
+import NavBar from "./components/NavBar";
+import { useAuth0 } from "./react-auth0-spa";
+
+function App() {
+  const { loading } = useAuth0();
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
+
+  return (
+    <div className="App">
+      <header>
+        <NavBar />
+      </header>
+    </div>
+  );
 }
 
 export default App;
