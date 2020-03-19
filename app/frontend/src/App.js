@@ -3,7 +3,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/DPNavbar";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
-import Dashboard from "./components/Dashboard"
+import Profile from "./components/Profile"
 import Home from "./components/Home"
 
 
@@ -22,7 +22,7 @@ function App() {
         </header>
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" component={Profile} />
         </Switch>
       </Router>
       {/* <Home /> */}
