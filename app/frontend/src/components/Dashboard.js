@@ -1,46 +1,24 @@
-import React, { Component } from "react";
-import { Col, Container, Row } from "reactstrap";
-import UserList from "./UserList";
-import LoginForm from "./LoginForm";
+// src/components/Profile.js
 
+import React, { Fragment } from "react";
+import { useAuth0 } from "../react-auth0-spa";
 
-import axios from "axios";
+const Profile = () => {
+  const { loading, user } = useAuth0();
 
-import { API_URL } from "../constants";
-
-class Dashboard extends Component {
-  state = {
-    students: []
-  };
-
-  componentDidMount() {
-    this.resetState();
+  if (loading || !user) {
+    return <div>Loading...</div>;
   }
 
-  getUsers = () => {
-    axios.get(API_URL).then(res => this.setState({ students: res.data }));
-  };
+  return (
+    <Fragment>
+      <img src={user.picture} alt="Profile" />
 
-  resetState = () => {
-    this.getUsers();
-  };
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+      <code>{JSON.stringify(user, null, 2)}</code>
+    </Fragment>
+  );
+};
 
-  render() {
-    return (
-      <Container style={{ marginTop: "20px" }}>
-        <Row>
-          <Col>
-            <UserList
-              students={this.state.students}
-              resetState={this.resetState}
-            />
-          </Col>
-        </Row>
-        <Row>
-        </Row>
-      </Container>
-    );
-  }
-}
-
-export default Dashboard;
+export default Profile;

@@ -46,8 +46,13 @@
 // src/App.js
 
 import React from "react";
-import NavBar from "./components/NavBar";
+import { Router, Route, Switch } from "react-router-dom";
+import NavBar from "./components/DPNavBar";
 import { useAuth0 } from "./react-auth0-spa";
+import history from "./utils/history";
+import Dashboard from "./components/Dashboard"
+import Home from "./components/Home"
+
 
 function App() {
   const { loading } = useAuth0();
@@ -58,9 +63,16 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <NavBar />
-      </header>
+      <Router history={history}>
+        <header>
+          <NavBar />
+        </header>
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="/dashboard" component={Dashboard} />
+        </Switch>
+      </Router>
+      {/* <Home /> */}
     </div>
   );
 }
