@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
 import UserList from "./UserList";
 import NewUserModal from "./NewUserModal";
+import LoginForm from "./LoginForm";
+
 
 import axios from "axios";
 
@@ -40,6 +42,9 @@ class Home extends Component {
             <NewUserModal create={true} resetState={this.resetState} />
           </Col>
         </Row>
+          <Col>
+            <LoginForm/>
+          </Col>
       </Container>
     );
   }

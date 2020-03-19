@@ -23,4 +23,6 @@ urlpatterns = [
 
     re_path(r'^api/users/$', views.users_list),
     re_path(r'^api/users/([0-9]+)$', views.users_detail), #????????????? the regex bug
+
+    re_path(r'^api/login/', views.user_login),
 ]
