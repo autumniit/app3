@@ -39,7 +39,10 @@ const DPNavbar = (props) => {
           </Nav>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              {isAuthenticated && <NavLink href="/dashboard">User: {user.name}</NavLink>}
+              {isAuthenticated && <NavLink href="/dashboard">Dashboard</NavLink>}
+            </NavItem>
+            <NavItem>
+              {isAuthenticated && <NavLink href="/profile">User: {user.name}</NavLink>}
             </NavItem>
             <NavItem>
               {!isAuthenticated && (<Button className="float-right" onClick={() => loginWithRedirect({})}>Log in</Button>)}
