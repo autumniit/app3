@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from login import views
+# from login import views
+from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', include('login.urls')),
+    # path('login/', include('login.urls')),
 
-    re_path(r'^api/users/$', views.users_list),
-    re_path(r'^api/users/([0-9]+)$', views.users_detail), #????????????? the regex bug
+    # re_path(r'^api/users/$', views.users_list),
+    # re_path(r'^api/users/([0-9]+)$', views.users_detail), #????????????? the regex bug
 
-    re_path(r'^api/login/', views.user_login),
+    # re_path(r'^api/login/', views.user_login),
+
+    re_path(r'^api/pricemodels/$', views.pricemodels_list)
 ]
