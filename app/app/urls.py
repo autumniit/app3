@@ -27,5 +27,7 @@ urlpatterns = [
 
     # re_path(r'^api/login/', views.user_login),
 
-    re_path(r'^api/pricemodels/$', views.pricemodels_list)
+    # re_path(r'^api/pricemodels/$', views.pricemodels_list),
+    re_path(r'^api/stores/$', views.stores_list),
+    re_path(r'^api/stores/(?P<pk>[0-9]+)$', views.stores_detail),
 ]
