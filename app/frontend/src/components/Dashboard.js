@@ -1,9 +1,14 @@
 import React, { Fragment } from "react";
-import {Media} from "reactstrap"
+import {
+  Media,
+  Row,
+  Col
+} from "reactstrap"
 import dashmock from "../dashmock.png"
 
 
 import { useAuth0 } from "../react-auth0-spa";
+import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   const { loading, user } = useAuth0();
@@ -14,7 +19,16 @@ const Dashboard = () => {
 
   return (
     <Fragment>
-      <Media style = { {maxHeight: 1800, maxWidth: 1650 }} src={dashmock} alt="dashmock" />
+      <Row>
+        <Col>
+          <Sidebar />
+        </Col>
+        <Col>
+          <Media style={{ maxHeight: 1800, maxWidth: 500 }} src={dashmock} alt="dashmock" />
+        </Col>
+      </Row>
+
+
     </Fragment>
   );
 };

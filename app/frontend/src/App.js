@@ -7,12 +7,19 @@ import Profile from "./components/Profile"
 import Dashboard from "./components/Dashboard"
 import Home from "./components/Home"
 
+import { Spinner } from "reactstrap"
+
 
 function App() {
-  const { loading } = useAuth0();
+  const { isAuthenticated, loading } = useAuth0();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center">
+        <Spinner style={{ width: '9rem', height: '9rem' }} />
+      </div>
+
+    );
   }
 
   return (
@@ -22,9 +29,10 @@ function App() {
           <Navbar />
         </header>
         <Switch>
-          <Route path="/" exact component={Home}/>
+          {!isAuthenticated && <Route path="/" exact component={Home} />}
+          {isAuthenticated && <Route path="/" component={Dashboard} />}
           <Route path="/profile" component={Profile} />
-          <Route path="/dashboard" component={Dashboard} />
+
         </Switch>
       </Router>
       {/* <Home /> */}
