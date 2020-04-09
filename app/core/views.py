@@ -17,6 +17,7 @@ def stores_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        print(request.data)
         serializer = StoreSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

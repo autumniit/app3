@@ -27,16 +27,24 @@ const Dashboard = () => {
   const { loading, user } = useAuth0();
   const [data, setData] = useState();
 
+  const fetchData = async () => {
+    const result = await axios(API_URL + "stores/");
+    setData(result.data);
+    console.log(result.data)
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(API_URL + "stores");
-      setData(result.data);
-      console.log(result.data)
-    };
-
-
     fetchData();
   }, []);
+
+  const create = async () => {
+    const mockStore = {
+      name: "mock",
+      owner_id: "rando"
+    }
+    await axios.post(API_URL + "stores/",  mockStore );
+    fetchData()
+  }
 
   if (loading || !user) {
     return <div>Loading Dashboard...</div>;
@@ -51,16 +59,16 @@ const Dashboard = () => {
               {
                 !data || data.length <= 0 ?
                   (<Col>
-                    Nothing
+                    Nothing to display
                   </Col>)
                   : (
                     data.map(store => (
-                      <Col key={"store_card_" + store.id}>
+                      <Col key={"store_card_" + store.id}>  {/* TODO: get a proper key*/}
                         <div>
                           <Card>
                             <CardImg top width="100%" src={graph_placeholder} alt="Card image cap" />
                             <CardBody>
-                              <CardTitle>{store.id}</CardTitle>
+                              <CardTitle>{store.name}</CardTitle>
                               <CardSubtitle>Card subtitle</CardSubtitle>
                               <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
                               <Button>Button</Button>
@@ -77,7 +85,7 @@ const Dashboard = () => {
                   <Card>
                     <CardBody>
                       <CardTitle>Create a new store</CardTitle>
-                      <Button>+ Create</Button>
+                      <Button onClick={create} >+ Create</Button>
                     </CardBody>
                   </Card>
                 </div>
