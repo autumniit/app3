@@ -12,4 +12,4 @@ class StoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store
-        fields = ['name', 'owner_id']
+        fields = ['id', 'name', 'owner_id']
