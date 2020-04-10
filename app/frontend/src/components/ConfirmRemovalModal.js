@@ -16,12 +16,11 @@ class ConfirmRemovalModal extends Component {
     }));
   };
 
-  deleteUser = pk => {
-    axios.delete(API_URL + pk).then(() => {
-      this.props.resetState();
-      this.toggle();
-    });
-  };
+
+  deleteStore = async (pk) => {
+    await axios.delete(API_URL + "stores/" + pk);
+    this.props.resetState()
+  }
 
   render() {
     return (
@@ -31,7 +30,7 @@ class ConfirmRemovalModal extends Component {
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
-            Do you really wanna delete the student?
+            Do you really wanna delete the store?
           </ModalHeader>
 
           <ModalFooter>
@@ -41,7 +40,7 @@ class ConfirmRemovalModal extends Component {
             <Button
               type="button"
               color="primary"
-              onClick={() => this.deleteUser(this.props.pk)}
+              onClick={() => this.deleteStore(this.props.pk)}
             >
               Yes
             </Button>

@@ -21,7 +21,9 @@ import Sidebar from "./Sidebar";
 import axios from "axios";
 import { API_URL } from "../constants";
 
-import graph_placeholder from "../graph_placeholder.png"
+import graph_placeholder from "../graph_placeholder.png";
+
+import ConfirmRemovalModal from "./ConfirmRemovalModal";
 
 const Dashboard = () => {
   const { loading, user } = useAuth0();
@@ -39,10 +41,17 @@ const Dashboard = () => {
 
   const create = async () => {
     const mockStore = {
+      id: 0,
       name: "mock",
       owner_id: "rando"
     }
-    await axios.post(API_URL + "stores/",  mockStore );
+    await axios.post(API_URL + "stores/", mockStore);
+    fetchData()
+  }
+
+  const deleteStore = async () => {
+    const pk = 0
+    await axios.post(API_URL + "stores/" + pk);
     fetchData()
   }
 
@@ -71,9 +80,14 @@ const Dashboard = () => {
                               <CardTitle>{store.name}</CardTitle>
                               <CardSubtitle>Card subtitle</CardSubtitle>
                               <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                              <Button>Button</Button>
+                              {/* <Button onClick={deleteStore}>Button</Button> */}
+                              <ConfirmRemovalModal
+                                pk={store.id}
+                                resetState={fetchData}
+                              />
                             </CardBody>
                           </Card>
+
                         </div>
                       </Col>
                     )
