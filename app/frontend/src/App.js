@@ -6,6 +6,7 @@ import history from "./utils/history";
 import Profile from "./components/Profile"
 import Dashboard from "./components/Dashboard"
 import Home from "./components/Home"
+import Blank from "./components/Blank"
 
 import { Spinner } from "reactstrap"
 
@@ -30,12 +31,12 @@ function App() {
         </header>
         <Switch>
           {!isAuthenticated && <Route path="/" exact component={Home} />}
-          {isAuthenticated && <Route path="/" component={Dashboard} />}
+          {isAuthenticated && <Route path="/" exact component={Dashboard} />}
           <Route path="/profile" component={Profile} />
+          {isAuthenticated && <Route path="/store/:id" component={Blank} />}
 
         </Switch>
       </Router>
-      {/* <Home /> */}
     </div>
   );
 }

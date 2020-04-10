@@ -12,8 +12,17 @@ import {
   CardText,
   Button
 } from "reactstrap"
-import dashmock from "../dashmock.png"
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+
+import dashmock from "../dashmock.png"
 
 import { useAuth0 } from "../react-auth0-spa";
 import Sidebar from "./Sidebar";
@@ -28,6 +37,8 @@ import ConfirmRemovalModal from "./ConfirmRemovalModal";
 const Dashboard = () => {
   const { loading, user } = useAuth0();
   const [data, setData] = useState();
+
+  let match = useRouteMatch();
 
   const fetchData = async () => {
     const result = await axios(API_URL + "stores/");
@@ -80,7 +91,7 @@ const Dashboard = () => {
                               <CardTitle>{store.name}</CardTitle>
                               <CardSubtitle>Card subtitle</CardSubtitle>
                               <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                              {/* <Button onClick={deleteStore}>Button</Button> */}
+                              <Button href={"/store/" + store.id}>Manage</Button>
                               <ConfirmRemovalModal
                                 pk={store.id}
                                 resetState={fetchData}
