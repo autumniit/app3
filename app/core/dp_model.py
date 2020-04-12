@@ -31,4 +31,15 @@ class DynamicPricingModel:
         v['alpha'] = v['alpha'] + demand_t
         v['beta'] = v['beta'] + 1
 
-model = DynamicPricingModel()
+# Converting to generalized model
+# pricepoints are retrieved along with their alpha and beta
+# print out suggested price (or update the item's current price with the optimal price in this case)
+# latest price offered's demand is then recorded
+# the price's alpha and beta are updated accordingly
+
+# the class should be just a utility class with methods to use -> does it connect to the database?
+
+# functions:
+
+# get_optimal_price(list of dict{price, demand, alpha, beta}) return pricepoint_id
+# update_params(pricepoint_id, demand)
