@@ -43,3 +43,26 @@ class DynamicPricingModel:
 
 # get_optimal_price(list of dict{price, demand, alpha, beta}) return pricepoint_id
 # update_params(pricepoint_id, demand)
+
+# **** NOT SURE HOW PYTHON PARSING WORKS ****
+class DPModel:
+
+    def sample_demands_from_model(self, p_theta):
+        return list(map(lambda v: 
+                np.random.gamma(v['alpha'], 1/v['beta']), self.p_theta))
+
+    def get_optimal_price_point_idx(self, p_theta):
+
+        # TODO: Parse p_theta -> prices
+        # prices = 
+
+        demands = self.sample_demands_from_model(p_theta)
+        print("demands:", ["%.2f"%demand for demand in demands])
+        price_index = np.argmax(np.multiply(prices, demands))
+        return price_index #, prices[price_index]
+    
+    def update_params(price_point_idx, new_demand):
+        # update alpha and beta columns of row pricepoint[price_point_idx] like below V
+        # v = p_theta[price_point_idx]
+        # v['alpha'] = v['alpha'] + demand_t
+        # v['beta'] = v['beta'] + 1
