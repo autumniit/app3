@@ -14,7 +14,4 @@ class ItemSerializer(serializers.ModelSerializer):
 class PricePointSerializer(serializers.ModelSerializer):
     class Meta:
         model = PricePoint
-        fields = ['id', 'price_point', 'demand', 'item']
-
-
-#TODO: Add the rest of the serializers
+        fields = ['id', 'price_point', 'demand', 'alpha', 'beta' 'item']
