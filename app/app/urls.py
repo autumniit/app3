@@ -20,15 +20,18 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    #Store API
+    # Store REST API
     re_path(r'^api/stores/$', views.stores_list),
     re_path(r'^api/stores/(?P<pk>[0-9]+)$', views.stores_detail),
 
-    #Item API
+    # Item REST API
     re_path(r'^api/items/$', views.items_list),
     re_path(r'^api/items/(?P<pk>[0-9]+)$', views.items_detail),
 
-    #PricePoint API
+    # PricePoint REST API
     re_path(r'^api/price_points/$', views.price_points_list),
     re_path(r'^api/price_points/(?P<pk>[0-9]+)$', views.price_points_detail),
+
+    # APIs for model
+    re_path(r'^api/items/(?P<pk>[0-9]+)/recalculate$', views.recalculate),
 ]

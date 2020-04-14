@@ -9,9 +9,9 @@ class StoreSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['id', 'name', 'current_price', 'store']
+        fields = ['id', 'name', 'current_price_point', 'store']
 
 class PricePointSerializer(serializers.ModelSerializer):
     class Meta:
         model = PricePoint
-        fields = ['id', 'price_point', 'demand', 'alpha', 'beta' 'item']
+        fields = ['id', 'price_point', 'demand', 'alpha', 'beta', 'item']

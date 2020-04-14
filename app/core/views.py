@@ -4,9 +4,13 @@ from .models import Store, Item, PricePoint
 from rest_framework import status
 from rest_framework.decorators import api_view
 
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from decimal import Decimal
 
 # MODEL
-from .dp_model import get_updated_params, sample_demands_from_model, get_optimal_price_point_idx
+from .dp_model import get_updated_params, get_sample_demands_from_model, get_optimal_price_point_idx
 
 
 @api_view(['GET', 'POST'])
@@ -130,42 +134,45 @@ def price_points_detail(request, pk):
 
 
 # MODEL
-def recalculate(request, item_idx):
-    # get new_demand from request obj
-    # get old_alpha from price_point[item_idx[price_point_idx]]
-    # get old_beta from price_point[item_idx[price_point_idx]]
-    new_alpha, new_beta = get_updated_params(new_demand, old_alpha, old_beta)
-    # update price_point table with new_alpha, new_beta
 
+@csrf_exempt
+def recalculate(request, pk):
+
+    # TODO: Add try catch blocks
+
+    item = get_object_or_404(Item, pk=pk)
+
+    # get new_demand from request obj
+    new_demand = Decimal(request.POST["demand"])
+
+    price_point = item.current_price_point
+    old_alpha = price_point.alpha
+    old_beta = price_point.beta
+
+    new_alpha, new_beta = get_updated_params(new_demand, old_alpha, old_beta)
+
+    # update price_point table with new_alpha, new_beta
+    price_point.alpha = new_alpha
+    price_point.beta = new_beta
+
+    price_point.save()
+
+    # ===================================
+    
     # get p_theta from db
-    demands = get_sample_demands_from_model(p_theta)
+    p_theta = item.pricepoint_set.all().values()
+    demands = [Decimal(d) for d in get_sample_demands_from_model(p_theta)]
+    print(", ".join(map(str, demands)))
+
     optimal_idx = get_optimal_price_point_idx(p_theta, demands)
+    print("optimal_idx = ", optimal_idx)
+
     # set current_price in item row where item_idx to price_point[optimal_idx]
+    item.current_price_point = get_object_or_404(PricePoint, pk=optimal_idx)  #???
+    item.save()
+    
+    # what does map do???
+    # check what alpha and beta do
+    return HttpResponse()
 
 # to get the updated price, simply get the item details as normal
-
-
-# References
-# from django.http import HttpResponse, HttpResponseRedirect
-# from django.shortcuts import get_object_or_404, render
-# from django.urls import reverse
-
-# from .models import Choice, Question
-# # ...
-# def vote(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     try:
-#         selected_choice = question.choice_set.get(pk=request.POST['choice'])
-#     except (KeyError, Choice.DoesNotExist):
-#         # Redisplay the question voting form.
-#         return render(request, 'polls/detail.html', {
-#             'question': question,
-#             'error_message': "You didn't select a choice.",
-#         })
-#     else:
-#         selected_choice.votes += 1
-#         selected_choice.save()
-#         # Always return an HttpResponseRedirect after successfully dealing
-#         # with POST data. This prevents data from being posted twice if a
-#         # user hits the Back button.
-#         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
