@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from decimal import Decimal
 
 # MODEL
-from .dp_model import get_updated_params, get_sample_demands_from_model, get_optimal_price_point_idx
+from .thompson_util import get_updated_params, get_sample_demands_from_model, get_optimal_price_point_idx
 
 
 @api_view(['GET', 'POST'])
