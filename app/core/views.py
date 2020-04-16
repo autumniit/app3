@@ -145,20 +145,24 @@ def recalculate(request, pk):
     # get new_demand from request obj
     new_demand = Decimal(request.POST["demand"])
 
+    # attemp to update the old price point's parameters with new demand observed
     price_point = item.current_price_point
-    old_alpha = price_point.alpha
-    old_beta = price_point.beta
 
-    new_alpha, new_beta = get_updated_params(new_demand, old_alpha, old_beta)
+    if price_point != None:
+        old_alpha = price_point.alpha
+        old_beta = price_point.beta
 
-    # update price_point table with new_alpha, new_beta
-    price_point.alpha = new_alpha
-    price_point.beta = new_beta
+        new_alpha, new_beta = get_updated_params(
+            new_demand, old_alpha, old_beta)
 
-    price_point.save()
+        # update price_point table with new_alpha, new_beta
+        price_point.alpha = new_alpha
+        price_point.beta = new_beta
+
+        price_point.save()
 
     # ===================================
-    
+
     # get p_theta from db
     p_theta = item.pricepoint_set.all().values()
     demands = [Decimal(d) for d in get_sample_demands_from_model(p_theta)]
@@ -168,11 +172,12 @@ def recalculate(request, pk):
     print("optimal_idx = ", optimal_idx)
 
     # set current_price in item row where item_idx to price_point[optimal_idx]
-    item.current_price_point = get_object_or_404(PricePoint, pk=optimal_idx)  #???
+    item.current_price_point = get_object_or_404(
+        PricePoint, pk=optimal_idx)  # ???
     item.save()
-    
+
     # what does map do???
     # check what alpha and beta do
-    return HttpResponse()
+    return HttpResponse("optimal_idx = " + str(optimal_idx))
 
 # to get the updated price, simply get the item details as normal
