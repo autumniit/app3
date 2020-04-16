@@ -22,16 +22,16 @@ urlpatterns = [
 
     # Store REST API
     re_path(r'^api/stores/$', views.stores_list),
-    re_path(r'^api/stores/(?P<pk>[0-9]+)$', views.stores_detail),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)$', views.stores_detail),
 
     # Item REST API
-    re_path(r'^api/items/$', views.items_list),
-    re_path(r'^api/items/(?P<pk>[0-9]+)$', views.items_detail),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/$', views.items_list),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)$', views.items_detail),
 
     # PricePoint REST API
-    re_path(r'^api/price_points/$', views.price_points_list),
-    re_path(r'^api/price_points/(?P<pk>[0-9]+)$', views.price_points_detail),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/price_points/$', views.price_points_list),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/price_points/(?P<price_point_id>[0-9]+)$', views.price_points_detail),
 
     # APIs for model
-    re_path(r'^api/items/(?P<pk>[0-9]+)/recalculate$', views.recalculate),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/recalculate$', views.recalculate),
 ]

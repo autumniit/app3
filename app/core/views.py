@@ -33,9 +33,9 @@ def stores_list(request):
 
 
 @api_view(['PUT', 'DELETE'])
-def stores_detail(request, pk):
+def stores_detail(request, store_id):
     try:
-        student = Store.objects.get(pk=pk)
+        student = Store.objects.get(pk=store_id)
 
     except Store.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -54,9 +54,9 @@ def stores_detail(request, pk):
 
 
 @api_view(['GET', 'POST'])
-def items_list(request):
+def items_list(request, store_id):
     if request.method == 'GET':
-        data = Item.objects.all()
+        data = Item.objects.filter(store=store_id)
 
         serializer = ItemSerializer(
             data, context={'request': request}, many=True)
@@ -73,9 +73,9 @@ def items_list(request):
 
 
 @api_view(['PUT', 'DELETE'])
-def items_detail(request, pk):
+def items_detail(request, store_id, item_id):
     try:
-        student = Item.objects.get(pk=pk)
+        student = Item.objects.get(pk=item_id)
 
     except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -94,9 +94,9 @@ def items_detail(request, pk):
 
 
 @api_view(['GET', 'POST'])
-def price_points_list(request):
+def price_points_list(request, store_id, item_id):
     if request.method == 'GET':
-        data = PricePoint.objects.all()
+        data = PricePoint.objects.filter(item=item_id)
 
         serializer = PricePointSerializer(
             data, context={'request': request}, many=True)
@@ -113,9 +113,9 @@ def price_points_list(request):
 
 
 @api_view(['PUT', 'DELETE'])
-def price_points_detail(request, pk):
+def price_points_detail(request, store_id, item_id, price_point_id):
     try:
-        student = PricePoint.objects.get(pk=pk)
+        student = PricePoint.objects.get(pk=price_point_id)
 
     except PricePoint.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
