@@ -7,11 +7,9 @@ def get_sample_demands_from_model(p_theta):
 
 def get_optimal_price_point_idx(p_theta, demands):
 
-    # TODO: Parse p_theta -> prices
     prices = [p['price_point'] for p in p_theta]
     idxs = [p['id'] for p in p_theta]
 
-    print("demands:", ["%.2f" % demand for demand in demands])
     price_index = idxs[np.argmax(np.multiply(prices, demands))]
     return price_index  # , prices[price_index]
 

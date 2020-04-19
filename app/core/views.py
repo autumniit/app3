@@ -134,16 +134,16 @@ def price_points_detail(request, store_id, item_id, price_point_id):
 
 
 # MODEL
-
+@api_view(['POST'])
 @csrf_exempt
-def recalculate(request, pk):
+def recalculate(request, store_id, item_id):
 
     # TODO: Add try catch blocks
 
-    item = get_object_or_404(Item, pk=pk)
+    item = get_object_or_404(Item, pk=item_id)
 
     # get new_demand from request obj
-    new_demand = Decimal(request.POST["demand"])
+    new_demand = Decimal(request.POST["demand"]) # Consider changing to different post field 
 
     # attemp to update the old price point's parameters with new demand observed
     price_point = item.current_price_point
@@ -166,18 +166,16 @@ def recalculate(request, pk):
     # get p_theta from db
     p_theta = item.pricepoint_set.all().values()
     demands = [Decimal(d) for d in get_sample_demands_from_model(p_theta)]
-    print(", ".join(map(str, demands)))
+    print("demands:", ["%.2f" % demand for demand in demands])
 
     optimal_idx = get_optimal_price_point_idx(p_theta, demands)
-    print("optimal_idx = ", optimal_idx)
+    print("optimal price: ", item.current_price_point.price_point)
 
-    # set current_price in item row where item_idx to price_point[optimal_idx]
+    # set current_price of the item to price_point[optimal_idx]
     item.current_price_point = get_object_or_404(
         PricePoint, pk=optimal_idx)  # ???
     item.save()
 
-    # what does map do???
-    # check what alpha and beta do
-    return HttpResponse("optimal_idx = " + str(optimal_idx))
+    return Response(item.current_price_point.price_point)
 
 # to get the updated price, simply get the item details as normal
