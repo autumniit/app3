@@ -68,6 +68,7 @@ const Dashboard = () => {
       <Row>
         <Col>
           <Container>
+            Bland store list
             {
               !data || data.length <= 0 ?
                 (<Col>
