@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 import axios from "axios";
 
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
 
 class NewStoreForm extends React.Component {
   state = {
@@ -26,7 +26,7 @@ class NewStoreForm extends React.Component {
 
   createStore = e => {
     e.preventDefault();
-    axios.post(API_URL, this.state).then(() => {
+    axios.post(API_URL + "stores/", this.state).then(() => {
       this.props.resetState();
       this.props.toggle();
     });
