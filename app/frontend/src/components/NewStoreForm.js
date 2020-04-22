@@ -5,18 +5,18 @@ import axios from "axios";
 
 import { API_URL } from "../constants";
 
-class NewUserForm extends React.Component {
+class NewStoreForm extends React.Component {
   state = {
-    pk: 0,
+    id: 0,
     name: "",
-    username: "",
-    password: ""
+    description: "",
+    owner_id: 0
   };
 
   componentDidMount() {
-    if (this.props.student) {
-      const { pk, name, username, password } = this.props.student;
-      this.setState({ pk, name, username, password });
+    if (this.props.store) {
+      const { id, name, description, owner_id} = this.props.store;
+      this.setState({ id, name, description, owner_id });
     }
   }
 
@@ -24,7 +24,7 @@ class NewUserForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  createUser = e => {
+  createStore = e => {
     e.preventDefault();
     axios.post(API_URL, this.state).then(() => {
       this.props.resetState();
@@ -32,9 +32,10 @@ class NewUserForm extends React.Component {
     });
   };
 
-  editUser = e => {
+  editStore = e => {
     e.preventDefault();
-    axios.put(API_URL + this.state.pk, this.state).then(() => {
+    console.log(this.state);
+    axios.put(API_URL + "stores/" + this.state.id, this.state).then(() => {
       this.props.resetState();
       this.props.toggle();
     });
@@ -46,7 +47,7 @@ class NewUserForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.props.student ? this.editUser : this.createUser}>
+      <Form onSubmit={this.props.store ? this.editStore : this.createStore}>
         <FormGroup>
           <Label for="name">Name:</Label>
           <Input
@@ -57,21 +58,12 @@ class NewUserForm extends React.Component {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="username">Document:</Label>
+          <Label for="description">Description:</Label>
           <Input
             type="text"
-            name="username"
+            name="description"
             onChange={this.onChange}
-            value={this.defaultIfEmpty(this.state.username)}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Phone:</Label>
-          <Input
-            type="text"
-            name="password"
-            onChange={this.onChange}
-            value={this.defaultIfEmpty(this.state.password)}
+            value={this.defaultIfEmpty(this.state.description)}
           />
         </FormGroup>
         <Button>Send</Button>
@@ -80,4 +72,4 @@ class NewUserForm extends React.Component {
   }
 }
 
-export default NewUserForm;
+export default NewStoreForm;

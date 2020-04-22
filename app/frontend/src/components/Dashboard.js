@@ -30,6 +30,7 @@ import { API_URL } from "../constants";
 import graph_placeholder from "../graph_placeholder.png";
 
 import ConfirmRemovalModal from "./ConfirmRemovalModal";
+import NewStoreModal from "./NewStoreModal";
 
 const Dashboard = () => {
   const { loading, user } = useAuth0();
@@ -74,7 +75,7 @@ const Dashboard = () => {
                 </Col>)
                 : (
                   data.map(store => (
-                    <Row style={{backgroundColor: '#f1f1f1'}} >
+                    <Row style={{ backgroundColor: '#f1f1f1' }} >
                       <Col m="2"><CardImg src={graph_placeholder} alt="graph" /></Col>
                       <Col m="4">
                         <Row>
@@ -87,6 +88,10 @@ const Dashboard = () => {
                         <Row>
                           {/* <Col/> */}
                           <div className="ml-auto">
+                            <NewStoreModal
+                              resetState={fetchData}
+                              store={store}
+                            />
                             <Button href={"/store/" + store.id}>Manage</Button>
                             {/* </Col>
                                <Col>  */}

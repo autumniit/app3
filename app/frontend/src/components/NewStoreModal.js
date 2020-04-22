@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import NewUserForm from "./NewUserForm";
+import NewStoreForm from "./NewStoreForm";
 
 class NewUserModal extends Component {
   state = {
@@ -16,10 +16,10 @@ class NewUserModal extends Component {
   render() {
     const create = this.props.create;
 
-    var title = "Editing User";
+    var title = "Editing Store";
     var button = <Button onClick={this.toggle}>Edit</Button>;
     if (create) {
-      title = "Creating New User";
+      title = "Creating New Store";
 
       button = (
         <Button
@@ -40,10 +40,10 @@ class NewUserModal extends Component {
           <ModalHeader toggle={this.toggle}>{title}</ModalHeader>
 
           <ModalBody>
-            <NewUserForm
+            <NewStoreForm
               resetState={this.props.resetState}
               toggle={this.toggle}
-              student={this.props.student}
+              store={this.props.store}
             />
           </ModalBody>
         </Modal>
