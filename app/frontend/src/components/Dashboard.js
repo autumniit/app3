@@ -22,10 +22,7 @@ import {
   useParams
 } from "react-router-dom";
 
-import dashmock from "../dashmock.png"
-
 import { useAuth0 } from "../react-auth0-spa";
-import Sidebar from "./Sidebar";
 
 import axios from "axios";
 import { API_URL } from "../constants";
