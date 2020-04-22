@@ -4,7 +4,8 @@ import Navbar from "./components/DPNavbar";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import Profile from "./components/Profile"
-import Dashboard from "./components/Dashboard"
+import StoreList from "./components/store/StoreList"
+import ItemList from "./components/item/ItemList"
 import Home from "./components/Home"
 import Blank from "./components/Blank"
 
@@ -31,9 +32,9 @@ function App() {
         </header>
         <Switch>
           {!isAuthenticated && <Route path="/" exact component={Home} />}
-          {isAuthenticated && <Route path="/" exact component={Dashboard} />}
+          {isAuthenticated && <Route path="/" exact component={StoreList} />}
           <Route path="/profile" component={Profile} />
-          {isAuthenticated && <Route path="/store/:id" component={Blank} />}
+          {isAuthenticated && <Route path="/store/:storeId" component={ItemList} />}
         </Switch>
       </Router>
     </div>
