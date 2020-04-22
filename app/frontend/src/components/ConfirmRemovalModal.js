@@ -20,6 +20,7 @@ class ConfirmRemovalModal extends Component {
   deleteStore = async (pk) => {
     await axios.delete(API_URL + "stores/" + pk);
     this.props.resetState()
+    this.toggle()
   }
 
   render() {

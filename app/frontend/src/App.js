@@ -34,7 +34,6 @@ function App() {
           {isAuthenticated && <Route path="/" exact component={Dashboard} />}
           <Route path="/profile" component={Profile} />
           {isAuthenticated && <Route path="/store/:id" component={Blank} />}
-
         </Switch>
       </Router>
     </div>

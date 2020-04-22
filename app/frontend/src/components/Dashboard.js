@@ -54,15 +54,10 @@ const Dashboard = () => {
     const mockStore = {
       id: 0,
       name: "mock",
+      description: "yadayada",
       owner_id: "rando"
     }
     await axios.post(API_URL + "stores/", mockStore);
-    fetchData()
-  }
-
-  const deleteStore = async () => {
-    const pk = 0
-    await axios.post(API_URL + "stores/" + pk);
     fetchData()
   }
 
@@ -75,55 +70,54 @@ const Dashboard = () => {
       <Row>
         <Col>
           <Container>
-            <Row>
-              {
-                !data || data.length <= 0 ?
-                  (<Col>
-                    Nothing to display
-                  </Col>)
-                  : (
-                    data.map(store => (
-                      <Col key={"store_card_" + store.id}>  {/* TODO: get a proper key*/}
-                        <div>
-                          <Card>
-                            <CardImg top width="100%" src={graph_placeholder} alt="Card image cap" />
-                            <CardBody>
-                              <CardTitle>{store.name}</CardTitle>
-                              <CardSubtitle>Card subtitle</CardSubtitle>
-                              <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                              <Button href={"/store/" + store.id}>Manage</Button>
-                              <ConfirmRemovalModal
-                                pk={store.id}
-                                resetState={fetchData}
-                              />
-                            </CardBody>
-                          </Card>
-
-                        </div>
+            {
+              !data || data.length <= 0 ?
+                (<Col>
+                  Nothing to display
+                </Col>)
+                : (
+                  data.map(store => (
+                    <Row style={{backgroundColor: '#f1f1f1'}} >
+                      <Col m="2"><CardImg src={graph_placeholder} alt="graph" /></Col>
+                      <Col m="4">
+                        <Row>
+                          <h2>{store.name}</h2>
+                        </Row>
+                        <Row>
+                          <CardText>{store.description}</CardText>
+                        </Row>
+                        <Row />
+                        <Row>
+                          {/* <Col/> */}
+                          <div className="ml-auto">
+                            <Button href={"/store/" + store.id}>Manage</Button>
+                            {/* </Col>
+                               <Col>  */}
+                            <ConfirmRemovalModal
+                              pk={store.id}
+                              resetState={fetchData}
+                            />
+                          </div>
+                        </Row>
                       </Col>
-                    )
-                    )
+                    </Row>
+
                   )
-              }
-              <Col>
-                <div>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>Create a new store</CardTitle>
-                      <Button onClick={create} >+ Create</Button>
-                    </CardBody>
-                  </Card>
-                </div>
-              </Col>
-
+                  )
+                )
+            }
+            <Row>
+              <Card>
+                <CardBody>
+                  <CardTitle>Create a new store</CardTitle>
+                  <Button onClick={create} >+ Create</Button>
+                </CardBody>
+              </Card>
             </Row>
-
 
           </Container>
         </Col>
       </Row>
-
-
     </Fragment>
   );
 };

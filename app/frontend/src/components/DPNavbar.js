@@ -38,9 +38,9 @@ const DPNavbar = (props) => {
 
           </Nav>
           <Nav className="ml-auto" navbar>
-            <NavItem>
+            {/* <NavItem>
               {isAuthenticated && <NavLink href="/dashboard">Dashboard</NavLink>}
-            </NavItem>
+            </NavItem> */}
             <NavItem>
               {isAuthenticated && <NavLink href="/profile">User: {user.name}</NavLink>}
             </NavItem>
