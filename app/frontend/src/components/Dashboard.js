@@ -83,6 +83,8 @@ const Dashboard = () => {
                         </Row>
                         <Row>
                           <CardText>{store.description}</CardText>
+                          <p>#Items: 99</p>
+                          <p>Status: active</p>
                         </Row>
                         <Row />
                         <Row>
