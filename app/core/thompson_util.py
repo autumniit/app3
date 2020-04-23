@@ -14,7 +14,7 @@ def get_optimal_price_point_idx(p_theta, demands):
     return price_index  # , prices[price_index]
 
 
-def get_updated_params(new_demand, old_alpha, old_beta):
-    new_alpha = old_alpha + new_demand
+def get_updated_params(observed_demand, old_alpha, old_beta):
+    new_alpha = old_alpha + observed_demand
     new_beta = old_beta + 1
     return new_alpha, new_beta

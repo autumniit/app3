@@ -134,18 +134,22 @@ def price_points_detail(request, store_id, item_id, price_point_id):
 
 
 # MODEL
-@api_view(['POST'])
 @csrf_exempt
 def recalculate(request, store_id, item_id):
+
+    print("___________________________")
+    print("___Recalculation Details___")
 
     # TODO: Add try catch blocks
 
     item = get_object_or_404(Item, pk=item_id)
 
     # get new_demand from request obj
-    new_demand = Decimal(request.POST["demand"]) # Consider changing to different post field 
+    # Consider changing to different post field
+    observed_demand = Decimal(request.POST["demand"])
+    print("observed demand: ", observed_demand)
 
-    # attemp to update the old price point's parameters with new demand observed
+    # attempt to update the old price point's parameters with new demand observed
     price_point = item.current_price_point
 
     if price_point != None:
@@ -153,7 +157,7 @@ def recalculate(request, store_id, item_id):
         old_beta = price_point.beta
 
         new_alpha, new_beta = get_updated_params(
-            new_demand, old_alpha, old_beta)
+            observed_demand, old_alpha, old_beta)
 
         # update price_point table with new_alpha, new_beta
         price_point.alpha = new_alpha
@@ -169,13 +173,18 @@ def recalculate(request, store_id, item_id):
     print("demands:", ["%.2f" % demand for demand in demands])
 
     optimal_idx = get_optimal_price_point_idx(p_theta, demands)
-    print("optimal price: ", item.current_price_point.price_point)
+    print("optimal price idx: ", optimal_idx)
 
     # set current_price of the item to price_point[optimal_idx]
     item.current_price_point = get_object_or_404(
         PricePoint, pk=optimal_idx)  # ???
     item.save()
 
-    return Response(item.current_price_point.price_point)
+    print("new price: ", item.current_price_point.price_point)
+
+    print("___________________________")
+    print("___________________________")
+    
+    return HttpResponse(item.current_price_point.price_point)
 
 # to get the updated price, simply get the item details as normal
