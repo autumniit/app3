@@ -23,8 +23,8 @@ import { useAuth0 } from "../../react-auth0-spa";
 import axios from "axios";
 import { API_URL } from "../../constants";
 
-import ConfirmRemovalModal from "./ConfirmRemovalModal";
-import NewStoreModal from "./NewStoreModal";
+import ConfirmItemRemovalModal from "./ConfirmItemRemovalModal";
+import NewItemModal from "./NewItemModal";
 
 // CanvasJS
 import CanvasJSReact from '../../assets/canvasjs.react';
@@ -36,10 +36,10 @@ const ItemList = () => {
 
   let match = useRouteMatch();
 
-  let { storeId } = useParams();
+  let { store } = useParams();
 
   const fetchData = async () => {
-    const result = await axios(API_URL + "stores/" + storeId + "/items/");
+    const result = await axios(API_URL + "stores/" + store + "/items/");
     setData(result.data);
     console.log(result.data)
   };
@@ -124,19 +124,20 @@ const ItemList = () => {
                       <Col m="4">
                         <Row>
                           <h4><Badge color="secondary">ID: {item.id}</Badge> {item.name} </h4>
-                          {/* <div className="ml-auto">
+                          <div className="ml-auto">
                             <ButtonGroup>
-                              <Button color="primary" href={"/store/" + item.id}>Manage</Button>
-                              <NewStoreModal
+                              {/* <Button color="primary" href={"/store/" + item.id}>Manage</Button> */}
+                              <NewItemModal
                                 resetState={fetchData}
                                 item={item}
                               />
-                              <ConfirmRemovalModal
+                              <ConfirmItemRemovalModal
                                 pk={item.id}
                                 resetState={fetchData}
+                                store={store}
                               />
                             </ButtonGroup>
-                          </div> */}
+                          </div>
                         </Row>
                         <Row>
                           <CardText>price</CardText>
@@ -151,12 +152,13 @@ const ItemList = () => {
                   )
                 )
             }
-            {/* <Row>
-              <NewStoreModal
+            <Row>
+              <NewItemModal
                 resetState={fetchData}
                 create={true}
+                store={store}
               />
-            </Row> */}
+            </Row>
 
           </Container>
         </Col>

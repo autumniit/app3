@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import NewStoreForm from "./NewStoreForm";
+import { Button, Modal, ModalHeader, ModalBody, Badge } from "reactstrap";
+import NewStoreForm from "./NewItemForm";
 
-class NewUserModal extends Component {
+class NewItemModal extends Component {
   state = {
     modal: false
   };
@@ -15,12 +15,12 @@ class NewUserModal extends Component {
 
   render() {
     const create = this.props.create;
-
-    var title = "Editing Store";
-    var button = <Button onClick={this.toggle}>Edit</Button>;
+    var title;
+    var badge;
+    var button;
+    
     if (create) {
-      title = "Creating New Store";
-
+      title = "Creating New Item for Store:" + this.props.store;
       button = (
         <Button
           color="primary"
@@ -32,17 +32,27 @@ class NewUserModal extends Component {
         </Button>
       );
     }
+    else {
+      const {id} = this.props.item;
+      title = "Editing Item";
+      badge = <Badge color="secondary">ID: {id}</Badge>;
+      button = <Button onClick={this.toggle}>Edit</Button>;
+    }
 
     return (
       <Fragment>
         {button}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>{title}</ModalHeader>
+          <ModalHeader toggle={this.toggle}>
+            {badge}
+            {title}
+          </ModalHeader>
 
           <ModalBody>
             <NewStoreForm
               resetState={this.props.resetState}
               toggle={this.toggle}
+              item={this.props.item}
               store={this.props.store}
             />
           </ModalBody>
@@ -52,4 +62,4 @@ class NewUserModal extends Component {
   }
 }
 
-export default NewUserModal;
+export default NewItemModal;

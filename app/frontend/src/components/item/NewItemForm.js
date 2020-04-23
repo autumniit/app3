@@ -5,18 +5,20 @@ import axios from "axios";
 
 import { API_URL } from "../../constants";
 
-class NewStoreForm extends React.Component {
+class NewItemForm extends React.Component {
   state = {
     id: 0,
     name: "",
-    description: "",
-    owner_id: 0
+    store: 0
   };
 
   componentDidMount() {
-    if (this.props.store) {
-      const { id, name, description, owner_id} = this.props.store;
-      this.setState({ id, name, description, owner_id });
+    if (this.props.item) {
+      const { id, name, store } = this.props.item;
+      this.setState({ id, name, store });
+    } else {
+      const store = this.props.store;
+      this.setState({ store });
     }
   }
 
@@ -24,18 +26,18 @@ class NewStoreForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  createStore = e => {
+  createItem = e => {
     e.preventDefault();
-    axios.post(API_URL + "stores/", this.state).then(() => {
+    axios.post(API_URL + "stores/" + this.state.store + "/items/", this.state).then(() => {
       this.props.resetState();
       this.props.toggle();
     });
   };
 
-  editStore = e => {
+  editItem = e => {
     e.preventDefault();
     console.log(this.state);
-    axios.put(API_URL + "stores/" + this.state.id, this.state).then(() => {
+    axios.put(API_URL + "stores/" + this.state.store + "/items/" + this.state.id, this.state).then(() => {
       this.props.resetState();
       this.props.toggle();
     });
@@ -47,7 +49,7 @@ class NewStoreForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.props.store ? this.editStore : this.createStore}>
+      <Form onSubmit={this.props.item ? this.editItem : this.createItem}>
         <FormGroup>
           <Label for="name">Name:</Label>
           <Input
@@ -57,19 +59,10 @@ class NewStoreForm extends React.Component {
             value={this.defaultIfEmpty(this.state.name)}
           />
         </FormGroup>
-        <FormGroup>
-          <Label for="description">Description:</Label>
-          <Input
-            type="text"
-            name="description"
-            onChange={this.onChange}
-            value={this.defaultIfEmpty(this.state.description)}
-          />
-        </FormGroup>
         <Button>Send</Button>
       </Form>
     );
   }
 }
 
-export default NewStoreForm;
+export default NewItemForm;

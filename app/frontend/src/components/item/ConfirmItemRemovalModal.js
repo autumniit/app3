@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Modal, ModalHeader, Button, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, Button, ModalFooter, Badge } from "reactstrap";
 
 import axios from "axios";
 
@@ -18,7 +18,7 @@ class ConfirmRemovalModal extends Component {
 
 
   deleteStore = async (pk) => {
-    await axios.delete(API_URL + "stores/" + pk);
+    await axios.delete(API_URL + "stores/" + this.props.store + "/items/" + pk);
     this.props.resetState()
     this.toggle()
   }
@@ -30,8 +30,10 @@ class ConfirmRemovalModal extends Component {
           Remove
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
+
           <ModalHeader toggle={this.toggle}>
-            Do you really wanna delete the store?
+            <Badge color="secondary">ID: {this.props.pk}</Badge>
+            Do you really wanna delete the item?
           </ModalHeader>
 
           <ModalFooter>
