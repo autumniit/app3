@@ -34,7 +34,7 @@ function App() {
           {!isAuthenticated && <Route path="/" exact component={Home} />}
           {isAuthenticated && <Route path="/" exact component={StoreList} />}
           <Route path="/profile" component={Profile} />
-          {isAuthenticated && <Route path="/store/:storeId" component={ItemList} />}
+          {isAuthenticated && <Route path="/store/:store/manage" component={ItemList} />}
         </Switch>
       </Router>
     </div>
