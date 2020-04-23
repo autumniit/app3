@@ -6,8 +6,8 @@ import history from "./utils/history";
 import Profile from "./components/Profile"
 import StoreList from "./components/store/StoreList"
 import ItemList from "./components/item/ItemList"
+import PricePointList from "./components/price_point/PricePointList"
 import Home from "./components/Home"
-import Blank from "./components/Blank"
 
 import { Spinner } from "reactstrap"
 
@@ -35,6 +35,7 @@ function App() {
           {isAuthenticated && <Route path="/" exact component={StoreList} />}
           <Route path="/profile" component={Profile} />
           {isAuthenticated && <Route path="/store/:store/manage" component={ItemList} />}
+          {isAuthenticated && <Route path="/store/:store/item/:item/manage" component={PricePointList} />}
         </Switch>
       </Router>
     </div>

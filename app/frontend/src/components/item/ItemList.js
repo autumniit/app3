@@ -126,7 +126,7 @@ const ItemList = () => {
                           <h4><Badge color="secondary">ID: {item.id}</Badge> {item.name} </h4>
                           <div className="ml-auto">
                             <ButtonGroup>
-                              {/* <Button color="primary" href={"/store/" + item.id}>Manage</Button> */}
+                              <Button color="primary" href={"/store/" + store + "/item/" + item.id + "/manage"}>Manage</Button>
                               <NewItemModal
                                 resetState={fetchData}
                                 item={item}
