@@ -32,6 +32,7 @@ urlpatterns = [
     re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/price_points/$', views.price_points_list),
     re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/price_points/(?P<price_point_id>[0-9]+)$', views.price_points_detail),
 
-    # APIs for model
+    # APIs
     re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/recalculate$', views.recalculate),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/create_sales_log$', views.create_sales_log),
 ]

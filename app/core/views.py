@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from .serializers import StoreSerializer, ItemSerializer, PricePointSerializer
-from .models import Store, Item, PricePoint
+from .models import Store, Item, PricePoint, SalesLog
 from rest_framework import status
 from rest_framework.decorators import api_view
 
@@ -152,7 +152,7 @@ def recalculate(request, store_id, item_id):
     # attempt to update the old price point's parameters with new demand observed
     price_point = item.current_price_point
 
-    if price_point != None: # both for initialization and if the previous optimal gets removed
+    if price_point != None:  # both for initialization and if the previous optimal gets removed
         old_alpha = price_point.alpha
         old_beta = price_point.beta
 
@@ -184,10 +184,17 @@ def recalculate(request, store_id, item_id):
 
     print("___________________________")
     print("___________________________")
-    
+
     return HttpResponse(item.current_price_point.price_point)
 
 # to get the updated price, simply get the item details as normal
 
-# @csrf_exempt
-# purchase logging api
+
+@csrf_exempt
+def create_sales_log(request, store_id, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    price_point = item.current_price_point
+    log = SalesLog(item=item, price_point=price_point)
+    log.save()
+
+    return HttpResponse("success!") # print status text

@@ -12,7 +12,6 @@ class Store(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
-    # current_price = models.DecimalField(max_digits=12, decimal_places=4)
     current_price_point = models.ForeignKey(
         'PricePoint', on_delete=models.SET_NULL, null=True, related_name="+"
     )
@@ -38,6 +37,12 @@ class PricePoint(models.Model):
     def __str__(self):
         return "(item:" + str(self.item.id) + ") " + str(self.price_point)
 
-# class SalesLog(models.Model):
-#     TODO: id, itemid, price, time
-#     pass
+class SalesLog(models.Model):
+    item =  models.ForeignKey(
+        'Item', on_delete=models.SET_NULL, null=True
+    )
+    price_point =  models.ForeignKey(
+        'PricePoint', on_delete=models.SET_NULL, null=True
+    )
+    is_new = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
