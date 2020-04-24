@@ -38,3 +38,7 @@ class PricePoint(models.Model):
 
     def __str__(self):
         return "(item:" + str(self.item.id) + ") " + str(self.price_point)
+
+# class SalesLog(models.Model):
+#     TODO: id, itemid, price, time
+#     pass

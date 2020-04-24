@@ -152,7 +152,7 @@ def recalculate(request, store_id, item_id):
     # attempt to update the old price point's parameters with new demand observed
     price_point = item.current_price_point
 
-    if price_point != None:
+    if price_point != None: # both for initialization and if the previous optimal gets removed
         old_alpha = price_point.alpha
         old_beta = price_point.beta
 
@@ -188,3 +188,6 @@ def recalculate(request, store_id, item_id):
     return HttpResponse(item.current_price_point.price_point)
 
 # to get the updated price, simply get the item details as normal
+
+# @csrf_exempt
+# purchase logging api
