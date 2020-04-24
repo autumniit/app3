@@ -9,7 +9,6 @@ class NewPricePointForm extends React.Component {
   state = {
     id: 0,
     price_point: 0,
-    demand: 0,
     alpha: 0,
     beta: 0,
     item: 0
@@ -17,8 +16,8 @@ class NewPricePointForm extends React.Component {
 
   componentDidMount() {
     if (this.props.pricePoint) {
-      const { id, price_point, demand, alpha, beta, item } = this.props.pricePoint;
-      this.setState({ id, price_point, demand, alpha, beta, item });
+      const { id, price_point, alpha, beta, item } = this.props.pricePoint;
+      this.setState({ id, price_point, alpha, beta, item });
     } else {
       const item = this.props.item;
       this.setState({ item });
@@ -60,13 +59,6 @@ class NewPricePointForm extends React.Component {
             name="price_point"
             onChange={this.onChange}
             value={this.defaultIfEmpty(this.state.price_point)}
-          />
-          <Label for="demand">demand:</Label>
-          <Input
-            type="float"
-            name="demand"
-            onChange={this.onChange}
-            value={this.defaultIfEmpty(this.state.demand)}
           />
           <Label for="alpha">alpha:</Label>
           <Input

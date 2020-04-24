@@ -27,7 +27,6 @@ class Item(models.Model):
 
 class PricePoint(models.Model):
     price_point = models.DecimalField(max_digits=12, decimal_places=4)
-    demand = models.DecimalField(max_digits=12, decimal_places=4) # to be removed???
     alpha = models.DecimalField(max_digits=12, decimal_places=4)
     beta = models.DecimalField(max_digits=12, decimal_places=4)
 
