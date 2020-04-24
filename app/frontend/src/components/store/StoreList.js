@@ -9,28 +9,17 @@ import {
   Badge
 } from "reactstrap"
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
-
 import { useAuth0 } from "../../react-auth0-spa";
 
 import axios from "axios";
 import { API_URL } from "../../constants";
 
-import ConfirmRemovalModal from "./ConfirmRemovalModal";
-import NewStoreModal from "./NewStoreModal";
+import ConfirmStoreRemovalModal from "./ConfirmStoreRemovalModal";
+import EditStoreModal from "./EditStoreModal";
 
 const StoreList = () => {
   const { loading, user } = useAuth0();
   const [data, setData] = useState();
-
-  let match = useRouteMatch();
 
   const fetchData = async () => {
     const result = await axios(API_URL + "stores/");
@@ -58,20 +47,22 @@ const StoreList = () => {
                 </Col>)
                 : (
                   data.map(store => (
+
+                    {/* Store list element */ },
                     <Row style={{ backgroundColor: '#f1f1f1' }} >
                       <Col m="4">
                         <Row>
-                          <h4><Badge color="secondary">ID: {store.id}</Badge> {store.name} </h4>
+                          <h4><Badge color="secondary">StoreID: {store.id}</Badge> {store.name} </h4>
                           <div className="ml-auto">
                             <ButtonGroup>
                               <Button color="primary" href={"/store/" + store.id + "/manage"}>Manage</Button>
-                              <NewStoreModal
+                              <EditStoreModal
                                 resetState={fetchData}
                                 store={store}
                               />
-                              <ConfirmRemovalModal
-                                pk={store.id}
+                              <ConfirmStoreRemovalModal
                                 resetState={fetchData}
+                                pk={store.id}
                               />
                             </ButtonGroup>
                           </div>
@@ -85,12 +76,13 @@ const StoreList = () => {
                       </Col>
                     </Row>
 
+
                   )
                   )
                 )
             }
             <Row>
-              <NewStoreModal
+              <EditStoreModal
                 resetState={fetchData}
                 create={true}
               />
