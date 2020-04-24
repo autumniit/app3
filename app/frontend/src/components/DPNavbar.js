@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth0 } from "../react-auth0-spa";
-import { Link } from "react-router-dom";
 
 import {
   Button,
-  Col,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -27,6 +25,9 @@ const DPNavbar = (props) => {
         <NavbarBrand href="/">Dynamic Pricing App</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
+
+
+          {/* Left side elements */}
           <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink href="/">Home</NavLink>
@@ -34,13 +35,11 @@ const DPNavbar = (props) => {
             <NavItem>
               <NavLink href="https://github.com/autumniit/app3">GitHub</NavLink>
             </NavItem>
-
-
           </Nav>
+
+
+          {/* Right side elements */}
           <Nav className="ml-auto" navbar>
-            {/* <NavItem>
-              {isAuthenticated && <NavLink href="/dashboard">Dashboard</NavLink>}
-            </NavItem> */}
             <NavItem>
               {isAuthenticated && <NavLink href="/profile">User: {user.name}</NavLink>}
             </NavItem>
@@ -49,6 +48,7 @@ const DPNavbar = (props) => {
               {isAuthenticated && <Button className="float-right" onClick={() => logout()}>Log out</Button>}
             </NavItem>
           </Nav>
+
 
         </Collapse>
       </Navbar>

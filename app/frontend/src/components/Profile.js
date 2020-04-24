@@ -18,6 +18,8 @@ const Profile = () => {
 
   return (
     <Fragment>
+
+      {/* Profile card */}
       <Col xs="3" />
       <Col className="d-flex justify-content-center">
         <Card>
@@ -33,10 +35,6 @@ const Profile = () => {
         </Card>
       </Col>
       <Col xs="3" />
-
-
-
-
 
     </Fragment>
   );

@@ -16,11 +16,7 @@ const Home = (props) => {
 
         <Col>
           <p style={{ textAlign: "left" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus magna nunc, lacinia sit amet nisi in, faucibus pharetra diam.
-            Integer sollicitudin interdum laoreet. Vestibulum pretium ipsum odio,
-            vitae congue magna pellentesque eu. Vestibulum a malesuada felis, eget consequat neque.
-            Sed id nibh vel ante ultrices porta. Sed lectus leo, hendrerit quis nisi dictum, finibus dignissim magna.
+            [Under Construction]
             </p>
         </Col>
       </Row>
