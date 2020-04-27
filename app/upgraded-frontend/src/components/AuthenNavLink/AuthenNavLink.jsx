@@ -11,19 +11,22 @@ const AuthenNavLink = (props) => {
     }
 
     return (
-        
         <li
             className="active active-pro"
             key="authen-nav-link"
         >
-            <NavLink
-                onClick={!isAuthenticated ? () => loginWithRedirect({}) : () => logout()}
-                className="nav-link"
-                activeClassName="active"
-            >
-                <i className="pe-7s-door-lock" />
-                <p>{!isAuthenticated ? "Log In" : "Log Out"}</p>
-            </NavLink>
+            {
+                <NavLink
+                    to=""
+                    onClick={!isAuthenticated ? () => loginWithRedirect({}) : () => logout()}
+                    className="nav-link"
+                    activeClassName="active"
+                >
+                    <i className="pe-7s-door-lock" />
+                    <p>{!isAuthenticated ? "Log In" : "Log Out"}</p>
+                </NavLink>
+            }
+
         </li>
     )
 }
