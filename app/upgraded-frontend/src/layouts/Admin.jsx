@@ -173,9 +173,11 @@ class Admin extends Component {
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props} routes={routes} image={this.state.image}
+        <Sidebar {...this.props} routes={routes}
+        // image={this.state.image}
         color={this.state.color}
-        hasImage={this.state.hasImage}/>
+        // hasImage={this.state.hasImage}
+        />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <AdminNavbar
             {...this.props}

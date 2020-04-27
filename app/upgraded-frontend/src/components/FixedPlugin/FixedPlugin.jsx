@@ -47,7 +47,7 @@ class FixedPlugin extends Component {
           <div onClick={this.handleClick}>
             <i className="fa fa-cog fa-2x" />
           </div>
-          <ul className="dropdown-menu">
+          {/* <ul className="dropdown-menu">
             <li className="header-title">Configuration</li>
             <li className="adjustments-line">
               <p className="pull-left">Background Image</p>
@@ -210,7 +210,7 @@ class FixedPlugin extends Component {
                 Documentation
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
     );

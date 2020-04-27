@@ -97,7 +97,7 @@ class Icons extends Component {
                             Current Version
                           </Button>
                         </td>
-                        <td>
+                        {/* <td>
                           <Button
                             target="_blank"
                             href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro-react/?ref=lbdr-upgrade-page"
@@ -107,7 +107,7 @@ class Icons extends Component {
                           >
                             Upgrade to PRO
                           </Button>
-                        </td>
+                        </td> */}
                       </tr>
                     </tbody>
                   </Table>
