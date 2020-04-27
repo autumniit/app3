@@ -33,49 +33,49 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/user",
     name: "User Profile",
     icon: "pe-7s-user",
     component: UserProfile,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/table",
     name: "Table List",
     icon: "pe-7s-note2",
     component: TableList,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/typography",
     name: "Typography",
     icon: "pe-7s-news-paper",
     component: Typography,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/icons",
     name: "Icons",
     icon: "pe-7s-science",
     component: Icons,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/maps",
     name: "Maps",
     icon: "pe-7s-map-marker",
     component: Maps,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/notifications",
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications,
-    layout: "/admin"
+    layout: ""
   },
   // {
   //   upgrade: true,
@@ -83,28 +83,28 @@ const dashboardRoutes = [
   //   name: "Upgrade to PRO",
   //   icon: "pe-7s-rocket",
   //   component: Upgrade,
-  //   layout: "/admin"
+  //   layout: ""
   // },
   {
     path: "/stores",
     name: "Manage",
     icon: "pe-7s-box2",
     component: StoreList,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/storemanage",
     name: "Store Manage",
     icon: "pe-7s-box2",
     component: StoreManage,
-    layout: "/admin"
+    layout: ""
   },
   {
     path: "/profile",
     name: "Profile",
     icon: "pe-7s-user",
     component: UserProfile,
-    layout: "/admin",
+    layout: "",
     requireAuth: true,
   },
   {
@@ -112,7 +112,7 @@ const dashboardRoutes = [
     name: "Log In",
     icon: "pe-7s-lock",
     component: UserProfile,
-    layout: "/admin",
+    layout: "",
     authentication: true
   },
   {
@@ -120,7 +120,7 @@ const dashboardRoutes = [
     name: "Log Out",
     icon: "pe-7s-lock",
     component: UserProfile,
-    layout: "/admin",
+    layout: "",
     authentication: true
   },
 ];
