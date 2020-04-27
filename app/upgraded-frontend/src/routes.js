@@ -24,6 +24,9 @@ import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 
+import StoreList from "views/StoreList.jsx"
+import StoreManage from "views/StoreManage.jsx"
+
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -81,7 +84,35 @@ const dashboardRoutes = [
   //   icon: "pe-7s-rocket",
   //   component: Upgrade,
   //   layout: "/admin"
-  // }
+  // },
+  {
+    path: "/stores",
+    name: "Manage",
+    icon: "pe-7s-box2",
+    component: StoreList,
+    layout: "/admin"
+  },
+  {
+    path: "/storemanage",
+    name: "Store Manage",
+    icon: "pe-7s-box2",
+    component: StoreManage,
+    layout: "/admin"
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    icon: "pe-7s-user",
+    component: UserProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/login",
+    name: "Log In",
+    icon: "pe-7s-lock",
+    component: UserProfile,
+    layout: "/admin"
+  },
 ];
 
 export default dashboardRoutes;

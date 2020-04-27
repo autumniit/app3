@@ -15,93 +15,94 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component } from "react";
+import { useAuth0 } from "../../react-auth0-spa";
+import React, { Component, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 
 import logo from "assets/img/applogo.svg";
 
-class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      width: window.innerWidth
-    };
+const Sidebar = (props) => {
+
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const activeRoute = (routeName) => {
+    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
-  activeRoute(routeName) {
-    return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
   }
-  updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions.bind(this));
-  }
-  render() {
-    const sidebarBackground = {
-      backgroundImage: "url(" + this.props.image + ")"
-    };
-    return (
-      <div
-        id="sidebar"
-        className="sidebar"
-        data-color={this.props.color}
-        data-image={this.props.image}
-      >
-          {this.props.hasImage ? (
-            <div className="sidebar-background" style={sidebarBackground} />
-          ) : (
-            null
-          )}
-        <div className="logo">
-          <a
-            href="https://www.creative-tim.com?ref=lbd-sidebar"
-            className="simple-text logo-mini"
-          >
-            <div className="logo-img">
-              <img src={logo} alt="logo_image" />
-            </div>
+
+  useEffect(() => {
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions.bind());
+  }, [])
+
+  const sidebarBackground = {
+    backgroundImage: "url(" + props.image + ")"
+  };
+  return (
+    <div
+      id="sidebar"
+      className="sidebar"
+      data-color={props.color}
+      data-image={props.image}
+    >
+      {props.hasImage ? (
+        <div className="sidebar-background" style={sidebarBackground} />
+      ) : (
+          null
+        )}
+      <div className="logo">
+        <a
+          href="https://www.creative-tim.com?ref=lbd-sidebar"
+          className="simple-text logo-mini"
+        >
+          <div className="logo-img">
+            <img src={logo} alt="logo_image" />
+          </div>
+        </a>
+        <a
+          href="https://www.creative-tim.com?ref=lbd-sidebar"
+          className="simple-text logo-normal"
+        >
+          DP App
           </a>
-          <a
-            href="https://www.creative-tim.com?ref=lbd-sidebar"
-            className="simple-text logo-normal"
-          >
-            DP App
-          </a>
-        </div>
-        <div className="sidebar-wrapper">
-          <ul className="nav">
-            {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
-            {this.props.routes.map((prop, key) => {
-              if (!prop.redirect)
-                return (
-                  <li
-                    className={
-                      prop.upgrade
-                        ? "active active-pro"
-                        : this.activeRoute(prop.layout + prop.path)
-                    }
-                    key={key}
-                  >
-                    <NavLink
-                      to={prop.layout + prop.path}
-                      className="nav-link"
-                      activeClassName="active"
-                    >
-                      <i className={prop.icon} />
-                      <p>{prop.name}</p>
-                    </NavLink>
-                  </li>
-                );
-              return null;
-            })}
-          </ul>
-        </div>
       </div>
-    );
-  }
+      <div className="sidebar-wrapper">
+        <ul className="nav">
+          {width}
+          {width <= 991 ? <AdminNavbarLinks /> : null}
+          {props.routes.map((prop, key) => {
+            if (!prop.redirect)
+              return (
+                <li
+                  className={
+                    prop.upgrade
+                      ? "active active-pro"
+                      : activeRoute(prop.layout + prop.path)
+                  }
+                  key={key}
+                >
+                  <NavLink
+                    to={prop.layout + prop.path}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    <i className={prop.icon} />
+                    <p>{prop.name}</p>
+                  </NavLink>
+                </li>
+              );
+            return null;
+          })}
+        </ul>
+      </div>
+    </div>
+  );
 }
 
 export default Sidebar;
