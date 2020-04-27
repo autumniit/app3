@@ -24,8 +24,9 @@ import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 
-import StoreList from "views/StoreList.jsx"
-import StoreManage from "views/StoreManage.jsx"
+import StoreList from "views/StoreList.jsx";
+import StoreManage from "views/StoreManage.jsx";
+import Profile from "views/Profile.jsx";
 
 const dashboardRoutes = [
   {
@@ -103,25 +104,9 @@ const dashboardRoutes = [
     path: "/profile",
     name: "Profile",
     icon: "pe-7s-user",
-    component: UserProfile,
+    component: Profile,
     layout: "",
     requireAuth: true,
-  },
-  {
-    path: "/login",
-    name: "Log In",
-    icon: "pe-7s-lock",
-    component: UserProfile,
-    layout: "",
-    authentication: true
-  },
-  {
-    path: "/logout",
-    name: "Log Out",
-    icon: "pe-7s-lock",
-    component: UserProfile,
-    layout: "",
-    authentication: true
   },
 ];
 
