@@ -31,8 +31,7 @@ class Footer extends Component {
             </ul>
           </nav>
           <p className="copyright pull-right">
-            &copy; {new Date().getFullYear()}{" "} all rights reserved
-            , made with love by Jao Mha Noi
+            &copy; {new Date().getFullYear()}{" "} All rights reserved, developed by J.Krittanut
           </p>
         </Grid>
       </footer>
