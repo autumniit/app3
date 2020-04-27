@@ -20,6 +20,7 @@ import React, { Component, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
+import AuthenNavLink from "../AuthenNavLink/AuthenNavLink.jsx"
 
 import logo from "assets/img/applogo.svg";
 
@@ -74,10 +75,12 @@ const Sidebar = (props) => {
       </div>
       <div className="sidebar-wrapper">
         <ul className="nav">
-          {width}
           {width <= 991 ? <AdminNavbarLinks /> : null}
           {props.routes.map((prop, key) => {
-            if (!prop.redirect)
+            if (!prop.redirect && !prop.authentication) {
+              if (prop.requireAuth && !isAuthenticated) {
+                return null;
+              }
               return (
                 <li
                   className={
@@ -97,8 +100,11 @@ const Sidebar = (props) => {
                   </NavLink>
                 </li>
               );
+            }
             return null;
           })}
+          <AuthenNavLink />
+
         </ul>
       </div>
     </div>

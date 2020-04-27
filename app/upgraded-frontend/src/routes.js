@@ -104,14 +104,24 @@ const dashboardRoutes = [
     name: "Profile",
     icon: "pe-7s-user",
     component: UserProfile,
-    layout: "/admin"
+    layout: "/admin",
+    requireAuth: true,
   },
   {
     path: "/login",
     name: "Log In",
     icon: "pe-7s-lock",
     component: UserProfile,
-    layout: "/admin"
+    layout: "/admin",
+    authentication: true
+  },
+  {
+    path: "/logout",
+    name: "Log Out",
+    icon: "pe-7s-lock",
+    component: UserProfile,
+    layout: "/admin",
+    authentication: true
   },
 ];
 
