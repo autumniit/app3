@@ -98,7 +98,8 @@ const dashboardRoutes = [
     name: "Store Manage",
     icon: "pe-7s-box2",
     component: StoreManage,
-    layout: ""
+    layout: "",
+    redirect: true
   },
   {
     path: "/profile",

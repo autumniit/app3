@@ -1,4 +1,5 @@
 import React, { } from "react";
+import { NavLink } from "react-router-dom";
 import { Row, Col, Badge } from "react-bootstrap";
 import EditStoreModal from "../EditStoreModal/EditStoreModal.jsx"
 
@@ -24,7 +25,14 @@ const StoreCard = (props) => {
           <div className="stats">
             {props.statsIcon} {props.statsIconText}
           </div>
-          <div className="stats">
+          <div className="stats pull-right">
+
+            <NavLink
+              to="/storemanage"
+            >
+              <i className="pe-7s-graph2" />
+            </NavLink>
+            
             <EditStoreModal
               store={props.store}
             />
