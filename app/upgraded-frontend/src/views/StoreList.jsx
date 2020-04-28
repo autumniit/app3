@@ -8,11 +8,11 @@ import StoreCard from "components/StoreCard/StoreCard.jsx";
 
 const StoreList = (props) => {
 
-    const [stores, setStore] = useState();
+    const [stores, setStores] = useState();
 
     const fetchData = async () => {
         const result = await axios(API_URL + "stores/");
-        setStore(result.data);
+        setStores(result.data);
     };
 
     useEffect(() => {

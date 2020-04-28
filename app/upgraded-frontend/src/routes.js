@@ -111,7 +111,7 @@ const dashboardRoutes = [
     requireAuth: true,
   },
   {
-    path: "/storemanage",
+    path: "/store/:store",
     name: "Store Manage",
     icon: "pe-7s-box2",
     component: StoreManage,

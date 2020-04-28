@@ -28,7 +28,7 @@ const StoreCard = (props) => {
           <div className="stats pull-right">
 
             <NavLink
-              to="/storemanage"
+              to= {"/store/" + props.store.id}
             >
               <i className="pe-7s-graph2" />
             </NavLink>
