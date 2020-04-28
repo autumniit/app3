@@ -33,6 +33,7 @@ import config from "./auth_config.json";
 import history from "./utils/history";
 
 import AdminLayout from "layouts/Admin.jsx";
+import ExampleLayout from "layouts/Example.jsx"
 
 const onRedirectCallback = appState => {
   history.push(
@@ -51,11 +52,13 @@ ReactDOM.render(
   >
     <BrowserRouter>
       <Switch>
+        <Route path="/example" render={props => <ExampleLayout {...props} />} />
         <Route path="/" render={props => <AdminLayout {...props} />} />
         {/* <Redirect from="/" to="/admin/dashboard" /> */}
+
       </Switch>
     </BrowserRouter>
-  
+
   </Auth0Provider>,
   document.getElementById("root")
 );

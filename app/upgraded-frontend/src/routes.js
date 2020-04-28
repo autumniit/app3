@@ -27,6 +27,7 @@ import Upgrade from "views/Upgrade.jsx";
 import StoreList from "views/StoreList.jsx";
 import StoreManage from "views/StoreManage.jsx";
 import Profile from "views/Profile.jsx";
+import UnityConnect from "views/UnityConnect.jsx"
 
 const dashboardRoutes = [
   {
@@ -34,49 +35,56 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
-    layout: ""
+    layout: "/example",
+    example: true,
   },
   {
     path: "/user",
     name: "User Profile",
     icon: "pe-7s-user",
     component: UserProfile,
-    layout: ""
+    layout: "/example",
+    example: true,
   },
   {
     path: "/table",
     name: "Table List",
     icon: "pe-7s-note2",
     component: TableList,
-    layout: ""
+    layout: "/example",
+    example: true,
   },
   {
     path: "/typography",
     name: "Typography",
     icon: "pe-7s-news-paper",
     component: Typography,
-    layout: ""
+    layout: "/example",
+    example: true,
   },
   {
     path: "/icons",
     name: "Icons",
     icon: "pe-7s-science",
     component: Icons,
-    layout: ""
+    layout: "/example",
+    example: true,
   },
   {
     path: "/maps",
     name: "Maps",
     icon: "pe-7s-map-marker",
     component: Maps,
-    layout: ""
+    layout: "/example",
+    example: true,
   },
   {
     path: "/notifications",
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications,
-    layout: ""
+    layout: "/example",
+    example: true,
   },
   // {
   //   upgrade: true,

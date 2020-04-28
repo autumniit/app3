@@ -77,7 +77,7 @@ const Sidebar = (props) => {
         <ul className="nav">
           {width <= 991 ? <AdminNavbarLinks /> : null}
           {props.routes.map((prop, key) => {
-            if (!prop.redirect && !prop.authentication && !prop.example) {
+            if (!prop.redirect && !prop.authentication && prop.example) {
               if (prop.requireAuth && !isAuthenticated) {
                 return null;
               }
