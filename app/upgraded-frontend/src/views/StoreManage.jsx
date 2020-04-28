@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 
-import { axios } from "axios"
+import axios from "axios"
 import { API_URL } from "../constants";
 
 import { Card } from "components/Card/Card.jsx";
@@ -21,22 +21,32 @@ import {
     thArray,
     tdArray
 } from "variables/Variables.jsx";
-import { useParams } from "react-router-dom";
 
-const StoreList = (props) => {
+const StoreManage = (props) => {
 
     const [stores, setStores] = useState();
+    const [store, setStore] = useState();
 
-    const fetchData = async () => {
+    const fetchStores = async () => {
         const result = await axios(API_URL + "stores/");
         setStores(result.data);
+        console.log(result.data);
     };
 
     useEffect(() => {
-        fetchData();
+        fetchStores();
     }, []);
 
-    const store = stores[useParams()]
+    const [items, setItems] = useState();
+
+    const fetchItems = async () => {
+        const result = await axios(API_URL + "stores/" + props.match.params.store + "/items/");
+        setItems(result.data);
+    };
+
+    useEffect(() => {
+        fetchItems();
+    }, []);
 
     const createLegend = (json) => {
         var legend = [];
@@ -48,6 +58,7 @@ const StoreList = (props) => {
         }
         return legend;
     }
+
     return (
         <div className="content">
             <Grid fluid>
@@ -97,28 +108,34 @@ const StoreList = (props) => {
                 <Col md={12}>
                     <Card
                         title="Items"
-                        category= {"Browse, add, and edit items for " + props.store.name + "here"}
+                        category={stores ? "Browse, or, and edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
                             <Table hover>
                                 <thead>
                                     <tr>
-                                        {thArray.map((prop, key) => {
+                                        {["ID", "Name", "PricePoint", "Store"].map((prop, key) => {
                                             return <th key={key}>{prop}</th>;
                                         })}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {tdArray.map((prop, key) => {
-                                        return (
-                                            <tr key={key}>
-                                                {prop.map((prop, key) => {
-                                                    return <td key={key}>{prop}</td>;
-                                                })}
-                                            </tr>
-                                        );
-                                    })}
+                                    {
+                                        items ?
+                                            items.map((prop, key) => {
+                                                console.log(prop)
+                                                return (
+                                                    <tr key={key}>
+                                                        {Object.values(prop).map((prop, key) => {
+                                                            return <td key={key}>{prop}</td>;
+                                                        })}
+                                                    </tr>
+                                                );
+                                            })
+                                            :
+                                            null
+                                    }
                                 </tbody>
                             </Table>
                         }
@@ -153,4 +170,4 @@ const StoreList = (props) => {
     );
 }
 
-export default StoreList;
+export default StoreManage;

@@ -30,7 +30,7 @@ const StoreList = (props) => {
                                     store={store}
                                     bigIcon={<i className="pe-7s-cart text-success" />}
                                     statsIcon={<i className="fa fa-refresh" />}
-                                    statsIconText="Updated now"
+                                    statsIconText="Updated just now"
                                     settingIcon={<i className="pe-7s-config" />}
                                 />
                             </Col>
