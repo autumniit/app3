@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Badge } from "react-bootstrap";
 
 export class StoreCard extends Component {
   render() {
@@ -14,7 +14,7 @@ export class StoreCard extends Component {
             </Col>
             <Col xs={7}>
               <div className="numbers">
-                <p>{this.props.statsText}</p>
+                <p><Badge variant="primary">{this.props.statsText}</Badge></p>
                 {this.props.statsValue}
               </div>
             </Col>

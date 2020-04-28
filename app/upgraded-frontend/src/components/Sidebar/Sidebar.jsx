@@ -26,7 +26,7 @@ import logo from "assets/img/applogo.svg";
 
 const Sidebar = (props) => {
 
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   const [width, setWidth] = useState(window.innerWidth);
 
