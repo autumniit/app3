@@ -32,7 +32,7 @@ import { Auth0Provider } from "./react-auth0-spa";
 import config from "./auth_config.json";
 import history from "./utils/history";
 
-import AdminLayout from "layouts/Admin.jsx";
+import MainLayout from "layouts/Main.jsx";
 import ExampleLayout from "layouts/Example.jsx"
 
 const onRedirectCallback = appState => {
@@ -53,7 +53,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path="/example" render={props => <ExampleLayout {...props} />} />
-        <Route path="/" render={props => <AdminLayout {...props} />} />
+        <Route path="/" render={props => <MainLayout {...props} />} />
         {/* <Redirect from="/" to="/admin/dashboard" /> */}
 
       </Switch>
