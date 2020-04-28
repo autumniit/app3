@@ -7,7 +7,23 @@ const AuthenNavLink = (props) => {
     const { isAuthenticated, loading, loginWithRedirect, logout } = useAuth0();
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <li
+                className="active active-pro"
+                key="authen-nav-link"
+            >
+                {
+                    <NavLink
+                        className="nav-link"
+                        activeClassName="active"
+                    >
+                        <i className="pe-7s-coffee" />
+                        <p>Loading ...</p>
+                    </NavLink>
+                }
+
+            </li>
+        )
     }
 
     return (
