@@ -36,7 +36,7 @@ const StoreList = (props) => {
         fetchData();
     }, []);
 
-    // const store = stores[useParams()]
+    const store = stores[useParams()]
 
     const createLegend = (json) => {
         var legend = [];
