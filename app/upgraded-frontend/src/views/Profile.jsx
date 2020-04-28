@@ -13,8 +13,6 @@ import {
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 
-import avatar from "assets/img/faces/face-3.jpg";
-
 const Profile = () => {
 
   const { loading, user } = useAuth0();
@@ -36,11 +34,11 @@ const Profile = () => {
               description={
                 <span>
                   Something
-                    <br />
-                    Something
-                    <br />
-                    Something
-                  </span>
+                  <br />
+                  Something
+                  <br />
+                  Something
+                </span>
               }
               socials={
                 <div>
