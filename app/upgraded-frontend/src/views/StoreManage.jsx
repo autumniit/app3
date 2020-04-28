@@ -105,7 +105,7 @@ const StoreManage = (props) => {
                         />
                     </Col>
                 </Row>
-                <Col md={12}>
+                <Col md={6}>
                     <Card
                         title="Items"
                         category={stores ? "Browse, or, and edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
@@ -115,7 +115,7 @@ const StoreManage = (props) => {
                             <Table hover>
                                 <thead>
                                     <tr>
-                                        {["ID", "Name", "PricePoint", "Store"].map((prop, key) => {
+                                        {["ID", "Name", "PricePoint", "Store", "Actions"].map((prop, key) => {
                                             return <th key={key}>{prop}</th>;
                                         })}
                                     </tr>
@@ -141,30 +141,42 @@ const StoreManage = (props) => {
                         }
                     />
                 </Col>
-                <Row>
-                    <Col lg={6} sm={12}>
-                        <ItemCard
-                            bigIcon={<i className="pe-7s-cart text-success" />}
-                            statsText="StoreID: "
-                            statsValue="Name"
-                            statsIcon={<i className="fa fa-refresh" />}
-                            statsIconText="Updated now"
-                            settingIcon={<i className="pe-7s-config" />}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg={6} sm={12}>
-                        <ItemCard
-                            bigIcon={<i className="pe-7s-cart text-success" />}
-                            statsText="StoreID: "
-                            statsValue="Name"
-                            statsIcon={<i className="fa fa-refresh" />}
-                            statsIconText="Updated now"
-                            settingIcon={<i className="pe-7s-config" />}
-                        />
-                    </Col>
-                </Row>
+                <Col md={6}>
+                    <Card
+                        title="Price Points"
+                        category="Select an item to manage its price points"
+                        ctTableFullWidth
+                        ctTableResponsive
+                        content={
+                            <Table hover>
+                                <thead>
+                                    <tr>
+                                        {["ID", "Name", "PricePoint", "Store", "Actions"].map((prop, key) => {
+                                            return <th key={key}>{prop}</th>;
+                                        })}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        items ?
+                                            items.map((prop, key) => {
+                                                console.log(prop)
+                                                return (
+                                                    <tr key={key}>
+                                                        {Object.values(prop).map((prop, key) => {
+                                                            return <td key={key}>{prop}</td>;
+                                                        })}
+                                                    </tr>
+                                                );
+                                            })
+                                            :
+                                            null
+                                    }
+                                </tbody>
+                            </Table>
+                        }
+                    />
+                </Col>
             </Grid>
         </div>
     );
