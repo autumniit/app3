@@ -16,7 +16,7 @@
 
 */
 import { useAuth0 } from "../../react-auth0-spa";
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";

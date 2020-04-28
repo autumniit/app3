@@ -1,10 +1,10 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
 import axios from "axios";
 import { API_URL } from "../constants";
 
-import { StoreCard } from "components/StoreCard/StoreCard.jsx";
+import StoreCard from "components/StoreCard/StoreCard.jsx";
 
 const StoreList = (props) => {
 
@@ -27,9 +27,8 @@ const StoreList = (props) => {
                         stores.map((store, key) => (
                             <Col lg={3} sm={6}>
                                 <StoreCard
+                                    store={store}
                                     bigIcon={<i className="pe-7s-cart text-success" />}
-                                    statsText={"ID:" + store.id}
-                                    statsValue={store.name}
                                     statsIcon={<i className="fa fa-refresh" />}
                                     statsIconText="Updated now"
                                     settingIcon={<i className="pe-7s-config" />}
