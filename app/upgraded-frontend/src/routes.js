@@ -94,12 +94,21 @@ const dashboardRoutes = [
   //   component: Upgrade,
   //   layout: ""
   // },
+  // =============================== Below is what's used in the app ===============================
+  {
+    path: "/home",
+    name: "Home",
+    icon: "pe-7s-home",
+    component: UnityConnect,
+    layout: "",
+  },
   {
     path: "/stores",
     name: "Manage",
     icon: "pe-7s-box2",
     component: StoreList,
-    layout: ""
+    layout: "",
+    requireAuth: true,
   },
   {
     path: "/storemanage",
@@ -108,6 +117,14 @@ const dashboardRoutes = [
     component: StoreManage,
     layout: "",
     redirect: true
+  },
+  {
+    path: "/unityconnect",
+    name: "Connect to Unity",
+    icon: "pe-7s-link",
+    component: UnityConnect,
+    layout: "",
+    requireAuth: true,
   },
   {
     path: "/profile",
