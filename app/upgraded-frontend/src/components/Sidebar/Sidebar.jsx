@@ -70,7 +70,7 @@ const Sidebar = (props) => {
           href="https://www.creative-tim.com?ref=lbd-sidebar"
           className="simple-text logo-normal"
         >
-          DP App
+          DP Application
           </a>
       </div>
       <div className="sidebar-wrapper">
