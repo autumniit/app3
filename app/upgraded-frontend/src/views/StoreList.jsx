@@ -18,27 +18,39 @@ import {
     legendBar
 } from "variables/Variables.jsx";
 
-class StoreList extends Component {
-    render() {
-        return (
-            <div className="content">
-                <Grid fluid>
-                    <Row>
+const StoreList = (props) => {
+
+    const [stores, setStore] = useState();
+
+    const fetchData = async () => {
+        const result = await axios(API_URL + "stores/");
+        setStore(result.data);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    return (
+        <div className="content">
+            <Grid fluid>
+                <Row>
+                    {stores.map((store, key) => {
                         <Col lg={3} sm={6}>
                             <StoreCard
                                 bigIcon={<i className="pe-7s-cart text-success" />}
-                                statsText="StoreID: "
-                                statsValue="Name"
+                                statsText={"ID:" + store.id}
+                                statsValue={store.name}
                                 statsIcon={<i className="fa fa-refresh" />}
                                 statsIconText="Updated now"
                                 settingIcon={<i className="pe-7s-config" />}
                             />
                         </Col>
-                    </Row>
-                </Grid>
-            </div>
-        );
-    }
+                    })}
+                </Row>
+            </Grid>
+        </div>
+    );
 }
 
 export default StoreList;
