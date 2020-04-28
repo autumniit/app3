@@ -30,7 +30,7 @@ import routes from "routes.js";
 
 import image from "assets/img/sidebar-3.jpg";
 
-class Admin extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -156,9 +156,7 @@ class Admin extends Component {
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar {...this.props} routes={routes}
-        // image={this.state.image}
         color={this.state.color}
-        // hasImage={this.state.hasImage}
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <AdminNavbar
@@ -167,20 +165,10 @@ class Admin extends Component {
           />
           <Switch>{this.getRoutes(routes)}</Switch>
           <Footer />
-          {/* <FixedPlugin
-            handleImageClick={this.handleImageClick}
-            handleColorClick={this.handleColorClick}
-            handleHasImage={this.handleHasImage}
-            bgColor={this.state["color"]}
-            bgImage={this.state["image"]}
-            mini={this.state["mini"]}
-            handleFixedClick={this.handleFixedClick}
-            fixedClasses={this.state.fixedClasses}
-          /> */}
         </div>
       </div>
     );
   }
 }
 
-export default Admin;
+export default Main;
