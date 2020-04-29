@@ -5,6 +5,7 @@
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.7.0",
     "axios": "^0.19.2",
+    "axios-hooks": "^1.10.0",
     "bootstrap": "^3.4.1",
     "chartist": "0.10.1",
     "node-sass": "^4.14.0",

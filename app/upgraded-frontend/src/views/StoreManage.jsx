@@ -3,6 +3,7 @@ import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 
 import axios from "axios"
+import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
 
 import { Card } from "components/Card/Card.jsx";
@@ -24,18 +25,7 @@ import {
 
 const StoreManage = (props) => {
 
-    const [stores, setStores] = useState();
-    const [store, setStore] = useState();
-
-    const fetchStores = async () => {
-        const result = await axios(API_URL + "stores/");
-        setStores(result.data);
-        console.log(result.data);
-    };
-
-    useEffect(() => {
-        fetchStores();
-    }, []);
+    const [{ stores, loading, error }, refetch] = useAxios(API_URL + "stores/")
 
     const [items, setItems] = useState();
 
@@ -47,6 +37,19 @@ const StoreManage = (props) => {
     useEffect(() => {
         fetchItems();
     }, []);
+
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Error!</p>
+
+    // const [stores, setStores] = useState();
+
+    // useEffect(async () => {
+    //     const result = await axios(API_URL + "stores/");
+    //     await setStores(result.data);
+    //     console.log(stores);
+    // }, []);
+
+
 
     const createLegend = (json) => {
         var legend = [];
@@ -108,7 +111,8 @@ const StoreManage = (props) => {
                 <Col md={6}>
                     <Card
                         title="Items"
-                        category={stores ? "Browse, or, and edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
+                        // category={JSON.stringify(stores, null, 2) ? "Browse, or, and edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
+                        // category={stores}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
