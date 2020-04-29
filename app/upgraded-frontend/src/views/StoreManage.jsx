@@ -15,43 +15,19 @@ import {
     optionsSales,
     responsiveSales,
     legendSales,
-    dataBar,
-    optionsBar,
-    responsiveBar,
-    legendBar,
-    thArray,
-    tdArray
 } from "variables/Variables.jsx";
 
 const StoreManage = (props) => {
 
-    const { id } = useParams();
+    const { store } = useParams();
 
-    const [{ stores, loading, error }, refetch] = useAxios(API_URL + "stores/")
+    const [{ data: stores, loading: l1, error: e1 }] = useAxios(API_URL + "stores/");
+    const [{ data: items, loading: l2, error: e2 }] = useAxios(API_URL + "stores/" + store + "/items/");
+    // const [{ data: items, loading: l2, error: e2 }] = useAxios(API_URL + "stores/" + store + "/items/");
+    
 
-    const [items, setItems] = useState();
-
-    const fetchItems = async () => {
-        const result = await axios(API_URL + "stores/" + props.match.params.store + "/items/");
-        setItems(result.data);
-    };
-
-    useEffect(() => {
-        fetchItems();
-    }, []);
-
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error!</p>
-
-    // const [stores, setStores] = useState();
-
-    // useEffect(async () => {
-    //     const result = await axios(API_URL + "stores/");
-    //     await setStores(result.data);
-    //     console.log(stores);
-    // }, []);
-
-
+    if (l1 || l2) return <p>Loading...</p>
+    if (e1 || e2) return <p>Error!</p>
 
     const createLegend = (json) => {
         var legend = [];
@@ -113,8 +89,7 @@ const StoreManage = (props) => {
                 <Col md={6}>
                     <Card
                         title="Items"
-                        // category={JSON.stringify(stores, null, 2) ? "Browse, or, and edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
-                        // category={stores}
+                        category={stores ? "Browse, or, and edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
@@ -130,12 +105,12 @@ const StoreManage = (props) => {
                                     {
                                         items ?
                                             items.map((prop, key) => {
-                                                console.log(prop)
                                                 return (
                                                     <tr key={key}>
                                                         {Object.values(prop).map((prop, key) => {
                                                             return <td key={key}>{prop}</td>;
                                                         })}
+                                                        <td>{prop.id}</td>
                                                     </tr>
                                                 );
                                             })
@@ -166,12 +141,12 @@ const StoreManage = (props) => {
                                     {
                                         items ?
                                             items.map((prop, key) => {
-                                                console.log(prop)
                                                 return (
                                                     <tr key={key}>
                                                         {Object.values(prop).map((prop, key) => {
                                                             return <td key={key}>{prop}</td>;
                                                         })}
+                                                        <td>Buttons</td>
                                                     </tr>
                                                 );
                                             })
