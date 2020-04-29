@@ -5,7 +5,7 @@ import { Grid, Row, Col, Table } from "react-bootstrap";
 import axios from "axios"
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
-
+import { useParams } from "react-router-dom";
 import { Card } from "components/Card/Card.jsx";
 import { ItemCard } from "components/ItemCard/ItemCard.jsx";
 import {
@@ -24,6 +24,8 @@ import {
 } from "variables/Variables.jsx";
 
 const StoreManage = (props) => {
+
+    const { id } = useParams();
 
     const [{ stores, loading, error }, refetch] = useAxios(API_URL + "stores/")
 

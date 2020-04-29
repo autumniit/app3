@@ -14,6 +14,7 @@ const AuthenNavLink = (props) => {
             >
                 {
                     <NavLink
+                        to=""
                         className="nav-link"
                         activeClassName="active"
                     >
