@@ -1,22 +1,7 @@
 import React, { Component } from "react";
-import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
-import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import { Tasks } from "components/Tasks/Tasks.jsx";
-import {
-  dataPie,
-  legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
-  legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
-} from "variables/Variables.jsx";
 
 class UnityConnect extends Component {
   createLegend(json) {
@@ -35,7 +20,7 @@ class UnityConnect extends Component {
         <Grid fluid>
           <Row>
             <Col lg={12} sm={12}>
-              <StatsCard
+              <Card
                 bigIcon={<i className="pe-7s-server text-warning" />}
                 statsText="Capacity"
                 statsValue="105GB"

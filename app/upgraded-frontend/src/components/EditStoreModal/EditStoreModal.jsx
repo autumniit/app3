@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Button, Modal, Badge } from "react-bootstrap";
 import EditStoreForm from "./EditStoreForm.jsx";
 

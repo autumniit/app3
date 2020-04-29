@@ -22,7 +22,6 @@ import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
-import Upgrade from "views/Upgrade.jsx";
 
 import StoreList from "views/StoreList.jsx";
 import StoreManage from "views/StoreManage.jsx";
@@ -86,14 +85,6 @@ const dashboardRoutes = [
     layout: "/example",
     example: true,
   },
-  // {
-  //   upgrade: true,
-  //   path: "/upgrade",
-  //   name: "Upgrade to PRO",
-  //   icon: "pe-7s-rocket",
-  //   component: Upgrade,
-  //   layout: ""
-  // },
   // =============================== Below is what's used in the app ===============================
   {
     path: "/home",

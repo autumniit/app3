@@ -1,8 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ChartistGraph from "react-chartist";
-import { Grid, Row, Col, Table, Button } from "react-bootstrap";
+import { Grid, Row, Col, Table } from "react-bootstrap";
 
-import axios from "axios"
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
 import { useParams } from "react-router-dom";
@@ -60,7 +59,7 @@ const StoreManage = (props) => {
                         <Card
                             statsIcon="fa fa-history"
                             id="chartHours"
-                            title="Users Behavior"
+                            title="Sales"
                             category="24 Hours performance"
                             stats="Updated 3 minutes ago"
                             content={
@@ -81,7 +80,7 @@ const StoreManage = (props) => {
                     <Col md={4}>
                         <Card
                             statsIcon="fa fa-clock-o"
-                            title="Email Statistics"
+                            title="Proportion of Items Sold"
                             category="Last Campaign Performance"
                             stats="Campaign sent 2 days ago"
                             content={
@@ -101,7 +100,7 @@ const StoreManage = (props) => {
                 <Col md={6}>
                     <Card
                         title="Items"
-                        category={stores ? "Browse, or, and edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
+                        category={stores ? "Browse, add, or edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
@@ -140,8 +139,8 @@ const StoreManage = (props) => {
                 </Col>
                 <Col md={6}>
                     <Card
-                        title="Price Points"
-                        category={pricePoints ? "" : "Select an item to manage its price points"}
+                        title={pricePoints ? pricePointId + "'s Price Points" : "Price Points"}
+                        category={pricePoints ? "Browse, add, or edit price points of " + pricePointId + " here" : "Select an item to manage its price points"}
                         ctTableFullWidth
                         ctTableResponsive
                         content={

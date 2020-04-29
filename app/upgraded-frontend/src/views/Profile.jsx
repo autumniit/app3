@@ -1,13 +1,10 @@
 import { useAuth0 } from "../react-auth0-spa";
 
-import React, { Component } from "react";
+import React, { } from "react";
 import {
   Grid,
   Row,
-  Col,
-  FormGroup,
-  ControlLabel,
-  FormControl
+  Col
 } from "react-bootstrap";
 
 import { UserCard } from "components/UserCard/UserCard.jsx";
