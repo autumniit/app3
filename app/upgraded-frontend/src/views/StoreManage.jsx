@@ -1,13 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
 import ChartistGraph from "react-chartist";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Grid, Row, Col, Table, Button } from "react-bootstrap";
 
 import axios from "axios"
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
 import { useParams } from "react-router-dom";
 import { Card } from "components/Card/Card.jsx";
-import { ItemCard } from "components/ItemCard/ItemCard.jsx";
+
 import {
     dataPie,
     legendPie,
@@ -20,14 +20,23 @@ import {
 const StoreManage = (props) => {
 
     const { store } = useParams();
+    const [pricePointId, setPricePointId] = useState();
 
     const [{ data: stores, loading: l1, error: e1 }] = useAxios(API_URL + "stores/");
     const [{ data: items, loading: l2, error: e2 }] = useAxios(API_URL + "stores/" + store + "/items/");
-    // const [{ data: items, loading: l2, error: e2 }] = useAxios(API_URL + "stores/" + store + "/items/");
-    
+    const [{ data: pricePoints, loading: l3, error: e3 }, fetchPricePoints]
+        = useAxios({
+            url: API_URL + "stores/" + store + "/items/" + pricePointId + "/price_points",
+            method: "GET"
+        },
+            { manual: true }
+        );
 
-    if (l1 || l2) return <p>Loading...</p>
-    if (e1 || e2) return <p>Error!</p>
+    useEffect(() => {
+        if (pricePointId) {
+            fetchPricePoints();
+        }
+    }, [pricePointId])
 
     const createLegend = (json) => {
         var legend = [];
@@ -39,6 +48,9 @@ const StoreManage = (props) => {
         }
         return legend;
     }
+
+    if (l1 || l2 || l3) return <p>Loading...</p>
+    if (e1 || e2 || e3) return <p>Error!</p>
 
     return (
         <div className="content">
@@ -110,7 +122,11 @@ const StoreManage = (props) => {
                                                         {Object.values(prop).map((prop, key) => {
                                                             return <td key={key}>{prop}</td>;
                                                         })}
-                                                        <td>{prop.id}</td>
+                                                        <td>
+                                                            <i className="pe-7s-config" />
+                                                            <i className="pe-7s-angle-right-circle" onClick={() => setPricePointId(prop.id)} />
+                                                            {/* <Button onClick={() => setPricePointId(prop.id)}><i className="pe-7s-angle-right" /></Button> */}
+                                                        </td>
                                                     </tr>
                                                 );
                                             })
@@ -125,28 +141,30 @@ const StoreManage = (props) => {
                 <Col md={6}>
                     <Card
                         title="Price Points"
-                        category="Select an item to manage its price points"
+                        category={pricePoints ? "" : "Select an item to manage its price points"}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
                             <Table hover>
                                 <thead>
                                     <tr>
-                                        {["ID", "Name", "PricePoint", "Store", "Actions"].map((prop, key) => {
+                                        {["ID", "PricePoint", "Alpha", "Beta", "Item", "Actions"].map((prop, key) => {
                                             return <th key={key}>{prop}</th>;
                                         })}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        items ?
-                                            items.map((prop, key) => {
+                                        pricePoints ?
+                                            pricePoints.map((prop, key) => {
                                                 return (
                                                     <tr key={key}>
                                                         {Object.values(prop).map((prop, key) => {
                                                             return <td key={key}>{prop}</td>;
                                                         })}
-                                                        <td>Buttons</td>
+                                                        <td>
+                                                            <i className="pe-7s-config" />
+                                                        </td>
                                                     </tr>
                                                 );
                                             })
