@@ -58,12 +58,12 @@ const Sidebar = (props) => {
           null
         )}
       <div className="logo">
-        <element className="simple-text">
+        <div className="simple-text">
           <div className="logo-img">
             <img src={logo} alt="logo_image" />
           </div>
           DP Application
-        </element>
+        </div>
       </div>
       <div className="sidebar-wrapper">
         <ul className="nav">
