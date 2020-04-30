@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ChartistGraph from "react-chartist";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Grid, Row, Col, Table, FormControl } from "react-bootstrap";
 
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
@@ -18,24 +18,98 @@ import {
 
 const StoreManage = (props) => {
 
-    const { store } = useParams();
+    const { storeId } = useParams();
     const [pricePointId, setPricePointId] = useState();
 
+    const [itemEdit, setItemEdit] = useState()
+    const [editItemId, setEditItemId] = useState();
+
     const [{ data: stores, loading: l1, error: e1 }] = useAxios(API_URL + "stores/");
-    const [{ data: items, loading: l2, error: e2 }] = useAxios(API_URL + "stores/" + store + "/items/");
-    const [{ data: pricePoints, loading: l3, error: e3 }, fetchPricePoints]
+    const [{ data: items, loading: l2, error: e2 }, reGetItems] = useAxios(API_URL + "stores/" + storeId + "/items/");
+    const [{ data: pricePoints, loading: l3, error: e3 }, getPricePoints]
         = useAxios({
-            url: API_URL + "stores/" + store + "/items/" + pricePointId + "/price_points",
+            url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/price_points",
             method: "GET"
+        },
+            { manual: true }
+        );
+
+    const [{ loading: l4, error: e4 }, putItemEdit]
+        = useAxios({
+            url: API_URL + "stores/" + storeId + "/items/" + editItemId,
+            method: "PUT"
+        },
+            { manual: true }
+        );
+
+    const [{ loading: l5, error: e5 }, deleteItemEdit]
+        = useAxios({
+            url: API_URL + "stores/" + storeId + "/items/" + editItemId,
+            method: "DELETE"
+        },
+            { manual: true }
+        );
+    const [{ loading: l6, error: e6 }, postItem]
+        = useAxios({
+            url: API_URL + "stores/" + storeId + "/items/",
+            method: "POST"
         },
             { manual: true }
         );
 
     useEffect(() => {
         if (pricePointId) {
-            fetchPricePoints();
+            getPricePoints();
         }
     }, [pricePointId])
+
+
+    const toggleItemEditOn = (editingId) => {
+        setEditItemId(editingId);
+    }
+
+    useEffect(() => {
+        if (items && editItemId) {
+            setItemEdit(items.find(obj => { return obj.id === editItemId }))
+        }
+    }, [editItemId]);
+
+    const onItemEdit = e => {
+        setItemEdit({ ...itemEdit, [e.target.name]: e.target.value });
+    };
+
+    const saveItemEdit = async () => {
+        console.log("[item] put:", itemEdit);
+        await putItemEdit({
+            data: itemEdit
+        });
+        reGetItems();
+        toggleItemEditOff();
+    }
+
+    const removeItemEdit = async () => {
+        console.log("[item] delete id:", editItemId);
+        await deleteItemEdit();
+        reGetItems();
+        toggleItemEditOff();
+    }
+
+    const toggleItemEditOff = () => {
+        setEditItemId();
+    }
+
+    const addItem = async () => {
+        var item = {
+            id: 0,
+            name: "New Item",
+            current_price_point: null,
+            store: storeId
+        }
+        console.log("[item] add:", item);
+        await postItem({ data: item });
+        reGetItems();
+    }
+
 
     const createLegend = (json) => {
         var legend = [];
@@ -97,17 +171,17 @@ const StoreManage = (props) => {
                         />
                     </Col>
                 </Row>
-                <Col md={6}>
+                <Col md={5}>
                     <Card
                         title="Items"
-                        category={stores ? "Browse, add, or edit items for " + stores.find(obj => { return obj.id === parseInt(props.match.params.store) }).name + " here" : ""}
+                        category={(stores && storeId) ? "Browse, add, or edit items for " + stores.find(obj => { return obj.id === parseInt(storeId) }).name + " here" : ""}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
                             <Table hover>
                                 <thead>
                                     <tr>
-                                        {["ID", "Name", "PricePoint", "Store", "Actions"].map((prop, key) => {
+                                        {["ID", "Name", "PricePoint", "Actions"].map((prop, key) => {
                                             return <th key={key}>{prop}</th>;
                                         })}
                                     </tr>
@@ -118,26 +192,71 @@ const StoreManage = (props) => {
                                             items.map((prop, key) => {
                                                 return (
                                                     <tr key={key}>
-                                                        {Object.values(prop).map((prop, key) => {
-                                                            return <td key={key}>{prop}</td>;
-                                                        })}
-                                                        <td>
-                                                            <i className="pe-7s-config" />
-                                                            <i className="pe-7s-angle-right-circle" onClick={() => setPricePointId(prop.id)} />
-                                                            {/* <Button onClick={() => setPricePointId(prop.id)}><i className="pe-7s-angle-right" /></Button> */}
-                                                        </td>
+                                                        <td key="id">{prop.id}</td>
+                                                        {
+                                                            (prop.id === editItemId) ?
+                                                                (
+                                                                    <td>
+                                                                        <FormControl
+                                                                            name="name"
+                                                                            rows="1"
+                                                                            type="text"
+                                                                            defaultValue={prop.name}
+                                                                            onChange={(e) => onItemEdit(e)}
+                                                                        />
+                                                                    </td>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <td key="itemName">{prop.name}</td>
+                                                                )
+                                                        }
+                                                        <td key="currentPricePoint">{prop.current_price_point}</td>
+                                                        {/* <td key="store">{prop.store}</td> */}
+
+                                                        {
+                                                            (prop.id === editItemId) ?
+                                                                (
+                                                                    <td>
+                                                                        <i className="pe-7s-diskette" onClick={() => saveItemEdit()} />
+                                                                        <i className="pe-7s-trash" onClick={() => removeItemEdit()} />
+                                                                        <i className="pe-7s-close-circle" onClick={() => toggleItemEditOff()} />
+                                                                    </td>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <td>
+                                                                        <i className="pe-7s-config" onClick={() => toggleItemEditOn(prop.id)} />
+                                                                        <i className="pe-7s-angle-right-circle" onClick={() => setPricePointId(prop.id)} />
+                                                                    </td>
+                                                                )
+                                                        }
+
+
                                                     </tr>
                                                 );
                                             })
                                             :
                                             null
                                     }
+
+                                    {/* Add new item */}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        {/* <td></td> */}
+                                        <td>
+                                            <i className="pe-7s-plus" onClick={() => addItem()} />
+                                        </td>
+                                    </tr>
+
                                 </tbody>
                             </Table>
                         }
                     />
                 </Col>
-                <Col md={6}>
+                <Col md={7}>
                     <Card
                         title={pricePoints ? pricePointId + "'s Price Points" : "Price Points"}
                         category={pricePoints ? "Browse, add, or edit price points of " + pricePointId + " here" : "Select an item to manage its price points"}
