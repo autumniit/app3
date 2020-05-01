@@ -7,6 +7,7 @@ import { API_URL } from "../constants";
 import { useParams } from "react-router-dom";
 import { Card } from "components/Card/Card.jsx";
 import ItemTableCard from "components/ItemTableCard/ItemTableCard.jsx";
+import PricePointTableCard from "components/PricePointTableCard/PricePointTableCard.jsx";
 
 import {
     dataPie,
@@ -24,23 +25,6 @@ const StoreManage = (props) => {
 
     const [{ data: stores, loading: l1, error: e1 }] = useAxios(API_URL + "stores/");
 
-    // -> PricePointTableCard
-    const [{ data: pricePoints, loading: l3, error: e3 }, getPricePoints]
-        = useAxios({
-            url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/price_points",
-            method: "GET"
-        },
-            { manual: true }
-        );
-
-    useEffect(() => {
-        if (pricePointId) {
-            getPricePoints();
-        }
-    }, [pricePointId])
-
-    // -------------------------
-
     const createLegend = (json) => {
         var legend = [];
         for (var i = 0; i < json["names"].length; i++) {
@@ -52,8 +36,8 @@ const StoreManage = (props) => {
         return legend;
     }
 
-    if (l1 || l3) return <p>Loading...</p>
-    if (e1 || e3) return <p>Error!</p>
+    if (l1) return <p>Loading...</p>
+    if (e1) return <p>Error!</p>
 
     return (
         <div className="content">
@@ -109,41 +93,9 @@ const StoreManage = (props) => {
                     />
                 </Col>
                 <Col md={7}>
-                    <Card
-                        title={pricePoints ? pricePointId + "'s Price Points" : "Price Points"}
-                        category={pricePoints ? "Browse, add, or edit price points of " + pricePointId + " here" : "Select an item to manage its price points"}
-                        ctTableFullWidth
-                        ctTableResponsive
-                        content={
-                            <Table hover>
-                                <thead>
-                                    <tr>
-                                        {["ID", "PricePoint", "Alpha", "Beta", "Item", "Actions"].map((prop, key) => {
-                                            return <th key={key}>{prop}</th>;
-                                        })}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        pricePoints ?
-                                            pricePoints.map((prop, key) => {
-                                                return (
-                                                    <tr key={key}>
-                                                        {Object.values(prop).map((prop, key) => {
-                                                            return <td key={key}>{prop}</td>;
-                                                        })}
-                                                        <td>
-                                                            <i className="pe-7s-config" />
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            })
-                                            :
-                                            null
-                                    }
-                                </tbody>
-                            </Table>
-                        }
+                    <PricePointTableCard
+                        storeId= {storeId}
+                        pricePointId={pricePointId}
                     />
                 </Col>
             </Grid>

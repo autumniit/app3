@@ -43,6 +43,10 @@ const ItemTableCard = (props) => {
         setEditItemId(editingId);
     }
 
+    const toggleItemEditOff = () => {
+        setEditItemId();
+    }
+
     useEffect(() => {
         if (items && editItemId) {
             setItemEdit(items.find(obj => { return obj.id === editItemId }))
@@ -67,10 +71,6 @@ const ItemTableCard = (props) => {
         await deleteItemEdit();
         reGetItems();
         toggleItemEditOff();
-    }
-
-    const toggleItemEditOff = () => {
-        setEditItemId();
     }
 
     const addItem = async () => {
