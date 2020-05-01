@@ -10,20 +10,25 @@ import StoreCard from "components/StoreCard/StoreCard.jsx";
 
 const StoreList = (props) => {
 
-    const { loading, user } = useAuth0();
+    const { loading, user, isAuthenticated } = useAuth0();
+    const [{ data: allStores, loading: l1, error: e1 }, getAllStores] = useAxios(API_URL + "stores/");
 
-    const [{ data: stores, loading: l1, error: e1 }, getStores] = useAxios(API_URL + "stores/");
-
-    useEffect(() => {
-        getStores();
-    }, []);
+    if (loading) return (
+        <div className="content">
+            <Grid fluid>
+                <Row>
+                    Loading ...
+            </Row>
+            </Grid>
+        </div>
+    )
 
     return (
         <div className="content">
             <Grid fluid>
                 <Row>
-                    {(stores && user) ?
-                        stores.filter(obj => { return obj.owner_id === user.email }).map((store, key) => (
+                    {(allStores && allStores.filter(obj => { return obj.owner_id === user.email })) ?
+                        allStores.map((store, key) => (
                             <Col lg={3} sm={6} key={key}>
                                 <StoreCard
                                     store={store}
