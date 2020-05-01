@@ -74,6 +74,7 @@ const PricePointTableCard = (props) => {
             data: pricePointEdit
         });
         getPricePoints();
+        props.getPricePoints();
         togglePricePointEditOff();
     }
 
@@ -81,6 +82,7 @@ const PricePointTableCard = (props) => {
         console.log("[pricePoint] delete id:", editPricePointId);
         await deletePricePoint();
         getPricePoints();
+        props.getPricePoints();
         togglePricePointEditOff();
     }
 
@@ -95,6 +97,7 @@ const PricePointTableCard = (props) => {
         console.log("[pricePoint] add:", pricePoint);
         await postPricePoints({ data: pricePoint });
         getPricePoints();
+        props.getPricePoints();
     }
 
     // Safe loading
@@ -182,7 +185,7 @@ const PricePointTableCard = (props) => {
                                                     )
                                                     :
                                                     (
-                                                        <td key="beta">{prop.price_point}</td>
+                                                        <td key="beta">{prop.beta}</td>
                                                     )
                                             }
                                             {/* Actions */}
@@ -229,6 +232,16 @@ const PricePointTableCard = (props) => {
                     </tbody>
                 </Table>
             }
+            refreshButton=
+            {
+                props.pricePointId ?
+                    (
+                        <i className="pe-7s-refresh-2" onClick={() => getPricePoints()} />
+                    )
+                    :
+                    null
+            }
+
         />
     );
 }

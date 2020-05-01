@@ -37,6 +37,7 @@ export class Card extends Component {
           {this.props.content}
 
           <div className="footer">
+            {this.props.refreshButton}
             {this.props.legend}
             {this.props.stats != null ? <hr /> : ""}
             <div className="stats">

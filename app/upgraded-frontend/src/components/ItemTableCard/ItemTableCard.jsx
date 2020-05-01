@@ -177,6 +177,7 @@ const ItemTableCard = (props) => {
                     </tbody>
                 </Table>
             }
+            refreshButton={<i className="pe-7s-refresh-2" onClick={() => reGetItems()} />}
         />
     );
 }

@@ -12,8 +12,6 @@ import PricePointTableCard from "components/PricePointTableCard/PricePointTableC
 import {
     dataPie,
     legendPie,
-    dataSales,
-    optionsSales,
     responsiveSales,
     legendSales,
 } from "variables/Variables.jsx";
@@ -23,7 +21,23 @@ const StoreManage = (props) => {
     const { storeId } = useParams();
     const [pricePointId, setPricePointId] = useState();
 
-    const [{ data: stores, loading: l1, error: e1 }] = useAxios(API_URL + "stores/");
+    // const [{ data: stores, loading: l1, error: e1 }] = useAxios(API_URL + "stores/");
+
+    // Axios Hooks -----
+
+    const [{ data: pricePoints, loading: l3, error: e3 }, getPricePoints]
+        = useAxios({
+            url: API_URL + "stores/" + 40 + "/items/" + pricePointId + "/price_points",
+            method: "GET"
+        },
+            { manual: true }
+        );
+
+    useEffect(() => {
+        if (pricePointId) {
+            getPricePoints();
+        }
+    }, [pricePointId])
 
     const createLegend = (json) => {
         var legend = [];
@@ -36,8 +50,8 @@ const StoreManage = (props) => {
         return legend;
     }
 
-    if (l1) return <p>Loading...</p>
-    if (e1) return <p>Error!</p>
+    // if (l1) return <p>Loading...</p>
+    // if (e1) return <p>Error!</p>
 
     return (
         <div className="content">
@@ -53,9 +67,39 @@ const StoreManage = (props) => {
                             content={
                                 <div className="ct-chart">
                                     <ChartistGraph
-                                        data={dataSales}
+                                        data=
+                                        {
+                                            pricePoints ?
+                                                {
+                                                    labels: pricePoints.map(obj => obj.price_point),
+                                                    series: [pricePoints.map(obj => (obj.alpha / obj.beta))]
+                                                }
+                                                :
+                                                {
+                                                    labels: [],
+                                                    series: []
+                                                }
+                                        }
                                         type="Line"
-                                        options={optionsSales}
+                                        options={
+                                            {
+                                                low: 0,
+                                                high: 20,
+                                                showArea: false,
+                                                height: "245px",
+                                                axisX: {
+                                                    type: ChartistGraph.AutoScaleAxis,
+                                                    showGrid: true,
+                                                },
+                                                lineSmooth: false,
+                                                showLine: true,
+                                                showPoint: true,
+                                                fullWidth: true,
+                                                chartPadding: {
+                                                    right: 50
+                                                }
+                                            }
+                                        }
                                         responsiveOptions={responsiveSales}
                                     />
                                 </div>
@@ -87,15 +131,16 @@ const StoreManage = (props) => {
                 </Row>
                 <Col md={5}>
                     <ItemTableCard
-                        stores={stores}
-                        storeId= {storeId}
-                        setPricePointId = {setPricePointId}
+                        stores={props.stores}
+                        storeId={storeId}
+                        setPricePointId={setPricePointId}
                     />
                 </Col>
                 <Col md={7}>
                     <PricePointTableCard
-                        storeId= {storeId}
+                        storeId={storeId}
                         pricePointId={pricePointId}
+                        getPricePoints={getPricePoints}
                     />
                 </Col>
             </Grid>

@@ -10,8 +10,28 @@ import StoreCard from "components/StoreCard/StoreCard.jsx";
 
 const StoreList = (props) => {
 
-    const { loading, user, isAuthenticated } = useAuth0();
+    const { loading, user } = useAuth0();
     const [{ data: allStores, loading: l1, error: e1 }, getAllStores] = useAxios(API_URL + "stores/");
+
+    const [{ loading: l2, error: e2 }, postStore] = useAxios(
+        {
+            url: API_URL + "stores/",
+            method: "POST"
+        },
+        { manual: true }
+    );
+
+    const addStore = async () => {
+        var store = {
+            id: 0,
+            name: "New Store",
+            description: "New Description",
+            owner_id: user.email
+        }
+        console.log("[store] add: ", store);
+        await postStore({ data: store });
+        getAllStores();
+    }
 
     if (loading) return (
         <div className="content">
@@ -42,6 +62,9 @@ const StoreList = (props) => {
                         :
                         "Nothing to display"
                     }
+                </Row>
+                <Row>
+                    <i className="pe-7s-plus" onClick={() => addStore()} />
                 </Row>
             </Grid>
         </div>

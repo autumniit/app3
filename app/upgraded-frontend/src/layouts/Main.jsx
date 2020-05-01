@@ -83,6 +83,7 @@ class Main extends Component {
               <prop.component
                 {...props}
                 handleClick={this.handleNotificationClick}
+                // getRoutes={this.getRoutes}
               />
             )}
             key={key}
