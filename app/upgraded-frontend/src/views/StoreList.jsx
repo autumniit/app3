@@ -1,31 +1,30 @@
+import { useAuth0 } from "../react-auth0-spa";
+
 import React, { useEffect, useState } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
-import axios from "axios";
+import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
 
 import StoreCard from "components/StoreCard/StoreCard.jsx";
 
 const StoreList = (props) => {
 
-    const [stores, setStores] = useState();
+    const { loading, user } = useAuth0();
 
-    const fetchData = async () => {
-        const result = await axios(API_URL + "stores/");
-        setStores(result.data);
-    };
+    const [{ data: stores, loading: l1, error: e1 }, getStores] = useAxios(API_URL + "stores/");
 
     useEffect(() => {
-        fetchData();
+        getStores();
     }, []);
 
     return (
         <div className="content">
             <Grid fluid>
                 <Row>
-                    {stores ?
-                        stores.map((store, key) => (
-                            <Col lg={3} sm={6}>
+                    {(stores && user) ?
+                        stores.filter(obj => { return obj.owner_id === user.email }).map((store, key) => (
+                            <Col lg={3} sm={6} key={key}>
                                 <StoreCard
                                     store={store}
                                     bigIcon={<i className="pe-7s-cart text-success" />}
