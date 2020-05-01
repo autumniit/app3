@@ -7,6 +7,11 @@ import { Card } from "components/Card/Card.jsx";
 
 const PricePointTableCard = (props) => {
 
+    const [pricePointEdit, setPricePointEdit] = useState()
+    const [editPricePointId, setEditPricePointId] = useState();
+
+    // Axios Hooks -----
+
     const [{ data: pricePoints, loading: l3, error: e3 }, getPricePoints]
         = useAxios({
             url: API_URL + "stores/" + props.storeId + "/items/" + props.pricePointId + "/price_points",
@@ -22,16 +27,29 @@ const PricePointTableCard = (props) => {
         },
             { manual: true }
         );
+    const [{ loading: l5, error: e5 }, putPricePoint]
+        = useAxios({
+            url: API_URL + "stores/" + props.storeId + "/items/" + props.pricePointId + "/price_points/" + editPricePointId,
+            method: "PUT"
+        },
+            { manual: true }
+        );
+
+    const [{ loading: l6, error: e6 }, deletePricePoint]
+        = useAxios({
+            url: API_URL + "stores/" + props.storeId + "/items/" + props.pricePointId + "/price_points/" + editPricePointId,
+            method: "DELETE"
+        },
+            { manual: true }
+        );
+
+    // Behavior Functions -----
 
     useEffect(() => {
         if (props.pricePointId) {
             getPricePoints();
         }
     }, [props.pricePointId])
-
-
-    const [pricePointEdit, setPricePointEdit] = useState()
-    const [editPricePointId, setEditPricePointId] = useState();
 
     const togglePricePointEditOn = (editingId) => {
         setEditPricePointId(editingId);
@@ -52,16 +70,16 @@ const PricePointTableCard = (props) => {
 
     const savePricePointEdit = async () => {
         console.log("[pricePoint] put:", pricePointEdit);
-        // await putItemEdit({
-        //     data: pricePointEdit
-        // });
+        await putPricePoint({
+            data: pricePointEdit
+        });
         getPricePoints();
         togglePricePointEditOff();
     }
 
     const removePricePointEdit = async () => {
         console.log("[pricePoint] delete id:", editPricePointId);
-        // await deleteItemEdit();
+        await deletePricePoint();
         getPricePoints();
         togglePricePointEditOff();
     }
@@ -110,9 +128,64 @@ const PricePointTableCard = (props) => {
                                     return (
                                         <tr key={key}>
                                             <td key="id">{prop.id}</td>
-                                            <td key="pricePoint">{prop.price_point}</td>
-                                            <td key="alpha">{prop.alpha}</td>
-                                            <td key="beta">{prop.beta}</td>
+                                            {/* Price Point */}
+                                            {
+                                                (prop.id === editPricePointId) ?
+                                                    (
+                                                        <td>
+                                                            <FormControl
+                                                                name="price_point"
+                                                                rows="1"
+                                                                type="text"
+                                                                defaultValue={prop.price_point}
+                                                                onChange={(e) => onPricePointEdit(e)}
+                                                            />
+                                                        </td>
+                                                    )
+                                                    :
+                                                    (
+                                                        <td key="pricePoint">{prop.price_point}</td>
+                                                    )
+                                            }
+                                            {/* Alpha */}
+                                            {
+                                                (prop.id === editPricePointId) ?
+                                                    (
+                                                        <td>
+                                                            <FormControl
+                                                                name="alpha"
+                                                                rows="1"
+                                                                type="text"
+                                                                defaultValue={prop.alpha}
+                                                                onChange={(e) => onPricePointEdit(e)}
+                                                            />
+                                                        </td>
+                                                    )
+                                                    :
+                                                    (
+                                                        <td key="alpha">{prop.alpha}</td>
+                                                    )
+                                            }
+                                            {/* Beta*/}
+                                            {
+                                                (prop.id === editPricePointId) ?
+                                                    (
+                                                        <td>
+                                                            <FormControl
+                                                                name="beta"
+                                                                rows="1"
+                                                                type="text"
+                                                                defaultValue={prop.beta}
+                                                                onChange={(e) => onPricePointEdit(e)}
+                                                            />
+                                                        </td>
+                                                    )
+                                                    :
+                                                    (
+                                                        <td key="beta">{prop.price_point}</td>
+                                                    )
+                                            }
+                                            {/* Actions */}
                                             {
                                                 (prop.id === editPricePointId) ?
                                                     (
