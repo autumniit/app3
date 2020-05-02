@@ -97,8 +97,8 @@ const ItemTableCard = (props) => {
 
 
     // Safe loading
-    // if (l2) return <p>Loading...</p>
-    // if (e2) return <p>Error!</p>
+    if (l2) return <p>Loading...</p>
+    if (e2) return <p>Error!</p>
 
     var plain = false;
     var hCenter = false;
