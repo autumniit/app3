@@ -5,15 +5,18 @@ import { Grid, Row, Col } from "react-bootstrap";
 
 import { Route, Switch, BrowserRouter } from "react-router-dom"
 
-import useAxios from "axios-hooks"
+import useAxios, { configure } from "axios-hooks"
 import { API_URL } from "../constants";
 
 import StoreCard from "components/StoreCard/StoreCard.jsx";
 import StoreManage from "./StoreManage";
 
+configure({ cache: false })
+
 const StoreList = (props) => {
 
     const { loading, user } = useAuth0();
+
     const [{ data: allStores, loading: l1, error: e1 }, getAllStores] = useAxios(API_URL + "stores/");
 
     const [{ loading: l2, error: e2 }, postStore] = useAxios(
