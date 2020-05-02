@@ -66,14 +66,15 @@ const StoreManage = (props) => {
         <div className="content">
             <Grid fluid>
                 <Row>
-                    <Col md={8}>
-                        <ThompsonVisualizationGraphCard
-                            graphParams={graphParams}
-                            refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
+                    <Col md={4}>
+                        <ItemTableCard
+                            stores={props.stores}
+                            storeId={storeId}
+                            setPricePointId={setPricePointId}
                         />
                     </Col>
                     <Col md={4}>
-                        <Card
+                        {/* <Card
                             statsIcon="fa fa-clock-o"
                             title="Proportion of Items Sold"
                             category="Last Campaign Performance"
@@ -89,17 +90,11 @@ const StoreManage = (props) => {
                             legend={
                                 <div className="legend">{createLegend(legendPie)}</div>
                             }
-                        />
+                        /> */}
                     </Col>
                 </Row>
-                <Col md={5}>
-                    <ItemTableCard
-                        stores={props.stores}
-                        storeId={storeId}
-                        setPricePointId={setPricePointId}
-                    />
-                </Col>
-                <Col md={7}>
+
+                <Col md={6}>
                     <PricePointTableCard
                         storeId={storeId}
                         pricePointId={pricePointId}
@@ -107,6 +102,13 @@ const StoreManage = (props) => {
                         getGraphParams={getGraphParams}
                     />
                 </Col>
+                <Col md={6}>
+                    <ThompsonVisualizationGraphCard
+                        graphParams={graphParams}
+                        refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
+                    />
+                </Col>
+
             </Grid>
         </div>
     );
