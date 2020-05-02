@@ -94,17 +94,23 @@ const ItemTableCard = (props) => {
     // if (l2) return <p>Loading...</p>
     // if (e2) return <p>Error!</p>
 
+    var plain = false;
+    var hCenter = false;
+
     return (
-        <Card
-            title="Items"
-            category={(props.stores && props.storeId) ?
-                "Browse, add, or edit items for " + props.stores.find(obj => { return obj.id === parseInt(props.storeId) }).name + " here"
-                :
-                ""
-            }
-            ctTableFullWidth
-            ctTableResponsive
-            content={
+        <div className={"card" + (plain ? " card-plain" : "")}>
+            <div className={"header" + (hCenter ? " text-center" : "")}>
+                <h4 className="title">Items</h4>
+                <p className="category">{(props.stores && props.storeId) ?
+                    "Browse, add, or edit items for " + props.stores.find(obj => { return obj.id === parseInt(props.storeId) }).name + " here"
+                    :
+                    ""
+                }</p>
+            </div>
+            <div
+                className={"content"}
+            >
+
                 <Table hover >
                     <thead>
                         <tr>
@@ -180,9 +186,15 @@ const ItemTableCard = (props) => {
 
                     </tbody>
                 </Table>
-            }
-            refreshButton={<i className="pe-7s-refresh-2" onClick={() => reGetItems()} />}
-        />
+
+
+                <div className="footer">
+                    <div className="stats">
+                        {<i className="pe-7s-refresh-2" onClick={() => reGetItems()} />}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 

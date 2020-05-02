@@ -112,13 +112,18 @@ const PricePointTableCard = (props) => {
 
     if (e3) return <p>Error!</p>
 
+    var plain = false;
+    var hCenter = false;
+
     return (
-        <Card
-            title={pricePoints ? props.pricePointId + "'s Price Points" : "Price Points"}
-            category={pricePoints ? "Browse, add, or edit price points of " + props.pricePointId + " here" : "Select an item to manage its price points"}
-            ctTableFullWidth
-            ctTableResponsive
-            content={
+        <div className={"card" + (plain ? " card-plain" : "")}>
+            <div className={"header" + (hCenter ? " text-center" : "")}>
+                <h4 className="title">{pricePoints ? props.pricePointId + "'s Price Points" : "Price Points"}</h4>
+                <p className="category">{pricePoints ? "Browse, add, or edit price points of " + props.pricePointId + " here" : "Select an item to manage its price points"}</p>
+            </div>
+            <div
+                className={"content"}
+            >
                 <Table hover>
                     <thead>
                         <tr>
@@ -234,18 +239,16 @@ const PricePointTableCard = (props) => {
 
                     </tbody>
                 </Table>
-            }
-            refreshButton=
-            {
-                props.pricePointId ?
-                    (
-                        <i className="pe-7s-refresh-2" onClick={() => getPricePoints()} />
-                    )
-                    :
-                    null
-            }
 
-        />
+
+
+                <div className="footer">
+                    <div className="stats">
+                        {<i className="pe-7s-refresh-2" onClick={() => getPricePoints()} />}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
