@@ -54,7 +54,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/example" render={props => <ExampleLayout {...props} />} />
         <Route path="/" render={props => <MainLayout {...props} />} />
-        <Redirect from="/" to="/home" />
+        {/* <Redirect from="/" to="/home" /> */}
       </Switch>
     </BrowserRouter>
 
