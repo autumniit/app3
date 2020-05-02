@@ -38,9 +38,17 @@ const StoreManage = (props) => {
             { manual: true }
         );
 
+    const [{ data: graphParams, loading: l4, error: e4 }, getGraphParams]
+        = useAxios({
+            url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/thompson_graph",
+            method: "GET"
+        },
+            { manual: true }
+        );
+
     useEffect(() => {
         if (pricePointId) {
-            getPricePoints();
+            getGraphParams();
         }
     }, [pricePointId])
 
@@ -54,6 +62,8 @@ const StoreManage = (props) => {
         }
         return legend;
     }
+
+
 
     // if (l1) return <p>Loading...</p>
     // if (e1) return <p>Error!</p>
@@ -71,7 +81,7 @@ const StoreManage = (props) => {
                             stats="Updated 3 minutes ago"
                             content={
                                 <div className="ct-chart">
-                                    {pricePoints ?
+                                    {graphParams ?
                                         <CanvasJSChart options={
                                             {
                                                 animationEnabled: true,
@@ -94,13 +104,23 @@ const StoreManage = (props) => {
                                                             name: "Mean",
                                                             toolTipContent: "<b>{label}</b><br><span style=\"color:#4F81BC\">{name}</span>: {y}",
                                                             markerType: "none",
+                                                            showInLegend: true,
                                                             dataPoints:
-                                                                pricePoints.sort(function (a, b) {
-                                                                    return a.price_point - b.price_point;
-                                                                }).map(
-                                                                    obj => ({ y: parseFloat(obj.alpha) / parseFloat(obj.beta), x: parseFloat(obj.price_point) })
+                                                                graphParams.map(
+                                                                    obj => ({ y: obj.mean, x: obj.price_point })
                                                                 )
                                                         },
+                                                        {
+                                                            type: "error",
+                                                            name: "CI95",
+                                                            showInLegend: true,
+                                                            toolTipContent: "<span style=\"color:#C0504E\">{name}</span>: {y[0]} - {y[1]}",
+                                                            dataPoints:
+                                                                graphParams.map(
+                                                                    obj => ({ y: [obj.a, obj.b], x: obj.price_point })
+                                                                )
+
+                                                        }
                                                     ]
                                             }
                                         }
@@ -148,6 +168,7 @@ const StoreManage = (props) => {
                         storeId={storeId}
                         pricePointId={pricePointId}
                         getPricePoints={getPricePoints}
+                        getGraphParams={getGraphParams}
                     />
                 </Col>
             </Grid>

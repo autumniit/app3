@@ -75,6 +75,7 @@ const PricePointTableCard = (props) => {
         });
         getPricePoints();
         props.getPricePoints();
+        props.getGraphParams();
         togglePricePointEditOff();
     }
 
@@ -83,6 +84,7 @@ const PricePointTableCard = (props) => {
         await deletePricePoint();
         getPricePoints();
         props.getPricePoints();
+        props.getGraphParams();
         togglePricePointEditOff();
     }
 
@@ -98,6 +100,7 @@ const PricePointTableCard = (props) => {
         await postPricePoints({ data: pricePoint });
         getPricePoints();
         props.getPricePoints();
+        props.getGraphParams();
     }
 
     // Safe loading
