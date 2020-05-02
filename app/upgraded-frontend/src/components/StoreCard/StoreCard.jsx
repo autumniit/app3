@@ -37,6 +37,7 @@ const StoreCard = (props) => {
 
             <EditStoreModal
               store={props.store}
+              getAllStores={props.getAllStores}
             />
           </div>
         </div>

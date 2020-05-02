@@ -85,6 +85,7 @@ const StoreList = (props) => {
                                                     statsIconText="Updated just now"
                                                     settingIcon={<i className="pe-7s-config" />}
                                                     removeStore={removeStore}
+                                                    getAllStores={getAllStores}
                                                 />
                                             </Col>
                                         ))
