@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ChartistGraph from "react-chartist";
-import { Grid, Row, Col, Table, FormControl } from "react-bootstrap";
+import { Grid, Row, Col, Spinner } from "react-bootstrap";
 
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
 import { useParams } from "react-router-dom";
-import { Card } from "components/Card/Card.jsx";
 import ItemTableCard from "components/ItemTableCard/ItemTableCard.jsx";
 import PricePointTableCard from "components/PricePointTableCard/PricePointTableCard.jsx";
 import ThompsonVisualizationGraphCard from "components/ThompsonVisualizationGraphCard/ThompsonVisualizationGraphCard.jsx"
-
-import {
-    dataPie,
-    legendPie,
-} from "variables/Variables.jsx";
 
 
 const StoreManage = (props) => {
@@ -21,19 +14,9 @@ const StoreManage = (props) => {
     const { storeId } = useParams();
     const [pricePointId, setPricePointId] = useState();
 
-    // const [{ data: stores, loading: l1, error: e1 }] = useAxios(API_URL + "stores/");
-
     // Axios Hooks -----
 
-    const [{ data: pricePoints, loading: l3, error: e3 }, getPricePoints]
-        = useAxios({
-            url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/price_points",
-            method: "GET"
-        },
-            { manual: true }
-        );
-
-    const [{ data: graphParams, loading: l4, error: e4 }, getGraphParams]
+    const [{ data: graphParams, loading, error }, getGraphParams]
         = useAxios({
             url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/thompson_graph",
             method: "GET"
@@ -48,19 +31,8 @@ const StoreManage = (props) => {
     }, [pricePointId])
 
 
-    const createLegend = (json) => {
-        var legend = [];
-        for (var i = 0; i < json["names"].length; i++) {
-            var type = "fa fa-circle text-" + json["types"][i];
-            legend.push(<i className={type} key={i} />);
-            legend.push(" ");
-            legend.push(json["names"][i]);
-        }
-        return legend;
-    }
-
-    // if (l1) return <p>Loading...</p>
-    // if (e1) return <p>Error!</p>
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Error!</p>
 
     return (
         <div className="content">
@@ -98,7 +70,6 @@ const StoreManage = (props) => {
                     <PricePointTableCard
                         storeId={storeId}
                         pricePointId={pricePointId}
-                        getPricePoints={getPricePoints}
                         getGraphParams={getGraphParams}
                     />
                 </Col>

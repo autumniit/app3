@@ -81,7 +81,6 @@ const PricePointTableCard = (props) => {
             data: pricePointEdit
         });
         getPricePointsWrapper();
-        props.getPricePoints();
         props.getGraphParams();
         togglePricePointEditOff();
     }
@@ -90,7 +89,6 @@ const PricePointTableCard = (props) => {
         console.log("[pricePoint] delete id:", editPricePointId);
         await deletePricePoint();
         getPricePointsWrapper();
-        props.getPricePoints();
         props.getGraphParams();
         togglePricePointEditOff();
     }
@@ -106,7 +104,6 @@ const PricePointTableCard = (props) => {
         console.log("[pricePoint] add:", pricePoint);
         await postPricePoints({ data: pricePoint });
         getPricePointsWrapper();
-        props.getPricePoints();
         props.getGraphParams();
     }
 
