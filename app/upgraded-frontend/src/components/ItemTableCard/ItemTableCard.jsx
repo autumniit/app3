@@ -14,6 +14,10 @@ const ItemTableCard = (props) => {
 
     const [{ data: items, loading: l2, error: e2 }, reGetItems] = useAxios(API_URL + "stores/" + props.storeId + "/items/");
 
+    useEffect(() => {
+        reGetItems();
+    }, [])
+
     const [{ loading: l4, error: e4 }, putItemEdit]
         = useAxios({
             url: API_URL + "stores/" + props.storeId + "/items/" + editItemId,

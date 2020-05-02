@@ -101,14 +101,14 @@ const dashboardRoutes = [
     layout: "",
     requireAuth: true,
   },
-  {
-    path: "/store/:storeId",
-    name: "Store Manage",
-    icon: "pe-7s-box2",
-    component: StoreManage,
-    layout: "",
-    redirect: true
-  },
+  // {
+  //   path: "/store/:storeId",
+  //   name: "Store Manage",
+  //   icon: "pe-7s-box2",
+  //   component: StoreManage,
+  //   layout: "",
+  //   redirect: true
+  // },
   {
     path: "/unityconnect",
     name: "Connect to Unity",

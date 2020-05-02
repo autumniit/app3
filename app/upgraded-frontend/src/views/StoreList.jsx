@@ -3,10 +3,13 @@ import { useAuth0 } from "../react-auth0-spa";
 import React, { useEffect, useState } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
+import { Route, Switch, BrowserRouter } from "react-router-dom"
+
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
 
 import StoreCard from "components/StoreCard/StoreCard.jsx";
+import StoreManage from "./StoreManage";
 
 const StoreList = (props) => {
 
@@ -21,6 +24,15 @@ const StoreList = (props) => {
         { manual: true }
     );
 
+    const [{ loading: l3, error: e3 }, deleteStore] = useAxios(
+        {
+            url: API_URL + "stores/",
+            method: "DELETE"
+        },
+        { manual: true }
+    );
+
+
     const addStore = async () => {
         var store = {
             id: 0,
@@ -30,6 +42,14 @@ const StoreList = (props) => {
         }
         console.log("[store] add: ", store);
         await postStore({ data: store });
+        getAllStores();
+    }
+
+    const removeStore = async (storeId) => {
+        console.log("[store] delete id: ", storeId);
+        await deleteStore({
+            url: API_URL + "stores/" + storeId
+        });
         getAllStores();
     }
 
@@ -44,30 +64,51 @@ const StoreList = (props) => {
     )
 
     return (
-        <div className="content">
-            <Grid fluid>
-                <Row>
-                    {(allStores && allStores.filter(obj => { return obj.owner_id === user.email })) ?
-                        allStores.map((store, key) => (
-                            <Col lg={3} sm={6} key={key}>
-                                <StoreCard
-                                    store={store}
-                                    bigIcon={<i className="pe-7s-cart text-success" />}
-                                    statsIcon={<i className="fa fa-refresh" />}
-                                    statsIconText="Updated just now"
-                                    settingIcon={<i className="pe-7s-config" />}
-                                />
-                            </Col>
-                        ))
-                        :
-                        "Nothing to display"
-                    }
-                </Row>
-                <Row>
-                    <i className="pe-7s-plus" onClick={() => addStore()} />
-                </Row>
-            </Grid>
-        </div>
+        <BrowserRouter>
+            <Switch>
+                <Route
+                    path="/stores"
+                    render={props => (
+                        <div className="content">
+                            <Grid fluid>
+                                <Row>
+                                    {(allStores && allStores.filter(obj => { return obj.owner_id === user.email })) ?
+                                        allStores.map((store, key) => (
+                                            <Col lg={3} sm={6} key={key}>
+                                                <StoreCard
+                                                    store={store}
+                                                    bigIcon={<i className="pe-7s-cart text-success" />}
+                                                    statsIcon={<i className="fa fa-refresh" />}
+                                                    statsIconText="Updated just now"
+                                                    settingIcon={<i className="pe-7s-config" />}
+                                                    removeStore={removeStore}
+                                                />
+                                            </Col>
+                                        ))
+                                        :
+                                        "Nothing to display"
+                                    }
+                                </Row>
+                                <Row>
+                                    <i className="pe-7s-plus" onClick={() => addStore()} />
+                                </Row>
+                            </Grid>
+                        </div>
+                    )}
+                />
+
+                <Route
+                    path="/store/:storeId"
+                    render={props => (
+                        <StoreManage
+                            stores={allStores}
+                        />
+                    )}
+                />
+
+            </Switch>
+        </BrowserRouter>
+
     );
 }
 

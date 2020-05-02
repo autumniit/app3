@@ -28,11 +28,13 @@ const StoreCard = (props) => {
           <div className="stats pull-right">
 
             <NavLink
-              to= {"/store/" + props.store.id}
+              to={"/store/" + props.store.id}
             >
               <i className="pe-7s-graph2" />
             </NavLink>
-            
+
+            <i className="pe-7s-trash" onClick={() => props.removeStore(props.store.id)} />
+
             <EditStoreModal
               store={props.store}
             />
