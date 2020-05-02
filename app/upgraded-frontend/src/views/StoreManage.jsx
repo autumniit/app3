@@ -16,6 +16,11 @@ import {
     legendSales,
 } from "variables/Variables.jsx";
 
+import CanvasJSReact from 'assets/canvasjs.react';
+//var CanvasJSReact = require('./canvasjs.react');
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 const StoreManage = (props) => {
 
     const { storeId } = useParams();
@@ -66,42 +71,44 @@ const StoreManage = (props) => {
                             stats="Updated 3 minutes ago"
                             content={
                                 <div className="ct-chart">
-                                    <ChartistGraph
-                                        data=
-                                        {
-                                            pricePoints ?
-                                                {
-                                                    labels: pricePoints.map(obj => obj.price_point),
-                                                    series: [pricePoints.map(obj => (obj.alpha / obj.beta))]
-                                                }
-                                                :
-                                                {
-                                                    labels: [],
-                                                    series: []
-                                                }
-                                        }
-                                        type="Line"
-                                        options={
+                                    {pricePoints ?
+                                        <CanvasJSChart options={
                                             {
-                                                low: 0,
-                                                high: 20,
-                                                showArea: false,
-                                                height: "245px",
+                                                animationEnabled: true,
                                                 axisX: {
-                                                    type: ChartistGraph.AutoScaleAxis,
-                                                    showGrid: true,
+                                                    // interval: 1,
+                                                    tickLength: 10
                                                 },
-                                                lineSmooth: false,
-                                                showLine: true,
-                                                showPoint: true,
-                                                fullWidth: true,
-                                                chartPadding: {
-                                                    right: 50
-                                                }
+                                                axisY: {
+                                                    title: "Units Sold",
+                                                    suffix: "",
+                                                    includeZero: false
+                                                },
+                                                toolTip: {
+                                                    shared: true
+                                                },
+                                                data:
+                                                    [
+                                                        {
+                                                            type: "line",
+                                                            name: "Mean",
+                                                            toolTipContent: "<b>{label}</b><br><span style=\"color:#4F81BC\">{name}</span>: {y}",
+                                                            markerType: "none",
+                                                            dataPoints:
+                                                                pricePoints.sort(function (a, b) {
+                                                                    return a.price_point - b.price_point;
+                                                                }).map(
+                                                                    obj => ({ y: parseFloat(obj.alpha) / parseFloat(obj.beta), x: parseFloat(obj.price_point) })
+                                                                )
+                                                        },
+                                                    ]
                                             }
                                         }
-                                        responsiveOptions={responsiveSales}
-                                    />
+                                        />
+                                        :
+                                        null
+                                    }
+
                                 </div>
                             }
                             legend={
