@@ -27,7 +27,7 @@ const StoreManage = (props) => {
 
     const [{ data: pricePoints, loading: l3, error: e3 }, getPricePoints]
         = useAxios({
-            url: API_URL + "stores/" + 40 + "/items/" + pricePointId + "/price_points",
+            url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/price_points",
             method: "GET"
         },
             { manual: true }
