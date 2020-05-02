@@ -8,6 +8,10 @@ const ThompsonVisualizationGraphCard = (props) => {
 
     var plain = false;
     var hCenter = false;
+
+    if(props.loading) return <p>Loading...</p>
+    if(props.error) return <p>Error!</p>
+
     return (
         <div className={"card" + (plain ? " card-plain" : "")}>
             <div className={"header" + (hCenter ? " text-center" : "")}>

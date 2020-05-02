@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Row, Col, Spinner } from "react-bootstrap";
+import { Grid, Row, Col } from "react-bootstrap";
 
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
@@ -31,8 +31,8 @@ const StoreManage = (props) => {
     }, [pricePointId])
 
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error!</p>
+    // if (loading) return <p>Loading...</p>
+    // if (error) return <p>Error!</p>
 
     return (
         <div className="content">
@@ -75,6 +75,8 @@ const StoreManage = (props) => {
                 </Col>
                 <Col md={6}>
                     <ThompsonVisualizationGraphCard
+                        loading={loading}
+                        error={error}
                         graphParams={graphParams}
                         refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
                     />
