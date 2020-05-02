@@ -28,35 +28,16 @@ const Sidebar = (props) => {
 
   const { isAuthenticated } = useAuth0();
 
-  const [width, setWidth] = useState(window.innerWidth);
-
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
-  const updateDimensions = () => {
-    setWidth(window.innerWidth);
-  }
 
-  useEffect(() => {
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions.bind());
-  }, [])
-
-  const sidebarBackground = {
-    backgroundImage: "url(" + props.image + ")"
-  };
   return (
     <div
       id="sidebar"
       className="sidebar"
       data-color={props.color}
-      data-image={props.image}
     >
-      {props.hasImage ? (
-        <div className="sidebar-background" style={sidebarBackground} />
-      ) : (
-          null
-        )}
       <div className="logo">
         <div className="simple-text">
           <div className="logo-img">
@@ -67,7 +48,6 @@ const Sidebar = (props) => {
       </div>
       <div className="sidebar-wrapper">
         <ul className="nav">
-          {width <= 991 ? <AdminNavbarLinks /> : null}
           {props.routes.map((prop, key) => {
             if (!prop.redirect && !prop.authentication && !prop.example) {
               if (prop.requireAuth && !isAuthenticated) {
@@ -76,9 +56,7 @@ const Sidebar = (props) => {
               return (
                 <li
                   className={
-                    prop.upgrade
-                      ? "active active-pro"
-                      : activeRoute(prop.layout + prop.path)
+                    activeRoute(prop.layout + prop.path)
                   }
                   key={key}
                 >

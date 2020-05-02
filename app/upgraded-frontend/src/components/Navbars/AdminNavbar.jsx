@@ -53,9 +53,9 @@ class Header extends Component {
           </Navbar.Brand>
           <Navbar.Toggle onClick={this.mobileSidebarToggle} />
         </Navbar.Header>
-        <Navbar.Collapse>
+        {/* <Navbar.Collapse>
           <AdminNavbarLinks />
-        </Navbar.Collapse>
+        </Navbar.Collapse> */}
       </Navbar>
     );
   }
