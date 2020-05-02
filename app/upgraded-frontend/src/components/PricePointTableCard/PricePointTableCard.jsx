@@ -9,6 +9,7 @@ const PricePointTableCard = (props) => {
 
     const [pricePointEdit, setPricePointEdit] = useState()
     const [editPricePointId, setEditPricePointId] = useState();
+    const [lastRefreshedTime, setLastRefreshedTime] = useState(new Date().toLocaleString());
 
     // Axios Hooks -----
 
@@ -19,6 +20,12 @@ const PricePointTableCard = (props) => {
         },
             { manual: true }
         );
+
+    const getPricePointsWrapper = () => {
+        setLastRefreshedTime(new Date().toLocaleString());
+        getPricePoints();
+    }
+
 
     const [{ loading: l4, error: e4 }, postPricePoints]
         = useAxios({
@@ -47,7 +54,7 @@ const PricePointTableCard = (props) => {
 
     useEffect(() => {
         if (props.pricePointId) {
-            getPricePoints();
+            getPricePointsWrapper();
         }
     }, [props.pricePointId])
 
@@ -73,7 +80,7 @@ const PricePointTableCard = (props) => {
         await putPricePoint({
             data: pricePointEdit
         });
-        getPricePoints();
+        getPricePointsWrapper();
         props.getPricePoints();
         props.getGraphParams();
         togglePricePointEditOff();
@@ -82,7 +89,7 @@ const PricePointTableCard = (props) => {
     const removePricePointEdit = async () => {
         console.log("[pricePoint] delete id:", editPricePointId);
         await deletePricePoint();
-        getPricePoints();
+        getPricePointsWrapper();
         props.getPricePoints();
         props.getGraphParams();
         togglePricePointEditOff();
@@ -98,7 +105,7 @@ const PricePointTableCard = (props) => {
         }
         console.log("[pricePoint] add:", pricePoint);
         await postPricePoints({ data: pricePoint });
-        getPricePoints();
+        getPricePointsWrapper();
         props.getPricePoints();
         props.getGraphParams();
     }
@@ -240,13 +247,19 @@ const PricePointTableCard = (props) => {
                     </tbody>
                 </Table>
 
+                {
 
-
-                <div className="footer">
-                    <div className="stats">
-                        {<i className="pe-7s-refresh-2" onClick={() => getPricePoints()} />}
-                    </div>
-                </div>
+                    props.pricePointId ?
+                        (
+                            <div className="footer">
+                                <div className="stats">
+                                    <i className="pe-7s-refresh-2" onClick={() => getPricePointsWrapper()} />Last refreshed: {lastRefreshedTime}
+                                </div>
+                            </div>
+                        )
+                        :
+                        null
+                }
             </div>
         </div>
     );

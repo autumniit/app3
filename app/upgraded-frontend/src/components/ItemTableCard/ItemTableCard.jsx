@@ -7,15 +7,21 @@ import { Card } from "components/Card/Card.jsx";
 
 const ItemTableCard = (props) => {
 
-    const [itemEdit, setItemEdit] = useState()
+    const [itemEdit, setItemEdit] = useState();
     const [editItemId, setEditItemId] = useState();
+    const [lastRefreshedTime, setLastRefreshedTime] = useState(new Date().toLocaleString());
 
     // Axios Hooks -----
 
     const [{ data: items, loading: l2, error: e2 }, reGetItems] = useAxios(API_URL + "stores/" + props.storeId + "/items/");
 
-    useEffect(() => {
+    const reGetItemsWrapper = () =>{
+        setLastRefreshedTime(new Date().toLocaleString());
         reGetItems();
+    }
+
+    useEffect(() => {
+        reGetItemsWrapper();
     }, [])
 
     const [{ loading: l4, error: e4 }, putItemEdit]
@@ -66,14 +72,14 @@ const ItemTableCard = (props) => {
         await putItemEdit({
             data: itemEdit
         });
-        reGetItems();
+        reGetItemsWrapper();
         toggleItemEditOff();
     }
 
     const removeItemEdit = async () => {
         console.log("[item] delete id:", editItemId);
         await deleteItemEdit();
-        reGetItems();
+        reGetItemsWrapper();
         toggleItemEditOff();
     }
 
@@ -86,7 +92,7 @@ const ItemTableCard = (props) => {
         }
         console.log("[item] add:", item);
         await postItem({ data: item });
-        reGetItems();
+        reGetItemsWrapper();
     }
 
 
@@ -190,7 +196,7 @@ const ItemTableCard = (props) => {
 
                 <div className="footer">
                     <div className="stats">
-                        {<i className="pe-7s-refresh-2" onClick={() => reGetItems()} />}
+                        {<i className="pe-7s-refresh-2" onClick={() => reGetItemsWrapper()} />} Last refreshed: {lastRefreshedTime}
                     </div>
                 </div>
             </div>
