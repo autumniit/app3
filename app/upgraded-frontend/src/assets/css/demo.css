@@ -343,6 +343,14 @@
         position: absolute;
     }
 
+    .code{
+      transform: translateY(-60%);
+      top: 50%;
+      left: 0px;
+      position: absolute;
+      font-family: monospace;
+  }
+
     .fixed-plugin{
         top: 300px;
     }

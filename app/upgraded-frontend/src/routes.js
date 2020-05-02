@@ -23,6 +23,7 @@ import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 
+import Home from "views/Home.jsx"
 import StoreList from "views/StoreList.jsx";
 import StoreManage from "views/StoreManage.jsx";
 import Profile from "views/Profile.jsx";
@@ -90,7 +91,7 @@ const dashboardRoutes = [
     path: "/home",
     name: "Home",
     icon: "pe-7s-home",
-    component: UnityConnect,
+    component: Home,
     layout: "",
   },
   {
