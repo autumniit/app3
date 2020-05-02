@@ -6,11 +6,12 @@ from rest_framework.decorators import api_view
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from decimal import Decimal
+import json
 
 # MODEL
-from .thompson_util import get_updated_params, get_sample_demands_from_model, get_optimal_price_point_idx
+from .thompson_util import get_updated_params, get_sample_demands_from_model, get_optimal_price_point_idx, get_thompson_graph_parameters
 
 
 @api_view(['GET', 'POST'])
@@ -197,4 +198,16 @@ def create_sales_log(request, store_id, item_id):
     log = SalesLog(item=item, price_point=price_point)
     log.save()
 
-    return HttpResponse("success!") # print status text
+    return HttpResponse("success!")  # print status text
+
+
+@csrf_exempt
+def thompson_graph(request, store_id, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    price_points = item.pricepoint_set.all().values()
+    sorted_price_points = sorted(
+        price_points, key=lambda price_point: price_point["price_point"])
+
+    result = list(map(get_thompson_graph_parameters, sorted_price_points))
+
+    return JsonResponse(result, safe=False)

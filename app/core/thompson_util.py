@@ -1,4 +1,7 @@
 import numpy as np
+from scipy.stats import gamma
+from decimal import Decimal
+
 
 def get_sample_demands_from_model(p_theta):
     return list(map(lambda v:
@@ -18,3 +21,17 @@ def get_updated_params(observed_demand, old_alpha, old_beta):
     new_alpha = old_alpha + observed_demand
     new_beta = old_beta + 1
     return new_alpha, new_beta
+
+
+def get_thompson_graph_parameters(price_point):
+    shape = float(price_point['alpha'])
+    scale = float(Decimal(1.0)/price_point['beta'])
+
+    # CI 95
+    a = gamma.ppf(0.025, shape, 0, scale)
+    b = gamma.ppf(0.975, shape, 0, scale)
+
+    mean = float(price_point['alpha']/price_point['beta'])
+    pp = float(price_point['price_point'])
+
+    return {'price_point': pp , 'mean': mean, 'a': a, 'b': b}
