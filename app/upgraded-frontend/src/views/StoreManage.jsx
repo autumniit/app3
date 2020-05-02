@@ -8,18 +8,13 @@ import { useParams } from "react-router-dom";
 import { Card } from "components/Card/Card.jsx";
 import ItemTableCard from "components/ItemTableCard/ItemTableCard.jsx";
 import PricePointTableCard from "components/PricePointTableCard/PricePointTableCard.jsx";
+import ThompsonVisualizationGraphCard from "components/ThompsonVisualizationGraphCard/ThompsonVisualizationGraphCard.jsx"
 
 import {
     dataPie,
     legendPie,
-    responsiveSales,
-    legendSales,
 } from "variables/Variables.jsx";
 
-import CanvasJSReact from 'assets/canvasjs.react';
-//var CanvasJSReact = require('./canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const StoreManage = (props) => {
 
@@ -52,6 +47,7 @@ const StoreManage = (props) => {
         }
     }, [pricePointId])
 
+
     const createLegend = (json) => {
         var legend = [];
         for (var i = 0; i < json["names"].length; i++) {
@@ -63,8 +59,6 @@ const StoreManage = (props) => {
         return legend;
     }
 
-
-
     // if (l1) return <p>Loading...</p>
     // if (e1) return <p>Error!</p>
 
@@ -73,67 +67,9 @@ const StoreManage = (props) => {
             <Grid fluid>
                 <Row>
                     <Col md={8}>
-                        <Card
-                            statsIcon="fa fa-history"
-                            id="chartHours"
-                            title="Sales"
-                            category="24 Hours performance"
-                            stats="Updated 3 minutes ago"
-                            content={
-                                <div className="ct-chart">
-                                    {graphParams ?
-                                        <CanvasJSChart options={
-                                            {
-                                                animationEnabled: true,
-                                                axisX: {
-                                                    // interval: 1,
-                                                    tickLength: 10
-                                                },
-                                                axisY: {
-                                                    title: "Units Sold",
-                                                    suffix: "",
-                                                    includeZero: false
-                                                },
-                                                toolTip: {
-                                                    shared: true
-                                                },
-                                                data:
-                                                    [
-                                                        {
-                                                            type: "line",
-                                                            name: "Mean",
-                                                            toolTipContent: "<b>{label}</b><br><span style=\"color:#4F81BC\">{name}</span>: {y}",
-                                                            markerType: "none",
-                                                            showInLegend: true,
-                                                            dataPoints:
-                                                                graphParams.map(
-                                                                    obj => ({ y: obj.mean, x: obj.price_point })
-                                                                )
-                                                        },
-                                                        {
-                                                            type: "error",
-                                                            name: "CI95",
-                                                            showInLegend: true,
-                                                            toolTipContent: "<span style=\"color:#C0504E\">{name}</span>: {y[0]} - {y[1]}",
-                                                            dataPoints:
-                                                                graphParams.map(
-                                                                    obj => ({ y: [obj.a, obj.b], x: obj.price_point })
-                                                                )
-
-                                                        }
-                                                    ]
-                                            }
-                                        }
-                                        />
-                                        :
-                                        null
-                                    }
-
-                                </div>
-                            }
-                            legend={
-                                <div className="legend">{createLegend(legendSales)}</div>
-                            }
+                        <ThompsonVisualizationGraphCard
+                            graphParams={graphParams}
+                            refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
                         />
                     </Col>
                     <Col md={4}>
