@@ -83,7 +83,6 @@ class Main extends Component {
               <prop.component
                 {...props}
                 handleClick={this.handleNotificationClick}
-                // getRoutes={this.getRoutes}
               />
             )}
             key={key}
@@ -130,11 +129,11 @@ class Main extends Component {
       title: <span data-notify="icon" className="pe-7s-door-lock" />,
       message: (
         <div>
-          Welcome to <b>Dynamic Pricing Application</b>! Please log in to continue.
+          Welcome to <b>Dynamic Pricing Application</b>!
         </div>
       ),
       level: "info",
-      position: "bc",
+      position: "tc",
       autoDismiss: 10
     });
   }
