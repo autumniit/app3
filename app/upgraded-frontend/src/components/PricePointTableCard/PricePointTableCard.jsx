@@ -98,7 +98,7 @@ const PricePointTableCard = (props) => {
             id: 0,
             price_point: 0,
             alpha: 10,
-            beta: 10,
+            beta: 1,
             item: props.pricePointId,
         }
         console.log("[pricePoint] add:", pricePoint);
