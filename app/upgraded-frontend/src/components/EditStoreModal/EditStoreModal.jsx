@@ -40,8 +40,8 @@ const EditStoreModal = (props) => {
   return (
     <Fragment>
 
-      <Button simple>
-        <i className="fa fa-gear" onClick={handleShow} />
+      <Button simple onClick={handleShow}>
+        <i className="fa fa-gear" />
       </Button>
 
       <Modal show={show} onHide={handleClose}>

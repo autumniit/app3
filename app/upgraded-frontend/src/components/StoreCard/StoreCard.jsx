@@ -45,7 +45,7 @@ const StoreCard = (props) => {
               getAllStores={props.getAllStores}
             />
 
-            <Button simple><i className="pe-7s-trash" onClick={() => props.removeStore(props.store.id)} /></Button>
+            <Button simple onClick={() => props.removeStore(props.store.id)}><i className="pe-7s-trash" /></Button>
 
 
           </div>
