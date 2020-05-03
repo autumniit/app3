@@ -1,0 +1,41 @@
+// DPAppIntegratorScript.cs
+
+public class DPAppIntegrator : MonoBehaviour
+{
+    private const string apiUrlTemplate = "http://localhost:8000/api/stores/{0}/items/{1}/recalculate";
+
+    public void ModelUpdate(int storeId, int itemId, int demand, Action<string> callback)
+    {
+        StartCoroutine(SendRecalculateRequest(storeId, itemId, demand, callback));
+    }
+
+    IEnumerator SendRecalculateRequest(int storeId, int itemId, int demand, Action<string> callback)
+    {
+        WWWForm form = new WWWForm();
+
+        //Add form data here
+        form.AddField("demand", demand);
+
+        string apiUrl = string.Format(apiUrlTemplate, storeId, itemId);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(apiUrl, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+                //callback(null);
+                callback("error");
+            }
+            else
+            {
+                Debug.Log("SendPost() complete!");
+                callback(www.downloadHandler.text);
+                //callback("updated text");
+            }
+        }
+    }
+
+    // API for each purchase (sales log)
+}

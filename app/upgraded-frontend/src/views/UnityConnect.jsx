@@ -1,9 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
 
 const UnityConnect = () => {
+
+  var r;
+  const [text, setText] = useState("")
+  useEffect(async () => {
+    r = await fetch('/sample.txt')
+    setText(await r.text())
+  }, [])
+
 
   return (
     <>
@@ -35,11 +43,10 @@ const UnityConnect = () => {
                 {
                   <div className="typo-line">
                     <p className="code">
-                      Lorem ipsum dolor sit amet, consectetuer adipiscing
-                      elit, sed diam nonummy nibh euismod tincidunt ut
-                      laoreet dolore magna aliquam erat volutpat. Ut wisi
-                      enim ad minim veniam.
-                  </p>
+
+                      {text}
+
+                    </p>
                   </div>
                 }
               />
