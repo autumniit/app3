@@ -28,17 +28,19 @@ const StoreCard = (props) => {
           </div>
           <div className="stats pull-right">
 
-            <Button simple>
-              <NavLink
-                activeStyle={{
-                  fontWeight: "bold",
-                  color: "red"
-                }}
-                to={"/store/" + props.store.id}
-              >
+
+            <NavLink
+              activeStyle={{
+                fontWeight: "bold",
+                color: "red"
+              }}
+              to={"/store/" + props.store.id}
+            >
+              <Button simple>
                 <i className="pe-7s-note" />
-              </NavLink>
-            </Button>
+              </Button>
+            </NavLink>
+
 
             <EditStoreModal
               store={props.store}

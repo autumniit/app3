@@ -81,7 +81,7 @@ const StoreList = (props) => {
                                             <Col lg={3} sm={6} key={key}>
                                                 <StoreCard
                                                     store={store}
-                                                    bigIcon={<i className="pe-7s-cart text-success" />}
+                                                    bigIcon={<i className="pe-7s-cart" />}
                                                     statsIcon={<i className="fa fa-refresh" />}
                                                     statsIconText="Updated just now"
                                                     settingIcon={<i className="pe-7s-config" />}
