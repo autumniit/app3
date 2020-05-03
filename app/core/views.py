@@ -135,8 +135,10 @@ def price_points_detail(request, store_id, item_id, price_point_id):
 
 
 # MODEL
-@csrf_exempt
+# @csrf_exempt
+@api_view(['POST'])
 def recalculate(request, store_id, item_id):
+
 
     print("___________________________")
     print("___Recalculation Details___")
@@ -147,7 +149,8 @@ def recalculate(request, store_id, item_id):
 
     # get new_demand from request obj
     # Consider changing to different post field
-    observed_demand = Decimal(request.POST["demand"])
+    # observed_demand = Decimal(request.POST["demand"])
+    observed_demand = Decimal(request.data["demand"])
     print("observed demand: ", observed_demand)
 
     # attempt to update the old price point's parameters with new demand observed
