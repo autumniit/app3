@@ -27,7 +27,8 @@ import Home from "views/Home.jsx"
 import StoreList from "views/StoreList.jsx";
 import StoreManage from "views/StoreManage.jsx";
 import Profile from "views/Profile.jsx";
-import UnityConnect from "views/UnityConnect.jsx"
+import UnityConnect from "views/UnityConnect.jsx";
+import Simulation from "views/Simulation.jsx";
 
 const dashboardRoutes = [
   {
@@ -125,6 +126,13 @@ const dashboardRoutes = [
     component: Profile,
     layout: "",
     requireAuth: true,
+  },
+  {
+    path: "/dev/simulate",
+    name: "Real-World Store Simulation",
+    component: Simulation,
+    layout: "",
+    redirect: true
   },
 ];
 
