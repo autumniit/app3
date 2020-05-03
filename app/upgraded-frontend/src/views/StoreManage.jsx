@@ -13,6 +13,7 @@ const StoreManage = (props) => {
 
     const { storeId } = useParams();
     const [pricePointId, setPricePointId] = useState();
+    const [lastRefreshedTime, setLastRefreshedTime] = useState(new Date().toLocaleString());
 
     // Axios Hooks -----
 
@@ -26,9 +27,14 @@ const StoreManage = (props) => {
 
     useEffect(() => {
         if (pricePointId) {
-            getGraphParams();
+            getGraphParamsWrapper();
         }
     }, [pricePointId])
+
+    const getGraphParamsWrapper = () => {
+        setLastRefreshedTime(new Date().toLocaleString());
+        getGraphParams();
+    }
 
 
     // if (loading) return <p>Loading...</p>
@@ -43,7 +49,8 @@ const StoreManage = (props) => {
                             loading={loading}
                             error={error}
                             graphParams={graphParams}
-                            refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
+                            getGraphParamsWrapper={getGraphParamsWrapper}
+                            lastRefreshedTime={lastRefreshedTime}
                         />
                     </Col>
                     <Col md={6}>
@@ -51,7 +58,8 @@ const StoreManage = (props) => {
                             loading={loading}
                             error={error}
                             graphParams={graphParams}
-                            refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
+                            getGraphParamsWrapper={getGraphParamsWrapper}
+                            lastRefreshedTime={lastRefreshedTime}
                         />
                         {/* <Card
                             statsIcon="fa fa-clock-o"
@@ -85,7 +93,7 @@ const StoreManage = (props) => {
                         <PricePointTableCard
                             storeId={storeId}
                             pricePointId={pricePointId}
-                            getGraphParams={getGraphParams}
+                            getGraphParams={getGraphParamsWrapper}
                         />
 
                     </Col>
