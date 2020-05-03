@@ -38,14 +38,21 @@ const StoreManage = (props) => {
         <div className="content">
             <Grid fluid>
                 <Row>
-                    <Col md={4}>
-                        <ItemTableCard
-                            stores={props.stores}
-                            storeId={storeId}
-                            setPricePointId={setPricePointId}
+                    <Col md={6}>
+                        <ThompsonVisualizationGraphCard
+                            loading={loading}
+                            error={error}
+                            graphParams={graphParams}
+                            refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
                         />
                     </Col>
-                    <Col md={4}>
+                    <Col md={6}>
+                        <ThompsonVisualizationGraphCard
+                            loading={loading}
+                            error={error}
+                            graphParams={graphParams}
+                            refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
+                        />
                         {/* <Card
                             statsIcon="fa fa-clock-o"
                             title="Proportion of Items Sold"
@@ -65,22 +72,25 @@ const StoreManage = (props) => {
                         /> */}
                     </Col>
                 </Row>
+                <Row>
+                    <Col md={6}>
+                        <ItemTableCard
+                            stores={props.stores}
+                            storeId={storeId}
+                            setPricePointId={setPricePointId}
+                        />
 
-                <Col md={6}>
-                    <PricePointTableCard
-                        storeId={storeId}
-                        pricePointId={pricePointId}
-                        getGraphParams={getGraphParams}
-                    />
-                </Col>
-                <Col md={6}>
-                    <ThompsonVisualizationGraphCard
-                        loading={loading}
-                        error={error}
-                        graphParams={graphParams}
-                        refreshButton={<i className="pe-7s-refresh-2" onClick={() => getGraphParams()} />}
-                    />
-                </Col>
+                    </Col>
+                    <Col md={6}>
+                        <PricePointTableCard
+                            storeId={storeId}
+                            pricePointId={pricePointId}
+                            getGraphParams={getGraphParams}
+                        />
+
+                    </Col>
+                </Row>
+
 
             </Grid>
         </div>
