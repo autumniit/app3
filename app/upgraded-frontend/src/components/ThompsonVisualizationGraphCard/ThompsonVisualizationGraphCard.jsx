@@ -28,10 +28,11 @@ const ThompsonVisualizationGraphCard = (props) => {
                             {
                                 animationEnabled: true,
                                 axisX: {
+                                    title: "Price",
                                     tickLength: 10
                                 },
                                 axisY: {
-                                    title: "Units Sold",
+                                    title: "Expected Sales",
                                     suffix: "",
                                     includeZero: false
                                 },
