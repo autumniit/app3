@@ -9,8 +9,8 @@ const ThompsonVisualizationGraphCard = (props) => {
     var plain = false;
     var hCenter = false;
 
-    if(props.loading) return <p>Loading...</p>
-    if(props.error) return <p>Error!</p>
+    // if(props.loading) return <p>Loading...</p>
+    // if(props.error) return <p>Error!</p>
 
     return (
         <div className={"card" + (plain ? " card-plain" : "")}>
@@ -73,12 +73,14 @@ const ThompsonVisualizationGraphCard = (props) => {
 
                 </div>
 
-
-                <div className="footer">
-                    <div className="stats">
-                        {props.refreshButton}
+                {props.graphParams ?
+                    <div className="footer">
+                        <div className="stats">
+                            <i className="pe-7s-refresh-2" onClick={() => props.getGraphParamsWrapper()} /> Last refreshed: {props.lastRefreshedTime}
+                        </div>
                     </div>
-                </div>
+                    : null
+                }
             </div>
         </div>
     );
