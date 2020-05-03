@@ -2,6 +2,7 @@ import React, { } from "react";
 import { NavLink } from "react-router-dom";
 import { Row, Col, Badge } from "react-bootstrap";
 import EditStoreModal from "../EditStoreModal/EditStoreModal.jsx"
+import Button from "components/CustomButton/CustomButton.jsx";
 
 const StoreCard = (props) => {
   return (
@@ -23,22 +24,30 @@ const StoreCard = (props) => {
         <div className="footer">
           <hr />
           <div className="stats">
-            {props.statsIcon} {props.statsIconText}
+
           </div>
           <div className="stats pull-right">
 
-            <NavLink
-              to={"/store/" + props.store.id}
-            >
-              <i className="pe-7s-graph2" />
-            </NavLink>
-
-            <i className="pe-7s-trash" onClick={() => props.removeStore(props.store.id)} />
+            <Button simple>
+              <NavLink
+                activeStyle={{
+                  fontWeight: "bold",
+                  color: "red"
+                }}
+                to={"/store/" + props.store.id}
+              >
+                <i className="pe-7s-note" />
+              </NavLink>
+            </Button>
 
             <EditStoreModal
               store={props.store}
               getAllStores={props.getAllStores}
             />
+
+            <Button simple><i className="pe-7s-trash" onClick={() => props.removeStore(props.store.id)} /></Button>
+
+
           </div>
         </div>
       </div>

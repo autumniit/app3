@@ -10,6 +10,7 @@ import { API_URL } from "../constants";
 
 import StoreCard from "components/StoreCard/StoreCard.jsx";
 import StoreManage from "./StoreManage";
+import Button from "components/CustomButton/CustomButton.jsx";
 
 configure({ cache: false })
 
@@ -92,10 +93,12 @@ const StoreList = (props) => {
                                         :
                                         "Nothing to display"
                                     }
+                                    <Col lg={3} sm={6}>
+                                        <Button block onClick={() => addStore()}> + Add New Store </Button>
+                                    </Col>
+
                                 </Row>
-                                <Row>
-                                    <i className="pe-7s-plus" onClick={() => addStore()} />
-                                </Row>
+
                             </Grid>
                         </div>
                     )}

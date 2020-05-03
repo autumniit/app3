@@ -3,7 +3,7 @@ import { Table, FormControl } from "react-bootstrap";
 
 import useAxios from "axios-hooks"
 import { API_URL } from "../../constants";
-import { Card } from "components/Card/Card.jsx";
+import Button from "components/CustomButton/CustomButton.jsx";
 
 const ItemTableCard = (props) => {
 
@@ -15,7 +15,7 @@ const ItemTableCard = (props) => {
 
     const [{ data: items, loading: l2, error: e2 }, reGetItems] = useAxios(API_URL + "stores/" + props.storeId + "/items/");
 
-    const reGetItemsWrapper = () =>{
+    const reGetItemsWrapper = () => {
         setLastRefreshedTime(new Date().toLocaleString());
         reGetItems();
     }
@@ -157,16 +157,16 @@ const ItemTableCard = (props) => {
                                                 (prop.id === editItemId) ?
                                                     (
                                                         <td>
-                                                            <i className="pe-7s-diskette" onClick={() => saveItemEdit()} />
-                                                            <i className="pe-7s-trash" onClick={() => removeItemEdit()} />
-                                                            <i className="pe-7s-close-circle" onClick={() => toggleItemEditOff()} />
+                                                            <Button simple><i className="pe-7s-diskette" onClick={() => saveItemEdit()} /></Button>
+                                                            <Button simple><i className="pe-7s-trash" onClick={() => removeItemEdit()} /></Button>
+                                                            <Button simple><i className="pe-7s-close-circle" onClick={() => toggleItemEditOff()} /></Button>
                                                         </td>
                                                     )
                                                     :
                                                     (
                                                         <td>
-                                                            <i className="pe-7s-config" onClick={() => toggleItemEditOn(prop.id)} />
-                                                            <i className="pe-7s-angle-right-circle" onClick={() => props.setPricePointId(prop.id)} />
+                                                            <Button simple><i className="pe-7s-config" onClick={() => toggleItemEditOn(prop.id)} /></Button>
+                                                            <Button simple><i className="pe-7s-angle-right-circle" onClick={() => props.setPricePointId(prop.id)} /></Button>
                                                         </td>
                                                     )
                                             }
@@ -186,7 +186,7 @@ const ItemTableCard = (props) => {
                             <td></td>
                             {/* <td></td> */}
                             <td>
-                                <i className="pe-7s-plus" onClick={() => addItem()} />
+                                <Button simple><i className="pe-7s-plus" onClick={() => addItem()} /></Button>
                             </td>
                         </tr>
 

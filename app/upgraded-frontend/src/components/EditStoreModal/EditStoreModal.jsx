@@ -3,7 +3,8 @@ import React, { Fragment, useState } from "react";
 import useAxios from "axios-hooks"
 
 import { API_URL } from "../../constants";
-import { Button, Modal, Badge, FormControl, ControlLabel } from "react-bootstrap";
+import { Modal, Badge, FormControl, ControlLabel } from "react-bootstrap";
+import Button from "components/CustomButton/CustomButton.jsx";
 
 const EditStoreModal = (props) => {
 
@@ -39,9 +40,9 @@ const EditStoreModal = (props) => {
   return (
     <Fragment>
 
-      {/* <Button onClick={handleShow}> */}
-      <i className="fa fa-gear" onClick={handleShow} />
-      {/* </Button> */}
+      <Button simple>
+        <i className="fa fa-gear" onClick={handleShow} />
+      </Button>
 
       <Modal show={show} onHide={handleClose}>
 
@@ -50,7 +51,7 @@ const EditStoreModal = (props) => {
         </Modal.Header>
 
         <Modal.Body>
-        <ControlLabel>Name:</ControlLabel>
+          <ControlLabel>Name:</ControlLabel>
           <FormControl
             name="name"
             rows="1"
