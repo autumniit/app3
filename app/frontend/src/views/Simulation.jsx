@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 
+import axios from "axios"
 import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
 import { useParams } from "react-router-dom";
@@ -20,7 +21,7 @@ const Simulation = (props) => {
 
     const [storeId, setStoreId] = useState();
     const [itemId, setItemId] = useState();
-    const [iterations, setIterations] = useState(100);
+    const [iterations, setIterations] = useState(1);
 
     const [{ data: newPrice, loading, error }, recalculate]
         = useAxios({
@@ -31,7 +32,7 @@ const Simulation = (props) => {
         );
 
     const generateSimulatedDemandParams = () => {
-        setSimSlope((Math.random() * 20) - 10);
+        setSimSlope((Math.random() * -10));
         setSimInterpolate(Math.floor(Math.random() * 100) + 100);
     }
 
@@ -41,23 +42,41 @@ const Simulation = (props) => {
 
         // Get 10 sample data points on the demand line
         const temp = [];
-        for (let i = -5; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             temp.push({ x: i * xInterval, y: ((i * simSlope * xInterval) + simInterpolate) });
         }
         setSimData(temp);
 
     }, [xInterval, simSlope, simInterpolate]);
 
-    const update = async () => {
-        let demand = 10;
+    const simulate = async () => {
+        let newPrice;
 
-        for (let i = 0; i < 100; i++) {
-            if (newPrice) demand = newPrice * simSlope + simInterpolate;
-            await recalculate({
-                data: {
-                    demand: demand
-                }
-            })
+        for (let i = 0; i < iterations; i++) {
+            console.log("newPrice:", newPrice);
+            let demand;
+            if (newPrice) {
+                demand = parseFloat(newPrice) * simSlope + simInterpolate;
+                demand = demand >= 0 ? demand : 0;
+            }
+            else {
+                demand = 10;
+            }
+
+            console.log("demand:", demand);
+
+            let bodyFormData = new FormData();
+            bodyFormData.set('demand', demand)
+
+            let resp = await axios({
+                method: 'post',
+                url: API_URL + "stores/" + storeId + "/items/" + itemId + "/recalculate",
+                data: bodyFormData,
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            newPrice = parseFloat(resp.data);
+
         }
     }
 
@@ -154,7 +173,7 @@ const Simulation = (props) => {
                                 />
                             </Col>
                             <Col lg={2}>
-                                <Button onClick={() => update()}>Simulate > </Button>
+                                <Button onClick={() => simulate()}>Simulate > </Button>
                             </Col>
                         </Row>
 
