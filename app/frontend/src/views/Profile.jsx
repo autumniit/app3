@@ -22,9 +22,10 @@ const Profile = () => {
     <div className="content">
       <Grid fluid>
         <Row>
+          <Col md={4} />
           <Col md={4}>
             <UserCard
-              bgImage={"https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"}
+              bgImage={"https://images.unsplash.com/photo-1588598046214-acc6a5e46174?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3578&q=80"}
               avatar={user.picture}
               name={user.name}
               userName={user.email}
@@ -52,6 +53,7 @@ const Profile = () => {
               }
             />
           </Col>
+          <Col md={4} />
         </Row>
       </Grid>
     </div>
