@@ -44,5 +44,5 @@ class SalesLog(models.Model):
     price_point =  models.ForeignKey(
         'PricePoint', on_delete=models.SET_NULL, null=True
     )
-    is_new = models.BooleanField(default=True)
+    demand = models.DecimalField(max_digits=12, decimal_places=4)
     created_at = models.DateTimeField(auto_now_add=True)

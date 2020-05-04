@@ -139,7 +139,6 @@ def price_points_detail(request, store_id, item_id, price_point_id):
 # @api_view(['POST'])
 def recalculate(request, store_id, item_id):
 
-
     print("___________________________")
     print("___Recalculation Details___")
 
@@ -151,6 +150,10 @@ def recalculate(request, store_id, item_id):
     # get new_demand from request obj
     # Consider changing to different post field
     observed_demand = Decimal(request.POST["demand"])
+
+    # Record to SalesLog
+    create_sales_log(observed_demand, store_id, item_id)
+
     # observed_demand = Decimal(request.data["demand"])
     print("observed demand: ", observed_demand)
 
@@ -195,11 +198,10 @@ def recalculate(request, store_id, item_id):
 # to get the updated price, simply get the item details as normal
 
 
-@csrf_exempt
-def create_sales_log(request, store_id, item_id):
+def create_sales_log(demand, store_id, item_id):
     item = get_object_or_404(Item, pk=item_id)
     price_point = item.current_price_point
-    log = SalesLog(item=item, price_point=price_point)
+    log = SalesLog(demand=demand, item=item, price_point=price_point)
     log.save()
 
     return HttpResponse("success!")  # print status text
