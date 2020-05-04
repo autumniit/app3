@@ -2,6 +2,7 @@ import React, { } from "react";
 import { NavLink } from "react-router-dom";
 import { Row, Col, Badge } from "react-bootstrap";
 import EditStoreModal from "../EditStoreModal/EditStoreModal.jsx"
+import RemoveStoreModal from "../RemoveStoreModal/RemoveStoreModal.jsx"
 import Button from "components/CustomButton/CustomButton.jsx";
 
 const StoreCard = (props) => {
@@ -47,8 +48,10 @@ const StoreCard = (props) => {
               getAllStores={props.getAllStores}
             />
 
-            <Button simple onClick={() => props.removeStore(props.store.id)}><i className="pe-7s-trash" /></Button>
-
+            <RemoveStoreModal
+              removeStore={props.removeStore}
+              storeId={props.store.id}
+            />
 
           </div>
         </div>
