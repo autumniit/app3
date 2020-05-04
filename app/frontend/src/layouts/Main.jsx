@@ -27,14 +27,11 @@ import { style } from "variables/Variables.jsx";
 
 import routes from "routes.js";
 
-import image from "assets/img/sidebar-3.jpg";
-
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       _notificationSystem: null,
-      image: image,
       color: "black",
       hasImage: true,
       fixedClasses: "dropdown show-dropdown open"
@@ -103,9 +100,6 @@ class Main extends Component {
       }
     }
     return "Brand";
-  };
-  handleImageClick = image => {
-    this.setState({ image: image });
   };
   handleColorClick = color => {
     this.setState({ color: color });
