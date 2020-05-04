@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 
 import axios from "axios"
-import useAxios from "axios-hooks"
 import { API_URL } from "../constants";
-import { useParams } from "react-router-dom";
 
 import Button from "components/CustomButton/CustomButton.jsx"
 
 import CanvasJSReact from 'assets/canvasjs.react';
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Simulation = (props) => {
@@ -23,13 +20,6 @@ const Simulation = (props) => {
     const [itemId, setItemId] = useState();
     const [iterations, setIterations] = useState(1);
 
-    const [{ data: newPrice, loading, error }, recalculate]
-        = useAxios({
-            url: API_URL + "stores/" + storeId + "/items/" + itemId + "/recalculate",
-            method: "POST"
-        },
-            { manual: true }
-        );
 
     const generateSimulatedDemandParams = () => {
         setSimSlope((Math.random() * -10));

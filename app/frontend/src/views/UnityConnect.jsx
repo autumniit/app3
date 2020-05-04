@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
 import { CopyBlock, a11yLight } from 'react-code-blocks'

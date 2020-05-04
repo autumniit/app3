@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React, { } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 
-import { Card } from "components/Card/Card.jsx";
 
 const Home = () => {
     return (

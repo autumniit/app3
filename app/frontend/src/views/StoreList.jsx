@@ -1,6 +1,6 @@
 import { useAuth0 } from "../react-auth0-spa";
 
-import React, { useEffect, useState } from "react";
+import React, { } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
 import { Route, Switch, BrowserRouter } from "react-router-dom"
