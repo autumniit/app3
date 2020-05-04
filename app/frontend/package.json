@@ -7,7 +7,6 @@
     "axios": "^0.19.2",
     "axios-hooks": "^1.10.0",
     "bootstrap": "^3.4.1",
-    "chartist": "0.10.1",
     "node-sass": "^4.14.0",
     "react": "16.13.1",
     "react-bootstrap": "^0.32.4",

@@ -33,7 +33,6 @@ import config from "./auth_config.json";
 import history from "./utils/history";
 
 import MainLayout from "layouts/Main.jsx";
-import ExampleLayout from "layouts/Example.jsx"
 
 const onRedirectCallback = appState => {
   history.push(
@@ -52,7 +51,6 @@ ReactDOM.render(
   >
     <BrowserRouter>
       <Switch>
-        <Route path="/example" render={props => <ExampleLayout {...props} />} />
         <Route path="/" render={props => <MainLayout {...props} />} />
         {/* <Redirect from="/" to="/home" exact/> */}
       </Switch>
