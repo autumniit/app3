@@ -1,7 +1,6 @@
 import React, { } from "react";
-import { Grid, Row, Col } from "react-bootstrap";
-import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-
+import { Grid, Row, Col, Media } from "react-bootstrap";
+import homeimg from "assets/img/homeimg.png"
 
 const Home = () => {
     return (
@@ -14,45 +13,31 @@ const Home = () => {
             </div>
 
             <Grid fluid>
-                <Row>
-                    <Col lg={1} />
-                    <Col lg={7} sm={10}>
-                        <StatsCard
-                            bigIcon={<i className="pe-7s-timer text-warning" />}
-                            // statsText="Fast and Simple Set-Up"
-                            statsValue="Fast and Simple Set-Up"
-                        // statsIcon={<i className="fa fa-refresh" />}
-                        // statsIconText="Updated now"
-                        />
-                    </Col>
-                    <Col lg={4} />
-                </Row>
-                <Row>
-                    <Col lg={1} />
-                    <Col lg={7} sm={10}>
-                        <StatsCard
-                            bigIcon={<i className="pe-7s-smile text-success" />}
-                            // statsText="Revenue"
-                            statsValue="Minimal Programming Required"
-                        // statsIcon={<i className="fa fa-calendar-o" />}
-                        // statsIconText="Last day"
-                        />
-                    </Col>
-                    <Col lg={4} />
-                </Row>
-                <Row>
-                    <Col lg={1} />
-                    <Col lg={7} sm={10}>
-                        <StatsCard
-                            bigIcon={<i className="pe-7s-science text-danger" />}
-                            // statsText="Errors"
-                            statsValue="All in one solution to your pricing needs"
-                        // statsIcon={<i className="fa fa-clock-o" />}
-                        // statsIconText="In the last hour"
-                        />
-                    </Col>
-                    <Col lg={4} />
-                </Row>
+                <Col lg={1} />
+                <Col lg={3}>
+                    <img src={homeimg} height="360" width="360" />
+                </Col>
+                <Col lg={6}>
+                    <div className="typo-line">
+                        <h4>
+                            Fast and Simple Setup <br />
+                            <small>Have your dynamic pricing system ready in as little as 5 minutes.</small>
+                        </h4>
+                    </div>
+                    <div className="typo-line">
+                        <h4>
+                            Minimal Programming Required <br />
+                            <small>No more hassle. No more time wasted on documentations.</small>
+                        </h4>
+                    </div>
+                    <div className="typo-line">
+                        <h4>
+                            Universally Compatible<br />
+                            <small>No installation needed. Connect to your Unity games with one single script.</small>
+                        </h4>
+                    </div>
+                </Col>
+                <Col lg={2} />
             </Grid>
         </>
     );

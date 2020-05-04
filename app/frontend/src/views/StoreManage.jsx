@@ -61,23 +61,6 @@ const StoreManage = (props) => {
                             getGraphParamsWrapper={getGraphParamsWrapper}
                             lastRefreshedTime={lastRefreshedTime}
                         />
-                        {/* <Card
-                            statsIcon="fa fa-clock-o"
-                            title="Proportion of Items Sold"
-                            category="Last Campaign Performance"
-                            stats="Campaign sent 2 days ago"
-                            content={
-                                <div
-                                    id="chartPreferences"
-                                    className="ct-chart ct-perfect-fourth"
-                                >
-                                    <ChartistGraph data={dataPie} type="Pie" />
-                                </div>
-                            }
-                            legend={
-                                <div className="legend">{createLegend(legendPie)}</div>
-                            }
-                        /> */}
                     </Col>
                 </Row>
                 <Row>
