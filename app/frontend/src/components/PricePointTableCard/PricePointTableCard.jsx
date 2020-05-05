@@ -4,6 +4,7 @@ import { Table, FormControl } from "react-bootstrap";
 import useAxios from "axios-hooks"
 import { API_URL } from "../../constants";
 import { Card } from "components/Card/Card.jsx";
+import Button from "components/CustomButton/CustomButton.jsx";
 
 const PricePointTableCard = (props) => {
 
@@ -131,9 +132,11 @@ const PricePointTableCard = (props) => {
                 <Table hover>
                     <thead>
                         <tr>
-                            {["ID", "PricePoint", "Alpha", "Beta", "Actions"].map((prop, key) => {
-                                return <th key={key}>{prop}</th>;
-                            })}
+                            <th width="20">ID</th>
+                            <th width="60">PricePoint</th>
+                            <th width="60">Alpha</th>
+                            <th width="60">Beta</th>
+                            <th width="120">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,12 +145,12 @@ const PricePointTableCard = (props) => {
                                 pricePoints.map((prop, key) => {
                                     return (
                                         <tr key={key}>
-                                            <td key="id">{prop.id}</td>
+                                            <td width="20" key="id">{prop.id}</td>
                                             {/* Price Point */}
                                             {
                                                 (prop.id === editPricePointId) ?
                                                     (
-                                                        <td>
+                                                        <td width="80">
                                                             <FormControl
                                                                 name="price_point"
                                                                 rows="1"
@@ -159,14 +162,14 @@ const PricePointTableCard = (props) => {
                                                     )
                                                     :
                                                     (
-                                                        <td key="pricePoint">{prop.price_point}</td>
+                                                        <td width="80" key="pricePoint">{prop.price_point}</td>
                                                     )
                                             }
                                             {/* Alpha */}
                                             {
                                                 (prop.id === editPricePointId) ?
                                                     (
-                                                        <td>
+                                                        <td width="80">
                                                             <FormControl
                                                                 name="alpha"
                                                                 rows="1"
@@ -178,14 +181,14 @@ const PricePointTableCard = (props) => {
                                                     )
                                                     :
                                                     (
-                                                        <td key="alpha">{prop.alpha}</td>
+                                                        <td width="80" key="alpha">{prop.alpha}</td>
                                                     )
                                             }
                                             {/* Beta*/}
                                             {
                                                 (prop.id === editPricePointId) ?
                                                     (
-                                                        <td>
+                                                        <td width="80">
                                                             <FormControl
                                                                 name="beta"
                                                                 rows="1"
@@ -197,23 +200,23 @@ const PricePointTableCard = (props) => {
                                                     )
                                                     :
                                                     (
-                                                        <td key="beta">{prop.beta}</td>
+                                                        <td width="80" key="beta">{prop.beta}</td>
                                                     )
                                             }
                                             {/* Actions */}
                                             {
                                                 (prop.id === editPricePointId) ?
                                                     (
-                                                        <td>
-                                                            <i className="pe-7s-diskette" onClick={() => savePricePointEdit()} />
-                                                            <i className="pe-7s-trash" onClick={() => removePricePointEdit()} />
-                                                            <i className="pe-7s-close-circle" onClick={() => togglePricePointEditOff()} />
+                                                        <td width="120">
+                                                            <Button simple onClick={() => savePricePointEdit()}><i className="pe-7s-diskette" /></Button>
+                                                            <Button simple onClick={() => removePricePointEdit()}><i className="pe-7s-trash" /></Button>
+                                                            <Button simple onClick={() => togglePricePointEditOff()} ><i className="pe-7s-close-circle" /></Button>
                                                         </td>
                                                     )
                                                     :
                                                     (
-                                                        <td>
-                                                            <i className="pe-7s-config" onClick={() => togglePricePointEditOn(prop.id)} />
+                                                        <td width="120">
+                                                            <Button simple onClick={() => togglePricePointEditOn(prop.id)}><i className="pe-7s-config" /></Button>
                                                         </td>
                                                     )
                                             }

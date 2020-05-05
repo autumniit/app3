@@ -117,12 +117,16 @@ const ItemTableCard = (props) => {
                 className={"content"}
             >
 
-                <Table hover >
+                <Table hover>
                     <thead>
                         <tr>
-                            {["ID", "Name", "PricePoint", "Actions"].map((prop, key) => {
-                                return <th key={key}>{prop}</th>;
-                            })}
+                            {/* {["ID", "Name", "PricePoint", "Actions"].map((prop, key) => {
+                                return <th width="100" key={key}>{prop}</th>;
+                            })} */}
+                            <th width="20">ID</th>
+                            <th width="150">Name</th>
+                            <th width="40">PricePoint</th>
+                            <th width="150">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,11 +135,11 @@ const ItemTableCard = (props) => {
                                 items.map((prop, key) => {
                                     return (
                                         <tr key={key}>
-                                            <td key="id">{prop.id}</td>
+                                            <td width="20" key="id">{prop.id}</td>
                                             {
                                                 (prop.id === editItemId) ?
                                                     (
-                                                        <td>
+                                                        <td width="150">
                                                             <FormControl
                                                                 name="name"
                                                                 rows="1"
@@ -147,26 +151,26 @@ const ItemTableCard = (props) => {
                                                     )
                                                     :
                                                     (
-                                                        <td key="itemName">{prop.name}</td>
+                                                        <td width="150" key="itemName">{prop.name}</td>
                                                     )
                                             }
-                                            <td key="currentPricePoint">{prop.current_price_point}</td>
+                                            <td width="40" key="currentPricePoint">{prop.current_price_point}</td>
                                             {/* <td key="store">{prop.store}</td> */}
 
                                             {
                                                 (prop.id === editItemId) ?
                                                     (
-                                                        <td>
-                                                            <Button simple><i className="pe-7s-diskette" onClick={() => saveItemEdit()} /></Button>
-                                                            <Button simple><i className="pe-7s-trash" onClick={() => removeItemEdit()} /></Button>
-                                                            <Button simple><i className="pe-7s-close-circle" onClick={() => toggleItemEditOff()} /></Button>
+                                                        <td width="150">
+                                                            <Button simple onClick={() => saveItemEdit()} ><i className="pe-7s-diskette" /></Button>
+                                                            <Button simple onClick={() => removeItemEdit()} ><i className="pe-7s-trash" /></Button>
+                                                            <Button simple onClick={() => toggleItemEditOff()}><i className="pe-7s-close-circle" /></Button>
                                                         </td>
                                                     )
                                                     :
                                                     (
-                                                        <td>
-                                                            <Button simple><i className="pe-7s-config" onClick={() => toggleItemEditOn(prop.id)} /></Button>
-                                                            <Button simple><i className="pe-7s-angle-right-circle" onClick={() => props.setPricePointId(prop.id)} /></Button>
+                                                        <td width="150">
+                                                            <Button simple onClick={() => toggleItemEditOn(prop.id)}><i className="pe-7s-config" /></Button>
+                                                            <Button simple onClick={() => props.setPricePointId(prop.id)}><i className="pe-7s-angle-right-circle" /></Button>
                                                         </td>
                                                     )
                                             }
