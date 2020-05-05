@@ -29,15 +29,7 @@ const Profile = () => {
               avatar={user.picture}
               name={user.name}
               userName={user.email}
-              description={
-                <span>
-                  Something
-                  <br />
-                  Something
-                  <br />
-                  Something
-                </span>
-              }
+              description={""}
               socials={
                 <div>
                   <Button simple>
