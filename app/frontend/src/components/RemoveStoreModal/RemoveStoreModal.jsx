@@ -31,7 +31,7 @@ const RemoveStoreModal = (props) => {
           <Button variant="primary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="warning" onClick={() => (props.removeStore(props.storeId))}>
+          <Button variant="warning" onClick={() => (handleClose(), props.removeStore(props.storeId))}>
             Remove
           </Button>
         </Modal.Footer>
