@@ -228,8 +228,6 @@ def priceprop_pie(request, store_id, item_id):
     price_points = SalesLog.objects.filter(item=item_id)
     sold_at = list(map(
         lambda pp: str(pp.price_point), price_points))
-    
-    print(sold_at)
 
     sum_sold_at = Counter(sold_at)
     formatted_sum_sold_at = list(
