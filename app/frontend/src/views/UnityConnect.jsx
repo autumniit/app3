@@ -6,9 +6,16 @@ import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { Card } from "components/Card/Card.jsx";
 
+import step1 from "assets/img/steps/step1.png"
+import step2 from "assets/img/steps/step2.png"
+import step3 from "assets/img/steps/step3.png"
+import step4 from "assets/img/steps/step4.png"
+import step6 from "assets/img/steps/step6.png"
+import step9 from "assets/img/steps/step9.png"
+
 const UnityConnect = () => {
 
-  var step7code =
+  var step6code =
     `//DPAppIntegratorScript.cs
 
 using UnityEngine;
@@ -57,7 +64,7 @@ public class DPAppIntegrator : MonoBehaviour
 
 
 
-  var step9code =
+  var step8code =
     `//DPAppIntegratorScript.cs
 ...
     public void ModelUpdate(int storeId, int itemId, int demand, Action<string> callback)
@@ -66,7 +73,7 @@ public class DPAppIntegrator : MonoBehaviour
     }
 ...`
 
-  var step10code =
+  var step9code =
     `// EventScript.cs
 
 using UnityEngine;
@@ -156,50 +163,93 @@ public class EventScript : MonoBehaviour
                     <div className="typo-line">
                       <p>
                         <span className="category">Step 1:</span>
-                      Create a store. Here you can specify its name and description.
+                      In Manage, click <i>+ Add New Store</i> to create a new store. Set its name and description.
                     </p>
                     </div>
+
+                    <Row>
+                      <Col lg={1}></Col>
+                      <Col lg={10}>
+                        <img src={step1} height="720" width="1080" />
+                      </Col>
+                      <Col lg={1}></Col>
+                    </Row>
+                    <div className="typo-line" />
+
                     <div className="typo-line">
                       <p>
                         <span className="category">Step 2:</span>
-                      In Manage, click <i className="pe-7s-plus" /> to create a new store. Set its name and description.
-                    </p>
-                    </div>
-                    <div className="typo-line">
-                      <p>
-                        <span className="category">Step 3:</span>
                       Click <i className="pe-7s-note" /> to get to Store Manage. Create an item. Specify its name.
                     </p>
                     </div>
+
+                    <Row>
+                      <Col lg={1}></Col>
+                      <Col lg={10}>
+                        <img src={step2} height="720" width="1080" />
+                      </Col>
+                      <Col lg={1}></Col>
+                    </Row>
+                    <div className="typo-line" />
+
                     <div className="typo-line">
                       <p>
-                        <span className="category">Step 4:</span>
+                        <span className="category">Step 3:</span>
                       Click on <i className="pe-7s-angle-right-circle" /> to view all price points associated with the item. (There will be none, as the item has just been created)
                     </p>
                     </div>
 
+                    <Row>
+                      <Col lg={1}></Col>
+                      <Col lg={10}>
+                        <img src={step3} height="720" width="1080" />
+                      </Col>
+                      <Col lg={1}></Col>
+                    </Row>
+                    <div className="typo-line" />
+
                     <div className="typo-line">
                       <p>
-                        <span className="category">Step 5:</span>
+                        <span className="category">Step 4:</span>
                       Create possible price points for your item for the model to explore.
                     </p>
                     </div>
+
+                    <Row>
+                      <Col lg={1}></Col>
+                      <Col lg={10}>
+                        <img src={step4} height="720" width="1080" />
+                      </Col>
+                      <Col lg={1}></Col>
+                    </Row>
+                    <div className="typo-line" />
+
                     <div className="typo-line">
                       <p>
-                        <span className="category">Step 6:</span>
+                        <span className="category">Step 5:</span>
                       Note down StoreID and ItemID of the item, they will be required in later steps.
                     </p>
                     </div>
                     <div className="typo-line">
                       <p>
-                        <span className="category">Step 7:</span>
-                      In your Unity Project, create a new object. In this example, we will name it “DP Integrator”.
+                        <span className="category">Step 6:</span>
+                      In your Unity Project, create a new object. In this example, we will name it “DPAppIntegrator”.
                     </p>
                     </div>
+
+                    <Row>
+                      <Col lg={1}></Col>
+                      <Col lg={10}>
+                        <img src={step6} height="720" width="1080" />
+                      </Col>
+                      <Col lg={1}></Col>
+                    </Row>
+                    <div className="typo-line" />
+
                     <div className="typo-line">
                       <p>
-                        <span className="category">Step 8:</span>
-                      Add the following C# scripts to the object. The script’s name is irrelevant (in this example: DPAppIntegratorScript.cs)
+                        <span className="category">Step 7:</span>
+                      Add the following C# script to the object. The script’s name is irrelevant (in this example: DPAppIntegratorScript.cs)
                     </p>
                     </div>
 
@@ -215,7 +265,7 @@ public class EventScript : MonoBehaviour
                         style={okaidia}
                         showLineNumbers
                       >
-                        {step7code}
+                        {step6code}
                       </SyntaxHighlighter>
                     </Col>
                     <Col lg={1}></Col>
@@ -223,9 +273,11 @@ public class EventScript : MonoBehaviour
 
                   <Row>
                     <Col lg={10}>
+                      <div className="typo-line" />
+
                       <div className="typo-line">
                         <p>
-                          <span className="category">Step 9:</span>
+                          <span className="category">Step 8:</span>
                       Everything is now ready. You can start using the functions available in the script. Here are brief explanations of what each function does to get you started:
                     </p>
                       </div>
@@ -240,7 +292,7 @@ public class EventScript : MonoBehaviour
                         style={okaidia}
                         showLineNumbers
                         startingLineNumber={10}>
-                        {step9code}
+                        {step8code}
                       </SyntaxHighlighter>
                     </Col>
                     <Col lg={1}></Col>
@@ -256,18 +308,27 @@ public class EventScript : MonoBehaviour
                       </div>
                       <div className="typo-line">
                         <p>
-                          <span className="category">Step 10:</span>
+                          <span className="category">Step 9:</span>
                       An example of a an item in a store that updates its price every 10 seconds can be found here:
                     </p>
                       </div>
                     </Col>
                   </Row>
+                  
+                  <Row>
+                      <Col lg={1}></Col>
+                      <Col lg={10}>
+                        <img src={step9} height="720" width="1080" />
+                      </Col>
+                      <Col lg={1}></Col>
+                    </Row>
+                    <div className="typo-line" />
 
                   <Row>
                     <Col lg={1}></Col>
                     <Col lg={10}>
                       <SyntaxHighlighter language="cs" style={okaidia} showLineNumbers>
-                        {step10code}
+                        {step9code}
                       </SyntaxHighlighter>
                     </Col>
                     <Col lg={1}></Col>
