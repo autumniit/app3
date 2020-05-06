@@ -27,13 +27,10 @@ const PricePropPieCard = (props) => {
                         <CanvasJSChart options={
                             {
                                 animationEnabled: true,
-                                title: {
-                                    text: "Sold Price Proportion"
-                                },
                                 subtitles: [{
-                                    text: props.graphParams.length > 0 ? "Top sold: " + props.graphParams[0].price_point : "No Sales Log Found",
+                                    text: props.graphParams.length > 0 ? "Top sold at: " + props.graphParams[0].price_point : "No Sales Log Found",
                                     verticalAlign: "center",
-                                    fontSize: 24,
+                                    fontSize: 20,
                                     dockInsidePlotArea: true
                                 }],
                                 data: [{
