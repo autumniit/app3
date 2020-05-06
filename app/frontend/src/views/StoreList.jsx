@@ -1,6 +1,6 @@
 import { useAuth0 } from "../react-auth0-spa";
 
-import React, {} from "react";
+import React, { } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
 import { Route, Switch, BrowserRouter } from "react-router-dom"
@@ -11,6 +11,9 @@ import { API_URL } from "../constants";
 import StoreCard from "components/StoreCard/StoreCard.jsx";
 import StoreManage from "./StoreManage";
 import Button from "components/CustomButton/CustomButton.jsx";
+
+
+
 
 configure({ cache: false })
 
@@ -77,7 +80,7 @@ const StoreList = (props) => {
                             <Grid fluid>
                                 <Row>
                                     {(allStores && allStores.filter(obj => { return obj.owner_id === user.email })) ?
-                                        allStores.map((store, key) => (
+                                        allStores.filter(obj => { return obj.owner_id === user.email }).map((store, key) => (
                                             <Col lg={3} sm={6} key={key}>
                                                 <StoreCard
                                                     store={store}
