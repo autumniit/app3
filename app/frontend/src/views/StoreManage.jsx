@@ -64,6 +64,25 @@ const StoreManage = (props) => {
             <Grid fluid>
                 <Row>
                     <Col md={6}>
+                        <ItemTableCard
+                            stores={props.stores}
+                            storeId={storeId}
+                            setPricePointId={setPricePointId}
+                        />
+
+                    </Col>
+                    <Col md={6}>
+                        <PricePointTableCard
+                            storeId={storeId}
+                            pricePointId={pricePointId}
+                            getGraphParams={getGraphParamsWrapper}
+                            getPieParams={getPieParamsWrapper}
+                        />
+
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={6}>
                         <PricePropPieCard
                             loading={l2}
                             error={e2}
@@ -82,27 +101,6 @@ const StoreManage = (props) => {
                         />
                     </Col>
                 </Row>
-                <Row>
-                    <Col md={6}>
-                        <ItemTableCard
-                            stores={props.stores}
-                            storeId={storeId}
-                            setPricePointId={setPricePointId}
-                        />
-
-                    </Col>
-                    <Col md={6}>
-                        <PricePointTableCard
-                            storeId={storeId}
-                            pricePointId={pricePointId}
-                            getGraphParams={getGraphParamsWrapper}
-                            getPieParams={getPieParamsWrapper}
-                        />
-
-                    </Col>
-                </Row>
-
-
             </Grid>
         </div>
     );
