@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from decimal import Decimal
 import json
+from collections import Counter
 
 # MODEL
 from .thompson_util import get_updated_params, get_sample_demands_from_model, get_optimal_price_point_idx, get_thompson_graph_parameters
@@ -209,8 +210,6 @@ def create_sales_log(demand, store_id, item_id):
     log = SalesLog(demand=demand, item=item, price_point=price_point)
     log.save()
 
-    return HttpResponse("success!")  # print status text
-
 
 @csrf_exempt
 def thompson_graph(request, store_id, item_id):
@@ -222,3 +221,18 @@ def thompson_graph(request, store_id, item_id):
     result = list(map(get_thompson_graph_parameters, sorted_price_points))
 
     return JsonResponse(result, safe=False)
+
+
+@csrf_exempt
+def priceprop_pie(request, store_id, item_id):
+    price_points = SalesLog.objects.filter(item=item_id)
+    sold_at = list(map(
+        lambda pp: str(pp.price_point), price_points))
+    
+    print(sold_at)
+
+    sum_sold_at = Counter(sold_at)
+    formatted_sum_sold_at = list(
+        map(lambda s: {"price_point": s[0], "count": s[1]}, sum_sold_at.items()))
+
+    return JsonResponse(sorted(formatted_sum_sold_at, key=lambda a: a["count"], reverse=True), safe=False)

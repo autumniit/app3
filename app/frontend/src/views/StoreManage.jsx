@@ -7,17 +7,20 @@ import { useParams } from "react-router-dom";
 import ItemTableCard from "components/ItemTableCard/ItemTableCard.jsx";
 import PricePointTableCard from "components/PricePointTableCard/PricePointTableCard.jsx";
 import ThompsonVisualizationGraphCard from "components/ThompsonVisualizationGraphCard/ThompsonVisualizationGraphCard.jsx"
+import PricePropPieCard from "components/PricePropPieCard/PricePropPieCard.jsx"
 
 
 const StoreManage = (props) => {
 
     const { storeId } = useParams();
     const [pricePointId, setPricePointId] = useState();
-    const [lastRefreshedTime, setLastRefreshedTime] = useState(new Date().toLocaleString());
+    const [lastGraphRefreshedTime, setLastGraphRefreshedTime] = useState(new Date().toLocaleString());
+    const [lastPieRefreshedTime, setLastPieRefreshedTime] = useState(new Date().toLocaleString());
+
 
     // Axios Hooks -----
 
-    const [{ data: graphParams, loading, error }, getGraphParams]
+    const [{ data: graphParams, loading: l1, error: e1 }, getGraphParams]
         = useAxios({
             url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/thompson_graph",
             method: "GET"
@@ -25,15 +28,31 @@ const StoreManage = (props) => {
             { manual: true }
         );
 
+    const [{ data: pieParams, loading: l2, error: e2 }, getPieParams]
+        = useAxios({
+            url: API_URL + "stores/" + storeId + "/items/" + pricePointId + "/priceprop_pie",
+            method: "GET"
+        },
+            { manual: true }
+        );
+
+
     useEffect(() => {
         if (pricePointId) {
             getGraphParamsWrapper();
+            getPieParamsWrapper();
         }
     }, [pricePointId])
 
     const getGraphParamsWrapper = () => {
-        setLastRefreshedTime(new Date().toLocaleString());
+        setLastGraphRefreshedTime(new Date().toLocaleString());
         getGraphParams();
+    }
+
+
+    const getPieParamsWrapper = () => {
+        setLastPieRefreshedTime(new Date().toLocaleString());
+        getPieParams();
     }
 
 
@@ -45,21 +64,21 @@ const StoreManage = (props) => {
             <Grid fluid>
                 <Row>
                     <Col md={6}>
-                        <ThompsonVisualizationGraphCard
-                            loading={loading}
-                            error={error}
-                            graphParams={graphParams}
-                            getGraphParamsWrapper={getGraphParamsWrapper}
-                            lastRefreshedTime={lastRefreshedTime}
+                        <PricePropPieCard
+                            loading={l2}
+                            error={e2}
+                            graphParams={pieParams}
+                            getGraphParamsWrapper={getPieParamsWrapper}
+                            lastRefreshedTime={lastPieRefreshedTime}
                         />
                     </Col>
                     <Col md={6}>
                         <ThompsonVisualizationGraphCard
-                            loading={loading}
-                            error={error}
+                            loading={l1}
+                            error={e1}
                             graphParams={graphParams}
                             getGraphParamsWrapper={getGraphParamsWrapper}
-                            lastRefreshedTime={lastRefreshedTime}
+                            lastRefreshedTime={lastGraphRefreshedTime}
                         />
                     </Col>
                 </Row>
@@ -77,6 +96,7 @@ const StoreManage = (props) => {
                             storeId={storeId}
                             pricePointId={pricePointId}
                             getGraphParams={getGraphParamsWrapper}
+                            getPieParams={getPieParamsWrapper}
                         />
 
                     </Col>

@@ -35,5 +35,5 @@ urlpatterns = [
     # APIs
     re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/recalculate$', views.recalculate),
     re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/thompson_graph$', views.thompson_graph),
-    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/create_sales_log$', views.create_sales_log),
+    re_path(r'^api/stores/(?P<store_id>[0-9]+)/items/(?P<item_id>[0-9]+)/priceprop_pie$', views.priceprop_pie),
 ]
