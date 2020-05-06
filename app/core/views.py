@@ -151,9 +151,6 @@ def recalculate(request, store_id, item_id):
     # Consider changing to different post field
     observed_demand = Decimal(request.POST["demand"])
 
-    # Record to SalesLog
-    create_sales_log(observed_demand, store_id, item_id)
-
     # observed_demand = Decimal(request.data["demand"])
     print("observed demand: ", observed_demand)
 
@@ -161,6 +158,10 @@ def recalculate(request, store_id, item_id):
     price_point = item.current_price_point
 
     if price_point != None:  # both for initialization and if the previous optimal gets removed
+
+        # Record to SalesLog
+        create_sales_log(observed_demand, store_id, item_id)
+
         old_alpha = price_point.alpha
         old_beta = price_point.beta
 
@@ -177,6 +178,10 @@ def recalculate(request, store_id, item_id):
 
     # get p_theta from db
     p_theta = item.pricepoint_set.all().values()
+
+    if len(p_theta) == 0:
+        return HttpResponse()
+
     demands = [Decimal(d) for d in get_sample_demands_from_model(p_theta)]
     print("demands:", ["%.2f" % demand for demand in demands])
 
