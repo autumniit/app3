@@ -33,7 +33,8 @@ const Simulation = (props) => {
         // Get 10 sample data points on the demand line
         const temp = [];
         for (let i = 0; i < 10; i++) {
-            temp.push({ x: i * xInterval, y: ((i * simSlope * xInterval) + simInterpolate) });
+            if (((i * simSlope * xInterval) + simInterpolate) >= 0)
+            temp.push({ x: i * xInterval, y: ((i * simSlope * xInterval) + simInterpolate)});
         }
         setSimData(temp);
 
