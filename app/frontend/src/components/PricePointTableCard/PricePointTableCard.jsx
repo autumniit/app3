@@ -100,7 +100,7 @@ const PricePointTableCard = (props) => {
         var pricePoint = {
             id: 0,
             price_point: 0,
-            alpha: 10,
+            alpha: 100,
             beta: 1,
             item: props.pricePointId,
         }
@@ -239,7 +239,7 @@ const PricePointTableCard = (props) => {
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <i className="pe-7s-plus" onClick={() => addPricePoint()} />
+                                            <Button simple onClick={() => addPricePoint()}><i className="pe-7s-plus" /> Create New</Button>
                                         </td>
                                     </tr>
                                 )

@@ -190,7 +190,7 @@ const ItemTableCard = (props) => {
                             <td></td>
                             {/* <td></td> */}
                             <td>
-                                <Button simple><i className="pe-7s-plus" onClick={() => addItem()} /></Button>
+                                <Button simple onClick={() => addItem()} ><i className="pe-7s-plus" /> Create New</Button>
                             </td>
                         </tr>
 
