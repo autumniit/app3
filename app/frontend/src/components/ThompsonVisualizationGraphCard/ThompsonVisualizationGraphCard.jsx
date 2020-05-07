@@ -15,8 +15,8 @@ const ThompsonVisualizationGraphCard = (props) => {
     return (
         <div className={"card" + (plain ? " card-plain" : "")}>
             <div className={"header" + (hCenter ? " text-center" : "")}>
-                <h4 className="title">Thompson Sampling Visualization</h4>
-                <p className="category">Description</p>
+                <h4 className="title">Thompson Sampling Algorithm Visualization</h4>
+                <p className="category">Visualization of the demand function predicted by the algorithm</p>
             </div>
             <div
                 className={"content"}
@@ -32,7 +32,7 @@ const ThompsonVisualizationGraphCard = (props) => {
                                     tickLength: 10
                                 },
                                 axisY: {
-                                    title: "Expected Sales",
+                                    title: "Predicted Sales",
                                     suffix: "",
                                     includeZero: false
                                 },

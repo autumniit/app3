@@ -16,7 +16,7 @@ const PricePropPieCard = (props) => {
         <div className={"card" + (plain ? " card-plain" : "")}>
             <div className={"header" + (hCenter ? " text-center" : "")}>
                 <h4 className="title">Sold Price Proportion</h4>
-                <p className="category">Description</p>
+                <p className="category">Proportion of each price point suggested by the application since the beginning</p>
             </div>
             <div
                 className={"content"}

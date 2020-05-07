@@ -136,7 +136,7 @@ const PricePointTableCard = (props) => {
                     <thead>
                         <tr>
                             <th width="20">ID</th>
-                            <th width="60">PricePoint</th>
+                            <th width="60">Value</th>
                             <th width="60">Alpha</th>
                             <th width="60">Beta</th>
                             <th width="120">Actions</th>
